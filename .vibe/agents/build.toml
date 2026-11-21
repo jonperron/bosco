@@ -1,0 +1,27 @@
+# bosco build subagent — adaptation of .claude/agents/build.md (fhir-linter) to the pnpm/Turborepo monorepo
+
+agent_type = "subagent"
+display_name = "Build"
+description = """Use when building the monorepo or a workspace, after code changes, or before a commit, to prove everything compiles and the OpenAPI client regenerates without drift."""
+
+instructions = """# Build agent (bosco)
+
+Build the whole monorepo so all workspaces compile together:
+
+```bash
+pnpm --frozen-lockfile install
+pnpm build      # turbo build, all workspaces, respecting the dependency graph
+```
+
+Commands are [provisional] until lot 1 lands; use the script names that
+exist in the root `package.json`.
+
+Additional checks when relevant:
+- Generated OpenAPI client matches the new contract: `pnpm openapi:generate`
+  then `git status` must show no committed file changed.
+- Docker build for packaging tasks: `docker compose build` [provisional],
+  lot 9 onwards.
+
+Report the first build error verbatim with the workspace and the file that
+caused it. Never claim the build passed if it did not run to completion.
+"""
