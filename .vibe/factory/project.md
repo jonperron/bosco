@@ -168,6 +168,19 @@ PR that raises a floor does it alone, on final numbers measured after rebase.
   is not a review, report it as such; your caller decides whether to wait.
   To re-request after the wait, comment `@sourcery-ai review` on the PR.
 
+## Merging
+
+- Standing caller instruction (2026-11-21), overriding `loop.md`, After the
+  push, step 6 ("merge only when your caller asks"): once every step-6
+  criterion holds — every check on the head finished, each conclusion
+  SUCCESS, SKIPPED or NEUTRAL, no unanswered review thread, the branch
+  contains `origin/<base>`, `mergeStateStatus` not DIRTY or BLOCKED —
+  merge without asking again, and say so in the report.
+- The merge command always runs on its own, never chained after a wait
+  script; fetch again right before it.
+- Merge method for now: `--merge`, which keeps every signed commit. Lot 1
+  may codify another convention (squash, merge queue); write it here then.
+
 ## Behaviour baseline
 
 No validator corpus here; the equivalent baseline is the OpenAPI contract and
