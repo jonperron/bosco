@@ -7,15 +7,18 @@ specific to this repository lives here. To reuse them elsewhere, copy
 and write a new copy of this file with the same headings.
 
 Status: the repository is greenfield. Lots 1–9 of the socle v0 (see
-`Plan socle v0.md` at the repo root) have not started; every command marked
+`local/Plan socle v0.md`) have not started; every command marked
 **[provisional]** below is a best-effort statement of the tooling decided in
 the plan, to be confirmed and updated by lot 1 (dépôt et outillage). Updated
 rules override the [provisional] wording.
 
 ## Repository
 
-- GitHub: `jonperron/bosco` — **to confirm**: `Plan socle v0.md`, lot 1, says
-  `blackcatzlab/bosco`. Whoever runs lot 1 fixes this line.
+- GitHub: `jonperron/bosco` (confirmed by the user, 2026-11-21).
+- Planning docs — `local/Résumé Bosco.md`, `local/Plan socle v0.md` — are
+  local-only: `local/` is git-ignored, so worktrees do not have it. Read them
+  in the primary checkout (first line of `git worktree list`) and report if
+  the file is missing. Never copy them into the repo or into a PR.
 - Base branch: `main` (never commit on it, never merge into it locally)
 - Conventions: `AGENTS.md`, `.vibe/rules/*.md`
 - Commit messages: `.vibe/rules/commit-messages.md`
@@ -137,8 +140,9 @@ changelog instead. Behaviour or API changes must update, through the
 
 - the relevant module doc or guide under `docs/` [provisional], fr and en;
 - a Changesets entry for any user-visible change (`.changeset/*.md`);
-- `Plan socle v0.md` checkboxes only when a lot's done-criteria are met, and
-  say so in the report — plan files at the repo root stay in French.
+- `local/Plan socle v0.md` checkboxes only when a lot's done-criteria are
+  met, and say so in the report — the plan files stay in French, and stay in
+  `local/` (read them in the primary checkout).
 
 Open decisions from the plan (see "Décisions ouvertes"): work that lands
 before a decision is taken implements the option its code needs with the

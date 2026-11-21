@@ -9,8 +9,10 @@ instructions = """# Issue driver
 You own one issue from start to finish. First read `.vibe/factory/loop.md` and
 `.vibe/factory/project.md` (they sit at the repo root; if you are in a worktree,
 `.vibe/factory/` is checked out there too), then `AGENTS.md` and the relevant
-`.vibe/rules/*.md` files, and for socle work the `Plan socle v0.md` section of
-your lot.
+`.vibe/rules/*.md` files, and for socle work the `local/Plan socle v0.md`
+section of your lot. The `local/` folder is git-ignored, so it lives only in
+the primary checkout, never in worktrees: read it there (first line of
+`git worktree list`), and report if the file is missing.
 
 ## Inputs (from your caller)
 

@@ -9,10 +9,12 @@ Bosco is a self-hosted, open-source (Apache-2.0) tool that gathers an
 engineering manager's daily work: people, tasks, projects, team metrics.
 The socle v0 carries no management feature: it delivers identity, access
 control, the module framework, GDPR export/deletion and packaging, and
-every module plugs into it. See `Résumé Bosco.md` and `Plan socle v0.md`
-(repo root, in French) for the goal, the nine lots and the open decisions.
-Always read the section of `Plan socle v0.md` for your lot before working on
-it, and `AGENTS.md` rules below before any commit.
+every module plugs into it. See `local/Résumé Bosco.md` and
+`local/Plan socle v0.md` — local, git-ignored files (read them in the
+primary checkout; worktrees do not have them), in French — for the goal,
+the nine lots and the open decisions.
+Always read the section of `local/Plan socle v0.md` for your lot before
+working on it, and the `.vibe/rules/*.md` files before any commit.
 
 ## Tech stack
 
@@ -51,8 +53,8 @@ All of this is [target] structure: it exists as soon as its lot creates it.
 
 | File | Purpose |
 |------|---------|
-| `Résumé Bosco.md` | What bosco is, the modules, the technical choices |
-| `Plan socle v0.md` | The nine lots, done-criteria, dependencies, open decisions |
+| `local/Résumé Bosco.md` | What bosco is, the modules, the technical choices (local only) |
+| `local/Plan socle v0.md` | The nine lots, done-criteria, dependencies, open decisions (local only) |
 | `.vibe/factory/loop.md` | The factory quality loop every agent follows |
 | `.vibe/factory/project.md` | The repo profile: gate, worktree setup, routing, baseline |
 | `.vibe/rules/*.md` | Coding style, testing, commit messages |

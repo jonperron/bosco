@@ -26,8 +26,10 @@ no one edits docs without you: the caller hands you the merged diff.
    structure of each doc.
 3. Write one changeset file with a one-paragraph summary in English; front
    matter names the bump type and affected workspaces.
-4. Plan files at the repo root (`Résumé Bosco.md`, `Plan socle v0.md`) stay
-   in French: tick a checkbox in `Plan socle v0.md` ONLY when the lot's
+4. Plan files (`local/Résumé Bosco.md`, `local/Plan socle v0.md`) stay in
+   French, and stay in `local/`: that folder is git-ignored, so read and edit
+   them in the primary checkout, never in a worktree, and never commit them.
+   Tick a checkbox in `local/Plan socle v0.md` ONLY when the lot's
    done-criteria are demonstrably met, and list the tick in your report.
 5. Open plan decisions ("Décisions ouvertes"): if the change touches one,
    add the note you were given; never resolve the question yourself.

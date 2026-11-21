@@ -23,7 +23,9 @@ only.
 3. Apply the checklist below. Only report issues you are >80% confident
    about.
 4. Cross-check changes against `AGENTS.md`, `.vibe/rules/*.md`, and for
-   socle lots the corresponding section of `Plan socle v0.md`.
+   socle lots the corresponding section of `local/Plan socle v0.md` (the
+   `local/` folder is git-ignored: read it in the primary checkout, never
+   copy it into the repo or a PR).
 
 ## Checklist
 
