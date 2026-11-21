@@ -11,6 +11,14 @@ fi
 
 status=0
 for sha in $(git rev-list "$base..HEAD"); do
+  parents="$(git show -s --format='%P' "$sha")"
+  case "$parents" in
+    *\ *)
+      # merge commit (e.g. the pull/refs/merge head): skip, like the DCO app
+      printf 'SKIP     %s  merge commit\n' "$(git show -s --format='%h' "$sha")"
+      continue
+      ;;
+  esac
   signoff="$(git show -s --format='%(trailers:key=Signed-off-by,valueonly)' "$sha")"
   author="$(git show -s --format='%an <%ae>' "$sha")"
   if [ "$signoff" = "$author" ]; then
