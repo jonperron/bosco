@@ -156,16 +156,17 @@ PR that raises a floor does it alone, on final numbers measured after rebase.
 ## Automated PR reviewer
 
 - Bot login: `sourcery-ai[bot]` (appears as `sourcery-ai` in some APIs) —
-  **to confirm**: the bot that ends up reviewing this repo. Whoever opens the
-  first PR fixes this line.
+  confirmed on PR #1 (2026-11-21): the app is installed on the repo and
+  posts even without a payable review budget.
 - It reviews every new PR within a few minutes; it rarely re-reviews a
   force-push.
 - Review comments: `gh api --paginate repos/<owner>/bosco/pulls/<N>/comments`
   (and `.../reviews`). Always pass `--paginate`; the default page holds 30.
 - Reply: `gh api repos/<owner>/bosco/pulls/<N>/comments/<id>/replies -f body=...`
-- Weekly diff budget may run out: a notice-only post is not a review, report
-  it as such; your caller decides whether to wait. To re-request after the
-  wait, comment `@sourcery-ai review` on the PR.
+- Weekly diff budget may run out: on the free plan it is 250,000 diff
+  characters per 7 days (exhausted on 2026-11-21, PR #1). A notice-only post
+  is not a review, report it as such; your caller decides whether to wait.
+  To re-request after the wait, comment `@sourcery-ai review` on the PR.
 
 ## Behaviour baseline
 
