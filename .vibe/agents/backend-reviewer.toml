@@ -65,6 +65,12 @@ only.
 - New behaviour changes include/adjust tests, failing-first for bug fixes.
 - French and English strings go through i18n resources, never inline.
 
+### HIGH — Design (blocks auto-merge)
+- A change that moves a module boundary, the core contract API, the rights
+  model or the encryption design is a design finding by itself, whatever
+  the code quality: flag it as such — per the project profile ("Merging"),
+  a design finding blocks the auto-merge and goes to the user.
+
 ## Output format
 
 ```markdown
