@@ -70,6 +70,10 @@ only.
   model or the encryption design is a design finding by itself, whatever
   the code quality: flag it as such — per the project profile ("Merging"),
   a design finding blocks the auto-merge and goes to the user.
+- Same for a destructive migration (DROP/ALTER with possible data loss,
+  core schema or attachment-history restructure), a change to the `.env`
+  schema or the upgrade path, and any root-manifest dependency change:
+  these reach the user regardless of the code quality.
 
 ## Output format
 

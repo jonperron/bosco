@@ -89,6 +89,12 @@ of one. Keep generated files (`dist/`, generated OpenAPI client) uncommitted.
 - `git status` must show no generated client, `.env`, `dist/` or local
   databases staged.
 - Every commit is signed off (DCO, see Git quirks).
+- A new dependency states its licence in the commit message, and the licence
+  is Apache-2.0-compatible: no GPL, AGPL or SSPL anywhere. Refuse and report
+  otherwise.
+- Test fixtures stay anonymous: no real names, emails, or data that looks
+  like an export of a real system (Lucca, Jira, annuaires). Replace anything
+  close to personal data with generated records, and note it in the report.
 
 ## Quality gate
 
@@ -123,6 +129,7 @@ coverage discipline as the source project: minimum 80 % per workspace.
 | `apps/web/**`, i18n, UI components | `frontend-reviewer` |
 | `db/`, migrations, `*.sql`, Drizzle schema | `backend-reviewer` + `security` |
 | crypto (lot 6), OIDC (lot 4), rights (lot 5), module contract API | `security` |
+| `.github/**`, hooks, CI, Docker base image, dependency changes (root manifests, lockfile) | `security` (their merge is still a Merging-exception case for the user) |
 | docs, guides, `*.md` only | none (docs sync only) |
 
 Every task that changes a routed file also runs, after the reviewers, the
@@ -188,7 +195,23 @@ PR that raises a floor does it alone, on final numbers measured after rebase.
     module boundary, the core contract API, the rights model, or the
     encryption design;
   - any reviewer (subagent or bot) states a human review is needed
-    (same trigger as `loop.md`, After the push, step 3).
+    (same trigger as `loop.md`, After the push, step 3);
+  - the PR settles an open decision of `local/Plan socle v0.md` (key loss,
+    master key, note ownership on manager change, N+2 access): do not even
+    implement the choice — pick nothing, report the options (see Docs sync,
+    Open decisions);
+  - a migration destroys or rewrites data: `DROP`, `ALTER` with possible
+    loss, restructuring of the `core` schema or the manager-attachment
+    history. A green gate does not prove an existing install's data
+    survives; report the before/after shape and wait;
+  - the PR touches the guardians: `.github/` workflows, hooks, DCO
+    enforcement, `.vibe/factory/` or `.vibe/rules/`, the root manifests
+    (runtime dependency changes), or the Docker base image. No verdict can
+    make such a PR mergeable — the agent whose channel it edits would
+    review itself. Always report and wait;
+  - the change breaks existing installations: a new, removed or renamed
+    `.env` variable, a migration required at upgrade, a major Changesets
+    bump. Report the upgrade path for every install and wait.
   In those cases the merge decision belongs to the user: report the
   finding, the candidates and the evidence, and merge only when they say
   so.
