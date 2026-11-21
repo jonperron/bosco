@@ -178,6 +178,20 @@ PR that raises a floor does it alone, on final numbers measured after rebase.
   merge without asking again, and say so in the report.
 - The merge command always runs on its own, never chained after a wait
   script; fetch again right before it.
+- Auto-merge exceptions (2026-11-21). Do NOT merge, and report to the user,
+  waiting for their explicit answer, when any of these holds:
+  - a security finding stays open — anything real from the `security`
+    subagent, or a bot/other review comment that is a security case. One
+    you disproved with evidence (file:line, passing test) is not a real
+    one: cite the evidence in the reply and carry on;
+  - an architecture or design finding stays open — a change that moves a
+    module boundary, the core contract API, the rights model, or the
+    encryption design;
+  - any reviewer (subagent or bot) states a human review is needed
+    (same trigger as `loop.md`, After the push, step 3).
+  In those cases the merge decision belongs to the user: report the
+  finding, the candidates and the evidence, and merge only when they say
+  so.
 - Merge method for now: `--merge`, which keeps every signed commit. Lot 1
   may codify another convention (squash, merge queue); write it here then.
 

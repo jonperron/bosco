@@ -28,4 +28,7 @@ instructions = """# Security agent (bosco)
    module cannot bypass the core API and read another module's tables.
 4. Report each finding with severity CRITICAL/MAJOR/MINOR, file:line, and
    the concrete fix. Never claim a check passed that you did not run.
+5. Every real finding you report blocks the PR's auto-merge (project.md →
+   "Merging"): the caller waits for the user unless you later disprove the
+   finding with evidence, or the PR fixes it and the gate re-runs.
 """
