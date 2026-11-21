@@ -1,1 +1,18 @@
+# local planning docs (never commit)
 /local/
+
+# dependencies
+node_modules/
+
+# builds
+dist/
+coverage/
+.turbo/
+
+# environment
+.env
+.env.*
+!.env.example
+
+# logs
+*.log
