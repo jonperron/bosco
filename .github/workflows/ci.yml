@@ -55,3 +55,6 @@ jobs:
 
       - name: OpenAPI contract
         run: pnpm openapi:check
+
+      - name: i18n fr/en keys
+        run: pnpm i18n:check

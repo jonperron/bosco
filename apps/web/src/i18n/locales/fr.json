@@ -1,0 +1,12 @@
+{
+  "home": {
+    "tagline": "Le socle de votre outillage managérial",
+    "health": {
+      "title": "État du service",
+      "loading": "Santé du service en cours de vérification…",
+      "ok": "Service en bonne santé (v{{version}}, démarré il y a {{uptime}} s)",
+      "error": "Service indisponible — vérifiez que l'API tourne."
+    },
+    "language": "Langue"
+  }
+}
