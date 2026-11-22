@@ -19,6 +19,7 @@ export function registerAppModule(version: string, webDist: string | null): Dyna
     imports: [
       ConfigModule.forRoot({
         isGlobal: true,
+        ignoreEnvFile: true,
         validate: validateEnv,
       }),
       // path-to-regexp v8 syntax (Express 5): exclude the whole /api prefix

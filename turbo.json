@@ -6,6 +6,8 @@
       "outputs": ["dist/**"]
     },
     "generate": {
+      "cache": true,
+      "inputs": ["apps/api/openapi.json"],
       "outputs": ["src/gen/**"]
     },
     "lint": {},

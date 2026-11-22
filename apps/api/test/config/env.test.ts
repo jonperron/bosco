@@ -1,15 +1,34 @@
 import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import { tmpdir } from 'node:os';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { ENV_KEYS, EnvValidationError, loadEnv, validateEnv } from '@/config/env.js';
 
 const tempDirs: string[] = [];
 
+// Snapshot of original environment values to restore after tests
+let originalEnvValues: Record<string, string | undefined> = {};
+
+beforeEach(() => {
+  // Snapshot current environment values before each test
+  originalEnvValues = {};
+  for (const key of ENV_KEYS) {
+    originalEnvValues[key] = process.env[key];
+  }
+});
+
 afterEach(() => {
   for (const dir of tempDirs.splice(0)) {
     rmSync(dir, { recursive: true, force: true });
+  }
+  // Restore original environment values after each test
+  for (const key of ENV_KEYS) {
+    if (originalEnvValues[key] === undefined) {
+      delete process.env[key];
+    } else {
+      process.env[key] = originalEnvValues[key];
+    }
   }
 });
 
@@ -64,12 +83,9 @@ describe('validateEnv', () => {
 });
 
 describe('loadEnv', () => {
-  afterEach(() => {
-    // dotenv wrote these into process.env during loadEnv; restore defaults.
-    for (const key of ENV_KEYS) {
-      delete process.env[key];
-    }
-  });
+  // The beforeEach/afterEach at the top level already snapshot and restore
+  // environment values, so we don't need to do anything here.
+  // The original values are preserved across tests.
 
   it('reads a .env file and validates the merged environment', () => {
     const envFile = writeTempEnvFile('PORT=4567\nAPI_DOCS_ENABLED=true\n');

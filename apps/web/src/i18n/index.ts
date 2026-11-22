@@ -13,12 +13,22 @@ const STORAGE_KEY = 'bosco.language';
 export function readStoredLanguage(
   storage: Storage | null = globalThis.localStorage,
 ): SupportedLanguage {
-  const stored = storage?.getItem(STORAGE_KEY);
-  return stored !== null &&
-    stored !== undefined &&
-    SUPPORTED_LANGUAGES.includes(stored as SupportedLanguage)
-    ? (stored as SupportedLanguage)
-    : 'fr';
+  try {
+    const stored = storage?.getItem(STORAGE_KEY);
+    return stored !== null &&
+      stored !== undefined &&
+      SUPPORTED_LANGUAGES.includes(stored as SupportedLanguage)
+      ? (stored as SupportedLanguage)
+      : 'fr';
+  } catch (error) {
+    // localStorage access can fail (private browsing, storage full, etc.)
+    // Fall back to the default language
+    console.warn(
+      '[i18n] Failed to read stored language from localStorage:',
+      error,
+    );
+    return 'fr';
+  }
 }
 
 /** Keeps the document lang in sync, for screen readers and spell check. */
@@ -60,10 +70,20 @@ export function changeLanguage(
   return i18next
     .changeLanguage(language)
     .then(() => {
-      // Restores only after the switch succeeded, so storage, document
-      // and UI never disagree.
-      storage?.setItem(STORAGE_KEY, language);
+      // Always keep the document in sync after the language switch succeeds
       applyDocumentLanguage(i18next.language ?? language);
+
+      // Try to persist the choice, but don't let storage failures
+      // prevent the language switch from completing
+      try {
+        storage?.setItem(STORAGE_KEY, language);
+      } catch (error) {
+        console.warn(
+          '[i18n] Failed to persist language preference to localStorage:',
+          error,
+        );
+        // Continue without failing - the language switch succeeded
+      }
     })
     .then(() => undefined);
 }

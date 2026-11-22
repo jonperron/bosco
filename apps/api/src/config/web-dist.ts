@@ -14,7 +14,8 @@ export function resolveWebDist(
   appsDirectory: null | string = null,
 ): string | null {
   if (webDist !== null) {
-    return webDist;
+    // Convert explicit relative paths to absolute, while preserving absolute paths
+    return path.isAbsolute(webDist) ? webDist : path.resolve(webDist);
   }
 
   const candidates =

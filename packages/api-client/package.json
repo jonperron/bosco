@@ -15,7 +15,7 @@
     "dist/"
   ],
   "scripts": {
-    "generate": "openapi-typescript ../../apps/api/openapi.json -o src/gen/schema.d.ts",
+    "generate": "openapi-typescript ../../apps/api/openapi.json -o src/gen/schema.ts",
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint .",
     "test": "vitest run",
