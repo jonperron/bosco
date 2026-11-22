@@ -11,16 +11,18 @@ const target = path.resolve(here, '../openapi.json');
 
 /**
  * Regenerates the committed OpenAPI contract from the live routes.
- * The output is key-sorted so a diff only shows real contract changes.
+ * The output is key-sorted (objects only, arrays keep their order) so a
+ * diff only shows real contract changes.
  */
 function sortDeep(value: unknown): unknown {
   if (Array.isArray(value)) {
     return value.map(sortDeep);
   }
   if (value !== null && typeof value === 'object') {
+    const source = value as Record<string, unknown>;
     const sorted: Record<string, unknown> = {};
-    for (const key of Object.keys(value).sort()) {
-      sorted[key] = sortDeep(value[key]);
+    for (const key of Object.keys(source).sort()) {
+      sorted[key] = sortDeep(source[key]);
     }
     return sorted;
   }
@@ -28,7 +30,7 @@ function sortDeep(value: unknown): unknown {
 }
 
 async function main(): Promise<void> {
-  const app = await createApp();
+  const app = await createApp({ apiDocs: true });
   const document = buildOpenapiDocument(app);
   await app.close();
 

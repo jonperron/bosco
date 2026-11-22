@@ -9,11 +9,9 @@ export class HealthModule {
   /** Registers the health feature; the version comes from the composition root. */
   static register(version: string): DynamicModule {
     return {
-      global: true,
       module: HealthModule,
       providers: [HealthService, { provide: APP_VERSION, useValue: version }],
       controllers: [HealthController],
-      exports: [HealthService],
     };
   }
 }
