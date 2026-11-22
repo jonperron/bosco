@@ -8,6 +8,7 @@
     "build": "tsc -p tsconfig.build.json",
     "dev": "tsx watch src/main.ts",
     "generate:openapi": "tsx scripts/generate-openapi.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint .",
     "test": "vitest run",
     "start": "node dist/main.js"
