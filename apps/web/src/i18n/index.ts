@@ -23,10 +23,7 @@ export function readStoredLanguage(
   } catch (error) {
     // localStorage access can fail (private browsing, storage full, etc.)
     // Fall back to the default language
-    console.warn(
-      '[i18n] Failed to read stored language from localStorage:',
-      error,
-    );
+    console.warn('[i18n] Failed to read stored language from localStorage:', error);
     return 'fr';
   }
 }
@@ -78,10 +75,7 @@ export function changeLanguage(
       try {
         storage?.setItem(STORAGE_KEY, language);
       } catch (error) {
-        console.warn(
-          '[i18n] Failed to persist language preference to localStorage:',
-          error,
-        );
+        console.warn('[i18n] Failed to persist language preference to localStorage:', error);
         // Continue without failing - the language switch succeeded
       }
     })

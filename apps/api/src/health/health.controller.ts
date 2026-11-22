@@ -20,9 +20,7 @@ export class HealthResponse {
 
 @Controller('health')
 export class HealthController {
-  constructor(
-    @Inject(HealthService) private readonly healthService: HealthService,
-  ) {}
+  constructor(@Inject(HealthService) private readonly healthService: HealthService) {}
 
   @Get()
   @ApiOkResponse({ type: HealthResponse })
