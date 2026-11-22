@@ -2,7 +2,7 @@
   "name": "@bosco/api",
   "version": "0.0.1",
   "private": true,
-  "description": "Bosco API \u2014 NestJS backend of the socle v0",
+  "description": "Bosco API — NestJS backend of the socle v0",
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
@@ -21,6 +21,7 @@
     "@nestjs/swagger": "^8",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "dotenv": "^16",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },

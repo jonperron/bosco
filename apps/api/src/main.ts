@@ -1,26 +1,39 @@
 import { createRequire } from 'node:module';
+import path from 'node:path';
 
 import 'reflect-metadata';
 
 import { Logger } from '@nestjs/common';
 
-import { createApp } from './app.factory.js';
-import { validateEnv } from './config/env.js';
+import { createApp, readPackageVersion } from './app.factory.js';
+import { EnvValidationError, loadEnv } from './config/env.js';
 
-/** Reads this package version, next to the compiled entry point. */
-function readPackageVersion(entryFile: string): string {
-  const requireFromHere = createRequire(entryFile);
-  return (requireFromHere('../package.json') as { version?: string }).version ?? '0.0.0';
-}
-
-/** Composition root: validates the environment once, then listens. */
+/** Composition root: loads the env once, then listens on the validated port. */
 async function bootstrap(): Promise<void> {
-  const env = validateEnv(process.env);
-  const version = readPackageVersion(__filename);
-  const app = await createApp({ version, webDist: env.WEB_DIST });
   const logger = new Logger('main');
+  // The optional .env file lives next to package.json. src/ and dist/ are
+  // both one level below the package root, so '../package.json' fits both;
+  // a bare './package.json' would not, and resolve() never walks up.
+  const packageDir = path.dirname(createRequire(__filename).resolve('../package.json'));
+  const env = loadEnv(path.join(packageDir, '.env'));
+  const version = readPackageVersion(__filename);
+  const app = await createApp({
+    version,
+    webDist: env.WEB_DIST,
+    apiDocs: env.API_DOCS_ENABLED,
+  });
   await app.listen(env.PORT);
   logger.log(`Bosco API listening on http://localhost:${env.PORT}/api`);
 }
 
-void bootstrap();
+bootstrap().catch((error: unknown) => {
+  const logger = new Logger('main');
+  if (error instanceof EnvValidationError) {
+    for (const issue of error.issues) {
+      logger.error(issue);
+    }
+  } else {
+    logger.error(error instanceof Error ? (error.stack ?? error.message) : String(error));
+  }
+  process.exitCode = 1;
+});
