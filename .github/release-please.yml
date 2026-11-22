@@ -20,7 +20,7 @@ packages:
     only-publish-with-release-label: false
 
   # Core shared package
-  - name: @bosco/core
+  - name: '@bosco/core'
     package: packages/core
     changelog: true
     changelog-path: packages/core/CHANGELOG.md
@@ -37,7 +37,7 @@ packages:
     only-publish-with-release-label: false
 
   # API Client - OpenAPI generated client
-  - name: @bosco/api-client
+  - name: '@bosco/api-client'
     package: packages/api-client
     changelog: true
     changelog-path: packages/api-client/CHANGELOG.md
@@ -54,7 +54,7 @@ packages:
     only-publish-with-release-label: false
 
   # API - NestJS backend
-  - name: @bosco/api
+  - name: '@bosco/api'
     package: apps/api
     changelog: true
     changelog-path: apps/api/CHANGELOG.md
@@ -71,7 +71,7 @@ packages:
     only-publish-with-release-label: false
 
   # Web - React frontend
-  - name: @bosco/web
+  - name: '@bosco/web'
     package: apps/web
     changelog: true
     changelog-path: apps/web/CHANGELOG.md
