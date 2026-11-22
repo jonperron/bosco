@@ -10,6 +10,7 @@ export default tseslint.config(
       '**/.openspec/**',
       '**/.openwiki/**',
       'node_modules/**',
+      '**/src/gen/**',
       'docs/**',
       'specs/**',
       'wiki/**',
@@ -17,6 +18,15 @@ export default tseslint.config(
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
+  {
+    files: ['**/*.mjs', '**/scripts/**'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+      },
+    },
+  },
   {
     rules: {
       '@typescript-eslint/no-explicit-any': 'error',

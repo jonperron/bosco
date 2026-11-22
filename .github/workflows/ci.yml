@@ -52,3 +52,6 @@ jobs:
 
       - name: Tests (all workspaces)
         run: pnpm test
+
+      - name: OpenAPI contract
+        run: pnpm openapi:check
