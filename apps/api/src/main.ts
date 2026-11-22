@@ -8,9 +8,10 @@ import { Logger } from '@nestjs/common';
 import { createApp, readPackageVersion } from './app.factory.js';
 import { EnvValidationError, loadEnv } from './config/env.js';
 
+const logger = new Logger('main');
+
 /** Composition root: loads the env once, then listens on the validated port. */
 async function bootstrap(): Promise<void> {
-  const logger = new Logger('main');
   // The optional .env file lives next to package.json. src/ and dist/ are
   // both one level below the package root, so '../package.json' fits both;
   // a bare './package.json' would not, and resolve() never walks up.
@@ -27,7 +28,6 @@ async function bootstrap(): Promise<void> {
 }
 
 bootstrap().catch((error: unknown) => {
-  const logger = new Logger('main');
   if (error instanceof EnvValidationError) {
     for (const issue of error.issues) {
       logger.error(issue);

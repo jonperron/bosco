@@ -2,6 +2,9 @@ import path from 'node:path';
 
 import { config as loadDotenv } from 'dotenv';
 
+/** Every variable the socle declares in the environment. */
+export const ENV_KEYS = ['PORT', 'WEB_DIST', 'API_DOCS_ENABLED'] as const;
+
 export interface Env {
   PORT: number;
   /** Directory of the built frontend to serve; null keeps the API only. */

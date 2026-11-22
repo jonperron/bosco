@@ -3,7 +3,7 @@ import path from 'node:path';
 import { tmpdir } from 'node:os';
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { EnvValidationError, loadEnv, validateEnv } from '@/config/env.js';
+import { ENV_KEYS, EnvValidationError, loadEnv, validateEnv } from '@/config/env.js';
 
 const tempDirs: string[] = [];
 
@@ -64,16 +64,10 @@ describe('validateEnv', () => {
 });
 
 describe('loadEnv', () => {
-  const savedEnv: Record<string, string | undefined> = {};
-
   afterEach(() => {
-    for (const key of ['PORT', 'WEB_DIST', 'API_DOCS_ENABLED']) {
-      if (savedEnv[key] === undefined) {
-        delete process.env[key];
-      } else {
-        process.env[key] = savedEnv[key];
-        delete savedEnv[key];
-      }
+    // dotenv wrote these into process.env during loadEnv; restore defaults.
+    for (const key of ENV_KEYS) {
+      delete process.env[key];
     }
   });
 
