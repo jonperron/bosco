@@ -27,6 +27,7 @@ rules override the [provisional] wording.
 
 ## Stack
 
+- **Runtime: Node.js ≥22.12** — required by vitest 5.x (earlier LTS versions are incompatible).
 - Monorepo: pnpm + Turborepo; npm scripts only through pnpm
 - Backend: NestJS (`apps/api`), OpenAPI generated from routes, typed client
 - Frontend: React + Vite (`apps/web`), i18n fr/en
@@ -215,6 +216,7 @@ PR that raises a floor does it alone, on final numbers measured after rebase.
   In those cases the merge decision belongs to the user: report the
   finding, the candidates and the evidence, and merge only when they say
   so.
+- **Guardians PRs shall NEVER be auto-merged**, even if all CI checks are green and reviewers pass. Always report and wait for an explicit user decision before merging any PR that touches guardians.
 - Merge method for now: `--merge`, which keeps every signed commit. Lot 1
   may codify another convention (squash, merge queue); write it here then.
 
