@@ -21,6 +21,13 @@ export function readStoredLanguage(
     : 'fr';
 }
 
+/** Keeps the document lang in sync, for screen readers and spell check. */
+function applyDocumentLanguage(language: SupportedLanguage | string): void {
+  if (typeof document !== 'undefined') {
+    document.documentElement.setAttribute('lang', language);
+  }
+}
+
 /**
  * The default i18next instance of the app, initialised synchronously from
  * the bundled resources. Every user-visible string reads from it.
@@ -28,23 +35,31 @@ export function readStoredLanguage(
 export const i18n: I18n = i18next.use(initReactI18next);
 
 if (!i18next.isInitialized) {
-  void i18next.init({
-    resources: {
-      fr: { translation: fr },
-      en: { translation: en },
-    },
-    lng: readStoredLanguage(),
-    fallbackLng: 'fr',
-    interpolation: { escapeValue: false },
-    initImmediate: false,
-  });
+  const initialLanguage = readStoredLanguage();
+  void i18next
+    .init({
+      resources: {
+        fr: { translation: fr },
+        en: { translation: en },
+      },
+      lng: initialLanguage,
+      fallbackLng: 'fr',
+      interpolation: { escapeValue: false },
+      initImmediate: false,
+    })
+    .then(() => applyDocumentLanguage(initialLanguage));
 }
 
-/** Switches the language and persists the choice across reloads. */
+/** Switches the language, persists the choice and keeps the document in sync. */
 export function changeLanguage(
   language: SupportedLanguage,
   storage: Storage | null = globalThis.localStorage,
 ): Promise<void> {
   storage?.setItem(STORAGE_KEY, language);
-  return i18next.changeLanguage(language).then(() => undefined);
+  return i18next
+    .changeLanguage(language)
+    .then(() => {
+      applyDocumentLanguage(i18next.language ?? language);
+    })
+    .then(() => undefined);
 }
