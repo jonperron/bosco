@@ -1,0 +1,88 @@
+# Release Please configuration for Bosco monorepo
+# Following fhir-linter's pattern for TypeScript/pnpm monorepos
+
+packages:
+  # Root monorepo package
+  - name: bosco
+    package: .
+    changelog: true
+    changelog-path: CHANGELOG.md
+    changelog-username: jonperron
+    changelog-repository: bosco
+    conventional-changelog: true
+    prerelease: false
+    bump-minor-pre-major: true
+    bump-patch-for-minor-pre-major: true
+    release-type: node
+    version-file: package.json
+    github-release: true
+    npm-publish: false
+    only-publish-with-release-label: false
+
+  # Core shared package
+  - name: @bosco/core
+    package: packages/core
+    changelog: true
+    changelog-path: packages/core/CHANGELOG.md
+    changelog-username: jonperron
+    changelog-repository: bosco
+    conventional-changelog: true
+    prerelease: false
+    bump-minor-pre-major: true
+    bump-patch-for-minor-pre-major: true
+    release-type: node
+    version-file: packages/core/package.json
+    github-release: false
+    npm-publish: false
+    only-publish-with-release-label: false
+
+  # API Client - OpenAPI generated client
+  - name: @bosco/api-client
+    package: packages/api-client
+    changelog: true
+    changelog-path: packages/api-client/CHANGELOG.md
+    changelog-username: jonperron
+    changelog-repository: bosco
+    conventional-changelog: true
+    prerelease: false
+    bump-minor-pre-major: true
+    bump-patch-for-minor-pre-major: true
+    release-type: node
+    version-file: packages/api-client/package.json
+    github-release: false
+    npm-publish: false
+    only-publish-with-release-label: false
+
+  # API - NestJS backend
+  - name: @bosco/api
+    package: apps/api
+    changelog: true
+    changelog-path: apps/api/CHANGELOG.md
+    changelog-username: jonperron
+    changelog-repository: bosco
+    conventional-changelog: true
+    prerelease: false
+    bump-minor-pre-major: true
+    bump-patch-for-minor-pre-major: true
+    release-type: node
+    version-file: apps/api/package.json
+    github-release: false
+    npm-publish: false
+    only-publish-with-release-label: false
+
+  # Web - React frontend
+  - name: @bosco/web
+    package: apps/web
+    changelog: true
+    changelog-path: apps/web/CHANGELOG.md
+    changelog-username: jonperron
+    changelog-repository: bosco
+    conventional-changelog: true
+    prerelease: false
+    bump-minor-pre-major: true
+    bump-patch-for-minor-pre-major: true
+    release-type: node
+    version-file: apps/web/package.json
+    github-release: false
+    npm-publish: false
+    only-publish-with-release-label: false

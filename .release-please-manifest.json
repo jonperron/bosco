@@ -1,0 +1,27 @@
+{
+  "@bosco/api": {
+    "last-release": "0.0.1",
+    "last-release-sha": "",
+    "releases": []
+  },
+  "@bosco/api-client": {
+    "last-release": "0.0.1",
+    "last-release-sha": "",
+    "releases": []
+  },
+  "@bosco/core": {
+    "last-release": "0.0.1",
+    "last-release-sha": "",
+    "releases": []
+  },
+  "@bosco/web": {
+    "last-release": "0.0.1",
+    "last-release-sha": "",
+    "releases": []
+  },
+  "bosco": {
+    "last-release": "0.0.0",
+    "last-release-sha": "",
+    "releases": []
+  }
+}
