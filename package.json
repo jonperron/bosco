@@ -13,6 +13,8 @@
     "format:check": "prettier --check .",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
+    "openapi:check": "pnpm --filter @bosco/api generate:openapi && git diff --exit-code -- apps/api/openapi.json",
+    "i18n:check": "pnpm --filter @bosco/web i18n:check",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "turbo run build && changeset publish",
@@ -41,5 +43,12 @@
     "typescript-eslint": "^8.14.0",
     "vite": "^8.3.8",
     "vitest": "^5.1.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "@nestjs/swagger>js-yaml@<4.3.2": ">=4.3.2",
+      "@nestjs/swagger>lodash@<4.18.0": ">=4.18.0",
+      "@redocly/openapi-core>js-yaml@<4.3.2": ">=4.3.2"
+    }
   }
 }
