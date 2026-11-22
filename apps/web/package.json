@@ -1,0 +1,37 @@
+{
+  "name": "@bosco/web",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Bosco web — React + Vite frontend of the socle v0",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.build.json --noEmit && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "i18n:check": "node scripts/i18n-check.mjs"
+  },
+  "dependencies": {
+    "@bosco/api-client": "workspace:*",
+    "i18next": "^24",
+    "react": "^19",
+    "react-dom": "^19",
+    "react-i18next": "^15"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10",
+    "@testing-library/react": "^16",
+    "@testing-library/user-event": "^14",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^5",
+    "@vitest/coverage-v8": "^5.1.1",
+    "jsdom": "^26",
+    "typescript": "^5.7.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "home": {
+    "tagline": "The foundation of your management tooling",
+    "health": {
+      "title": "Service status",
+      "loading": "Checking the service health…",
+      "ok": "Service in good health (v{{version}}, up for {{uptime}} s)",
+      "error": "Service unavailable — check that the API is running."
+    },
+    "language": "Language"
+  }
+}
