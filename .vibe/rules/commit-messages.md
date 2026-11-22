@@ -2,6 +2,7 @@ description: "Use when generating git commit messages, for every commit in bosco
 ---
 # Commit messages
 
+- **Language: English only** — use English for all commit messages, even when the plan or docs are in French.
 - Conventional Commits: `type(scope): summary`
 - Types: feat, fix, chore, refactor, test, docs
 - Subject line: lowercase, imperative, no period, max 72 chars
