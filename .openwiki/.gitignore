@@ -1,0 +1,22 @@
+# OpenWiki generated files
+*.generated.md
+*.generated.json
+
+# Cache and checkpoints
+cache/
+checkpoints/
+*.cache
+
+# Logs
+*.log
+logs/
+
+# Output directory
+docs/wiki/
+
+# Temporary files
+.tmp/
+*.tmp
+
+# Node modules (should already be ignored)
+node_modules/

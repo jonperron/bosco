@@ -1,0 +1,192 @@
+# Core Module Specification
+# OpenSpec format
+
+spec_version: 1.0.0
+name: '@bosco/core'
+version: 0.0.1
+title: Bosco Core Module
+description: |
+  Core module providing shared types, utilities, and base functionality
+  for the entire Bosco application.
+
+tags:
+  - core
+  - types
+  - utilities
+  - shared
+
+license: Apache-2.0
+
+# Package information
+package:
+  name: '@bosco/core'
+  main: dist/index.js
+  types: dist/index.d.ts
+  exports:
+    '.':
+      types: './dist/index.d.ts'
+      default: './dist/index.js'
+
+# Type definitions
+types:
+  - name: User
+    description: Base user type
+    properties:
+      id: string
+      email: string
+      role: UserRole
+      createdAt: Date
+      updatedAt: Date
+
+  - name: UserRole
+    description: User role enum
+    enum:
+      - admin
+      - manager
+      - collaborator
+
+  - name: Team
+    description: Team type
+    properties:
+      id: string
+      name: string
+      description?: string
+      createdAt: Date
+      updatedAt: Date
+
+  - name: Organization
+    description: Organization type (singleton in v0)
+    properties:
+      id: string
+      name: string
+      domain: string
+      settings: OrganizationSettings
+      createdAt: Date
+
+  - name: OrganizationSettings
+    description: Organization settings
+    properties:
+      shareOneOnOneNotes: boolean
+      defaultLanguage: string
+      timeZone: string
+
+  - name: Result
+    description: Generic result type
+    type: Result<T, E>
+    properties:
+      ok: boolean
+      value?: T
+      error?: E
+
+  - name: Paginated
+    description: Paginated result type
+    type: Paginated<T>
+    properties:
+      data: T[]
+      page: number
+      pageSize: number
+      total: number
+      totalPages: number
+
+# Utility functions
+functions:
+  - name: createResult
+    description: Create a Result object
+    signature: 'createResult<T, E>(ok: boolean, value?: T, error?: E): Result<T, E>'
+
+  - name: paginate
+    description: Paginate an array
+    signature: 'paginate<T>(data: T[], page: number, pageSize: number): Paginated<T>'
+
+  - name: validateEmail
+    description: Validate email format
+    signature: 'validateEmail(email: string): boolean'
+
+  - name: generateId
+    description: Generate a unique ID
+    signature: 'generateId(): string'
+
+# Constants
+constants:
+  - name: DEFAULT_PAGE_SIZE
+    type: number
+    value: 20
+    description: Default pagination page size
+
+  - name: MAX_PAGE_SIZE
+    type: number
+    value: 100
+    description: Maximum pagination page size
+
+  - name: ROLES
+    type: UserRole[]
+    value: [admin, manager, collaborator]
+    description: Available user roles
+
+# Validation schemas
+schemas:
+  - name: EmailSchema
+    type: string
+    format: email
+    required: true
+
+  - name: UUIDSchema
+    type: string
+    format: uuid
+    required: true
+
+  - name: DateSchema
+    type: string
+    format: date-time
+    required: true
+
+# Error types
+errors:
+  - name: ValidationError
+    description: Validation failed
+    properties:
+      message: string
+      details: Record<string, string[]>
+
+  - name: NotFoundError
+    description: Resource not found
+    properties:
+      message: string
+      resource: string
+      id: string
+
+  - name: UnauthorizedError
+    description: Authentication required
+    properties:
+      message: string
+
+  - name: ForbiddenError
+    description: Insufficient permissions
+    properties:
+      message: string
+      requiredRole: UserRole
+
+# Dependencies
+dependencies:
+  - name: zod
+    version: ^4.0.0
+    purpose: Runtime validation
+
+  - name: drizzle-orm
+    version: ^0.30.0
+    purpose: Database ORM
+
+  - name: postgres
+    version: ^3.0.0
+    purpose: PostgreSQL client
+
+# Testing
+testing:
+  framework: vitest
+  coverage:
+    threshold: 80
+    include:
+      - src/**/*.ts
+    exclude:
+      - src/**/*.d.ts
+      - test/**/*

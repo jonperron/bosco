@@ -1,0 +1,89 @@
+# OpenSpec Configuration for Bosco
+# AI-native system for spec-driven development
+# https://github.com/Fission-AI/OpenSpec
+
+name: bosco
+version: 0.0.1
+description: |
+  Bosco is a self-hosted, open-source (Apache-2.0) tool that gathers an
+  engineering manager's daily work: people, tasks, projects, team metrics.
+  The socle v0 carries no management feature: it delivers identity, access
+  control, the module framework, GDPR export/deletion and packaging.
+
+license: Apache-2.0
+repository: https://github.com/jonperron/bosco
+
+# Specification directories
+spec_dirs:
+  - specs
+  - packages/core/src
+
+# Output directory for generated documentation
+docs_dir: docs/specs
+
+# OpenSpec settings
+openspec:
+  # Enable AI-assisted spec generation
+  ai_enabled: true
+  
+  # Model to use for AI assistance (default: openai/gpt-4)
+  model: openai/gpt-4
+  
+  # Temperature for AI generation (0-1)
+  temperature: 0.3
+  
+  # Maximum tokens for AI responses
+  max_tokens: 4096
+
+# Project structure
+tags:
+  - backend
+  - frontend
+  - typescript
+  - nestjs
+  - react
+  - postgres
+  - drizzle
+  - monorepo
+
+# Modules to include in spec generation
+modules:
+  - name: core
+    path: packages/core
+    description: Core package with shared types and utilities
+  - name: api
+    path: apps/api
+    description: NestJS backend API
+  - name: web
+    path: apps/web
+    description: React + Vite frontend
+
+# API specification settings
+api:
+  # OpenAPI/Swagger integration
+  openapi:
+    enabled: true
+    output: docs/api/openapi.yaml
+    
+  # Generate TypeScript types from specs
+  generate_types: true
+  types_output: packages/contract/src
+
+# Validation rules
+validation:
+  # Require specs for all public APIs
+  require_specs: true
+  
+  # Warn on missing descriptions
+  warn_missing_descriptions: true
+  
+  # Strict mode for spec validation
+  strict: false
+
+# Git integration
+.git:
+  # Track spec changes in git
+  track_changes: true
+  
+  # Generate changelog from spec changes
+  generate_changelog: true
