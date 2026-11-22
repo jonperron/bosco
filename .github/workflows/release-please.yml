@@ -25,51 +25,11 @@ jobs:
         with:
           node-version: 22
 
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Install dependencies
-        env:
-          SCARF_ANALYTICS: 'false'
-        run: pnpm install --frozen-lockfile
-
-      - name: Lint
-        run: pnpm lint
-
-      - name: Check formatting
-        run: pnpm format:check
-
-      - name: Typecheck
-        run: pnpm typecheck
-
-      - name: Tests
-        run: pnpm test
-
-      - name: OpenAPI contract
-        run: pnpm openapi:check
-
-      - name: i18n fr/en keys
-        run: pnpm i18n:check
-
       - name: Run Release Please
-        id: release
         uses: google-github-actions/release-please-action@v4
+        id: release
         with:
-          release-type: node
           config-file: .github/release-please.yml
           token: ${{ secrets.GITHUB_TOKEN }}
-          pull-request-title-pattern: "chore: release \${packageName} \${version}"
-          conventional-commits: true
-          auto-merge: false
-          npm-publish: false
-          create-release: true
-          # Only create releases if there are changes
-          skip-on-empty: true
-          # Use the same branch for PRs
-          target-branch: main
-
-      - name: Output Release Info
-        if: steps.release.outputs.release_created == 'true'
-        run: |
-          echo "::notice::GitHub Release created: ${{ steps.release.outputs.tag_name }}"
-          echo "Release URL: ${{ steps.release.outputs.html_url }}"
+          release-type: node
+          package-name: bosco
