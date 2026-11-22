@@ -5,7 +5,7 @@
 
 bosco est un outil auto-hébergé qui rassemble le travail quotidien d'un
 engineering manager. Ces données sont sensibles : la présente charte fixe
-les principles que tout module et toute évolution du socle doit respecter.
+les principes que tout module et toute évolution du socle doit respecter.
 
 ## 1. Des métriques agrégées par équipe
 
