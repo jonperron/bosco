@@ -1,5 +1,5 @@
 import { INestApplication } from '@nestjs/common';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 
 /**
  * The single OpenAPI contract of the API, built from the routes.
@@ -8,7 +8,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
  * (`apps/api/openapi.json`, checked by `pnpm openapi:check`) go through
  * this function, so they cannot drift apart.
  */
-export function buildOpenapiDocument(app: INestApplication) {
+export function buildOpenapiDocument(app: INestApplication): OpenAPIObject {
   const config = new DocumentBuilder()
     .setTitle('Bosco API')
     .setDescription('The socle v0 API: identity, access control, modules.')
