@@ -13,3 +13,6 @@ docs/wiki/
 # OpenSpec and OpenWiki configs
 .openspec/
 .openwiki/
+
+# generated files
+packages/api-client/src/gen/
