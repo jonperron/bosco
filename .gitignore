@@ -16,3 +16,17 @@ coverage/
 
 # logs
 *.log
+
+# OpenSpec
+.openspec/.cache/
+.openspec/.tmp/
+.openspec/*.log
+
+# OpenWiki
+.openwiki/cache/
+.openwiki/checkpoints/
+.openwiki/*.log
+
+# Generated documentation (keep source specs)
+docs/specs/
+docs/wiki/

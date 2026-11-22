@@ -1,0 +1,268 @@
+# Bosco Project Specification
+# OpenSpec format for spec-driven development
+
+spec_version: 1.0.0
+name: bosco
+version: 0.0.1
+title: Bosco - Engineering Management Tool
+description: |
+  Bosco is a self-hosted, open-source (Apache-2.0) tool that gathers an
+  engineering manager's daily work: people, tasks, projects, team metrics.
+
+  The socle v0 (foundation) delivers:
+  - Identity and access control
+  - Module framework
+  - GDPR export/deletion
+  - Packaging (Docker)
+
+tags:
+  - self-hosted
+  - engineering-management
+  - typescript
+  - monorepo
+  - nestjs
+  - react
+  - postgres
+
+license: Apache-2.0
+repository: https://github.com/jonperron/bosco
+
+# Project structure
+exports:
+  - name: '@bosco/core'
+    path: packages/core
+    version: 0.0.1
+    description: Core package with shared types and utilities
+
+  - name: '@bosco/api'
+    path: apps/api
+    version: 0.0.1
+    description: NestJS backend API
+
+  - name: '@bosco/web'
+    path: apps/web
+    version: 0.0.1
+    description: React + Vite frontend
+
+# API endpoints (to be generated from NestJS)
+api:
+  base_url: /api/v1
+  endpoints:
+    - method: GET
+      path: /health
+      description: Health check endpoint
+      response:
+        status: 200
+        body:
+          type: object
+          properties:
+            status:
+              type: string
+              enum: [ok, error]
+            version:
+              type: string
+            timestamp:
+              type: string
+              format: date-time
+
+    - method: GET
+      path: /people
+      description: List all people in the organization
+      tags:
+        - core
+        - people
+      security:
+        - bearer: []
+      response:
+        status: 200
+        body:
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+
+    - method: POST
+      path: /people
+      description: Create a new person
+      tags:
+        - core
+        - people
+      security:
+        - bearer: []
+      request:
+        body:
+          type: object
+          $ref: '#/components/schemas/PersonCreate'
+      response:
+        status: 201
+        body:
+          $ref: '#/components/schemas/Person'
+
+# Data models
+components:
+  schemas:
+    Person:
+      type: object
+      description: A person in the organization
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        email:
+          type: string
+          format: email
+          description: Email address
+        firstName:
+          type: string
+          description: First name
+        lastName:
+          type: string
+          description: Last name
+        role:
+          type: string
+          enum: [admin, manager, collaborator]
+          description: User role
+        teamId:
+          type: string
+          format: uuid
+          description: Team identifier
+        managerId:
+          type: string
+          format: uuid
+          nullable: true
+          description: Manager identifier
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp
+      required:
+        - id
+        - email
+        - firstName
+        - lastName
+        - role
+        - createdAt
+
+    PersonCreate:
+      type: object
+      description: Data to create a new person
+      properties:
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
+        role:
+          type: string
+          enum: [admin, manager, collaborator]
+        teamId:
+          type: string
+          format: uuid
+        managerId:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+        - email
+        - firstName
+        - lastName
+        - role
+
+    Team:
+      type: object
+      description: A team in the organization
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - createdAt
+
+# Security requirements
+security:
+  schemes:
+    bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token for authentication
+
+  requirements:
+    - bearer: []
+
+# Rate limiting
+rate_limits:
+  - limit: 100
+    window: 60
+    identifier: ip
+
+# Error responses
+responses:
+  NotFound:
+    description: Resource not found
+    status: 404
+    body:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          nullable: true
+
+  Unauthorized:
+    description: Unauthorized access
+    status: 401
+    body:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+
+  Forbidden:
+    description: Forbidden access
+    status: 403
+    body:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+
+  BadRequest:
+    description: Bad request
+    status: 400
+    body:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          nullable: true

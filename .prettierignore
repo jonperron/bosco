@@ -5,3 +5,11 @@ coverage/
 pnpm-lock.yaml
 .vibe/
 AGENTS.md
+
+# Documentation generated files
+docs/specs/
+docs/wiki/
+
+# OpenSpec and OpenWiki configs
+.openspec/
+.openwiki/

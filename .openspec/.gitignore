@@ -1,0 +1,20 @@
+# OpenSpec generated files
+*.generated.yaml
+*.generated.json
+*.generated.ts
+
+# Cache and temporary files
+.cache/
+*.cache
+.tmp/
+*.tmp
+
+# Logs
+*.log
+logs/
+
+# Output directory
+docs/specs/
+
+# Node modules (should already be ignored, but just in case)
+node_modules/

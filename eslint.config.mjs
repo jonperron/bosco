@@ -3,7 +3,17 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: ['**/dist/**', '**/coverage/**', '**/.turbo/**', 'node_modules/**'],
+    ignores: [
+      '**/dist/**',
+      '**/coverage/**',
+      '**/.turbo/**',
+      '**/.openspec/**',
+      '**/.openwiki/**',
+      'node_modules/**',
+      'docs/**',
+      'specs/**',
+      'wiki/**',
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
