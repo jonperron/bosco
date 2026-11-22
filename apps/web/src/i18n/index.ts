@@ -22,7 +22,9 @@ export function readStoredLanguage(
 }
 
 /** Keeps the document lang in sync, for screen readers and spell check. */
-function applyDocumentLanguage(language: SupportedLanguage | string): void {
+// `string` (not SupportedLanguage) because applyDocumentLanguage also
+// receives i18next.language, which i18next types as string.
+function applyDocumentLanguage(language: string): void {
   if (typeof document !== 'undefined') {
     document.documentElement.setAttribute('lang', language);
   }
@@ -55,10 +57,12 @@ export function changeLanguage(
   language: SupportedLanguage,
   storage: Storage | null = globalThis.localStorage,
 ): Promise<void> {
-  storage?.setItem(STORAGE_KEY, language);
   return i18next
     .changeLanguage(language)
     .then(() => {
+      // Restores only after the switch succeeded, so storage, document
+      // and UI never disagree.
+      storage?.setItem(STORAGE_KEY, language);
       applyDocumentLanguage(i18next.language ?? language);
     })
     .then(() => undefined);
