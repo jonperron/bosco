@@ -42,7 +42,7 @@ bosco/
 │   ├── api/          # Backend NestJS
 │   └── web/          # Frontend React + Vite
 ├── packages/
-│   ├── core/         # Types et utilities partagés
+│   ├── api-client/   # Client typé généré depuis OpenAPI
 │   └── contract/     # API contract (généré)
 ├── db/               # Schéma Drizzle et migrations
 ├── modules/          # Modules (chaque module = 1 schéma Postgres)

@@ -29,11 +29,6 @@ repository: https://github.com/jonperron/bosco
 
 # Project structure
 exports:
-  - name: '@bosco/core'
-    path: packages/core
-    version: 0.0.1
-    description: Core package with shared types and utilities
-
   - name: '@bosco/api'
     path: apps/api
     version: 0.0.1

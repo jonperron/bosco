@@ -38,14 +38,12 @@ description: Bosco - Engineering Management Tool
 license: Apache-2.0
 spec_dirs:
   - specs
-  - packages/core/src
 docs_dir: docs/specs
 ```
 
 **Fichiers de spécification** :
 
 - `specs/project.spec.yaml` - Spécification principale du projet
-- `specs/core.spec.yaml` - Spécification du package core
 - Ajoutez d'autres fichiers `.spec.yaml` selon vos besoins
 
 ### OpenWiki
@@ -128,13 +126,13 @@ pnpm openwiki --help
 
 ```yaml
 spec_version: 1.0.0
-name: @bosco/core
+name: '@bosco/example'
 version: 0.0.1
-title: Bosco Core Module
+title: Bosco Example Module
 description: Description du module
 
 tags:
-  - core
+  - example
   - types
 
 # Types
@@ -196,7 +194,7 @@ Description détaillée de la fonctionnalité.
 
 ```typescript
 // Exemple de code
-import { functionName } from '@bosco/core';
+import { functionName } from '@bosco/example';
 
 functionName(param1, param2);
 ```
@@ -326,8 +324,7 @@ bosco/
 │   ├── config.json      # Configuration principale
 │   └── .gitignore       # Fichiers ignorés
 ├── specs/               # Spécifications OpenSpec
-│   ├── project.spec.yaml
-│   └── core.spec.yaml
+│   └── project.spec.yaml
 ├── wiki/                # Documentation Wiki (source)
 │   └── index.md
 ├── docs/                # Documentation générée
