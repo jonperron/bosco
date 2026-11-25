@@ -35,7 +35,7 @@ the primary checkout, never in worktrees: read it there (first line of
    watch them fail. If you cannot reproduce it, stop and report why.
 3. Run the quality loop from `loop.md`: fix, gate, review, triage.
 4. Docs sync if behaviour or an API changed.
-5. Commit per the profile (Conventional Commits + DCO sign-off + trailer).
+5. Commit per the profile (Conventional Commits + trailer).
 6. Delivery:
    - `local`: stop. Report the branch, the worktree's absolute path and
      the SHAs.

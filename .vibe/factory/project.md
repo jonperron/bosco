@@ -35,12 +35,10 @@ rules override the [provisional] wording.
 - Modules: manifest + one Postgres schema per module, contract API to the core
 - Tests: Vitest at every level
 - Release: Changesets; deploy: one Docker image, docker compose
-- CI: GitHub Actions — tests, OpenAPI contract check, DCO, i18n fr/en
+- CI: GitHub Actions — tests, OpenAPI contract check, i18n fr/en
 
 ## Git quirks
 
-- DCO check: every commit must carry `Signed-off-by:` (`git commit -s`, or add
-  the trailer by hand to match the git identity). A commit without it fails CI.
 - A branch checked out in another worktree cannot be checked out again. To
   update a PR whose branch lives elsewhere, work on a new local branch from
   `origin/<branch>` and push with
@@ -89,7 +87,6 @@ of one. Keep generated files (`dist/`, generated OpenAPI client) uncommitted.
   `main`.
 - `git status` must show no generated client, `.env`, `dist/` or local
   databases staged.
-- Every commit is signed off (DCO, see Git quirks).
 - A new dependency states its licence in the commit message, and the licence
   is Apache-2.0-compatible: no GPL, AGPL or SSPL anywhere. Refuse and report
   otherwise.
@@ -205,9 +202,9 @@ PR that raises a floor does it alone, on final numbers measured after rebase.
     loss, restructuring of the `core` schema or the manager-attachment
     history. A green gate does not prove an existing install's data
     survives; report the before/after shape and wait;
-  - the PR touches the guardians: `.github/` workflows, hooks, DCO
-    enforcement, `.vibe/factory/` or `.vibe/rules/`, the root manifests
-    (runtime dependency changes), or the Docker base image. No verdict can
+  - the PR touches the guardians: `.github/` workflows, hooks,
+    `.vibe/factory/` or `.vibe/rules/`, the root manifests (runtime
+    dependency changes), or the Docker base image. No verdict can
     make such a PR mergeable — the agent whose channel it edits would
     review itself. Always report and wait;
   - the change breaks existing installations: a new, removed or renamed
@@ -217,7 +214,7 @@ PR that raises a floor does it alone, on final numbers measured after rebase.
   finding, the candidates and the evidence, and merge only when they say
   so.
 - **Guardians PRs shall NEVER be auto-merged**, even if all CI checks are green and reviewers pass. Always report and wait for an explicit user decision before merging any PR that touches guardians.
-- Merge method for now: `--merge`, which keeps every signed commit. Lot 1
+- Merge method for now: `--merge`, which keeps every commit. Lot 1
   may codify another convention (squash, merge queue); write it here then.
 
 ## Behaviour baseline

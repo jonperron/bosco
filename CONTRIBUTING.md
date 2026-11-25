@@ -29,8 +29,6 @@ Les versions sont arbitrées par [Changesets](https://github.com/changesets/chan
 
 - Conventional Commits : `type(scope): résumé`, types `feat`, `fix`, `chore`,
   `refactor`, `test`, `docs` ;
-- chaque commit porte un `Signed-off-by:` conforme à l'identité git
-  (`git commit -s`), vérifié en CI (DCO) ;
 - toute nouvelle dépendance doit être compatible avec la licence
   Apache-2.0 : ni GPL, ni AGPL, ni SSPL.
 

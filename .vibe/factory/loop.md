@@ -105,7 +105,7 @@ break together once both are in the base.
 
 ## Commits and PRs
 
-- Follow the profile's commit message rules, DCO sign-off and trailer.
+- Follow the profile's commit message rules and trailer.
 - One commit per logical change; every commit must build.
 - One PR per step. A step is one component or feature slice (for example:
   the API app, the typed client package, the web app, outillage). When a
