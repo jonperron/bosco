@@ -48,23 +48,19 @@ docs_dir: docs/specs
 
 ### OpenWiki
 
-OpenWiki est configuré via `.openwiki/config.json` :
+OpenWiki ne lit aucun fichier de configuration dans le dépôt. Le fournisseur
+d'IA, le modèle et les clés sont choisis au premier lancement de `pnpm openwiki`
+et enregistrés sur votre machine, dans `~/.openwiki/.env`. Un fichier
+`.openwikiignore` à la racine peut exclure des chemins de l'analyse.
 
-```json
-{
-  "name": "bosco",
-  "version": "0.0.1",
-  "sourceDir": "wiki",
-  "outputDir": "docs/wiki",
-  "language": "fr",
-  "additionalLanguages": ["en"]
-}
-```
+**Fichiers wiki** : `pnpm openwiki:init`, lancé depuis la racine du dépôt,
+écrit le wiki dans le dossier `openwiki/`, versionné avec le code :
 
-**Fichiers wiki** :
-
-- `wiki/index.md` - Page d'accueil du wiki
-- Ajoutez d'autres fichiers `.md` dans le dossier `wiki/`
+- `openwiki/index.md` - Index généré des pages
+- `openwiki/INSTRUCTIONS.md` - Consignes de maintenance du wiki
+- `openwiki/<sujet>/*.md` - Pages, avec leur frontmatter YAML
+- `openwiki/.claims/` - Chaque fait relié à sa source dans le code
+- `openwiki/.last-update.json` - Métadonnées de la dernière exécution
 
 ## 🛠️ Utilisation
 
@@ -236,19 +232,13 @@ functionName(param1, param2);
    pnpm openspec:validate
    ```
 
-4. **Créer la documentation wiki**
-
-   ```bash
-   # Créer wiki/new-module.md
-   ```
-
-5. **Générer le wiki**
+4. **Générer le wiki**
 
    ```bash
    pnpm openwiki:generate
    ```
 
-6. **Vérifier la documentation**
+5. **Vérifier la documentation**
    ```bash
    pnpm docs:validate
    ```
@@ -267,7 +257,7 @@ functionName(param1, param2);
    ```
 5. **Commiter**
    ```bash
-   git add specs/ wiki/
+   git add specs/ openwiki/
    git commit -m "docs: update specification and documentation"
    ```
 
@@ -280,25 +270,14 @@ OpenSpec et OpenWiki peuvent utiliser l'IA pour :
 - **Générer de la documentation** à partir des specs
 - **Traduire** la documentation dans plusieurs langues
 
-**Configuration** (dans `.openspec/config.yaml` et `.openwiki/config.json`) :
+**Configuration** (OpenSpec dans `.openspec/config.yaml`, OpenWiki dans
+`~/.openwiki/.env`, rempli par l'assistant de `pnpm openwiki`) :
 
 ```yaml
 # OpenSpec
 ai_enabled: true
 model: openai/gpt-4
 temperature: 0.3
-```
-
-```json
-// OpenWiki
-{
-  "ai": {
-    "enabled": true,
-    "provider": "openai",
-    "model": "gpt-4",
-    "temperature": 0.3
-  }
-}
 ```
 
 **Note** : Vous devez configurer vos clés API pour que l'IA fonctionne.
@@ -310,16 +289,14 @@ bosco/
 ├── .openspec/           # Configuration OpenSpec
 │   ├── config.yaml      # Configuration principale
 │   └── .gitignore       # Fichiers ignorés
-├── .openwiki/           # Configuration OpenWiki
-│   ├── config.json      # Configuration principale
-│   └── .gitignore       # Fichiers ignorés
 ├── specs/               # Spécifications OpenSpec
 │   └── project.spec.yaml
-├── wiki/                # Documentation Wiki (source)
-│   └── index.md
+├── openwiki/            # Wiki généré par OpenWiki (versionné)
+│   ├── index.md
+│   ├── INSTRUCTIONS.md
+│   └── .claims/
 ├── docs/                # Documentation générée
-│   ├── specs/           # Généré par OpenSpec
-│   └── wiki/            # Généré par OpenWiki
+│   └── specs/           # Généré par OpenSpec
 └── scripts/
     └── setup-docs.mjs   # Script de configuration
 ```
@@ -353,11 +330,8 @@ bosco/
    pnpm list openwiki
    ```
 
-2. Vérifiez la configuration :
-
-   ```bash
-   cat .openwiki/config.json
-   ```
+2. Relancez `pnpm openwiki` pour reconfigurer le fournisseur et la clé
+   (enregistrés dans `~/.openwiki/.env`)
 
 3. Essayez avec npx :
    ```bash
