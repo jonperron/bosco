@@ -252,7 +252,7 @@ functionName(param1, param2);
 
 6. **Vérifier la documentation**
    ```bash
-   pnpm docs:generate
+   pnpm docs:validate
    ```
 
 ### Pour une mise à jour
