@@ -7,7 +7,7 @@
     },
     "generate": {
       "cache": true,
-      "inputs": ["apps/api/openapi.json"],
+      "inputs": ["$TURBO_ROOT$/apps/api/openapi.json"],
       "outputs": ["src/gen/**"]
     },
     "lint": {},
