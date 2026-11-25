@@ -16,7 +16,6 @@ repository: https://github.com/jonperron/bosco
 # Specification directories
 spec_dirs:
   - specs
-  - packages/core/src
 
 # Output directory for generated documentation
 docs_dir: docs/specs
@@ -48,9 +47,6 @@ tags:
 
 # Modules to include in spec generation
 modules:
-  - name: core
-    path: packages/core
-    description: Core package with shared types and utilities
   - name: api
     path: apps/api
     description: NestJS backend API

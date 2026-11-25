@@ -83,7 +83,6 @@ if (missingScripts.length > 0) {
 // Create default spec files if they don't exist
 const defaultSpecs = [
   { name: 'project.spec.yaml', path: join(projectRoot, 'specs', 'project.spec.yaml') },
-  { name: 'core.spec.yaml', path: join(projectRoot, 'specs', 'core.spec.yaml') },
 ];
 
 defaultSpecs.forEach(({ name, path }) => {
