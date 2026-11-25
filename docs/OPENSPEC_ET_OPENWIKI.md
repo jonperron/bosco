@@ -72,21 +72,17 @@ OpenWiki est configuré via `.openwiki/config.json` :
 
 ### Commandes OpenSpec
 
-| Commande                 | Description                                 |
-| ------------------------ | ------------------------------------------- |
-| `pnpm openspec`          | Lancer le CLI OpenSpec                      |
-| `pnpm openspec:init`     | Initialiser OpenSpec                        |
-| `pnpm openspec:validate` | Valider les spécifications                  |
-| `pnpm openspec:generate` | Générer la documentation à partir des specs |
+| Commande                 | Description                |
+| ------------------------ | -------------------------- |
+| `pnpm openspec`          | Lancer le CLI OpenSpec     |
+| `pnpm openspec:init`     | Initialiser OpenSpec       |
+| `pnpm openspec:validate` | Valider les spécifications |
 
 **Exemples :**
 
 ```bash
 # Valider toutes les spécifications
 pnpm openspec:validate
-
-# Générer la documentation
-pnpm openspec:generate
 
 # Voir l'aide
 pnpm openspec --help
@@ -97,14 +93,14 @@ pnpm openspec --help
 | Commande                 | Description                           |
 | ------------------------ | ------------------------------------- |
 | `pnpm openwiki`          | Lancer le CLI OpenWiki                |
-| `pnpm openwiki:init`     | Initialiser OpenWiki                  |
-| `pnpm openwiki:generate` | Générer le wiki                       |
-| `pnpm openwiki:serve`    | Servir le wiki localement (port 3001) |
+| `pnpm openwiki:init`     | Générer le wiki (`openwiki --init`)   |
+| `pnpm openwiki:generate` | Mettre à jour le wiki (`--update`)    |
+| `pnpm openwiki:serve`    | Servir le wiki localement (port 4321) |
 
 **Exemples :**
 
 ```bash
-# Générer le wiki
+# Mettre à jour le wiki
 pnpm openwiki:generate
 
 # Servir le wiki localement
@@ -116,11 +112,11 @@ pnpm openwiki --help
 
 ### Commandes combinées
 
-| Commande             | Description                                          |
-| -------------------- | ---------------------------------------------------- |
-| `pnpm docs:generate` | Générer toute la documentation (OpenSpec + OpenWiki) |
-| `pnpm docs:setup`    | Configurer le système de documentation               |
-| `pnpm docs:validate` | Valider les spécifications                           |
+| Commande             | Description                            |
+| -------------------- | -------------------------------------- |
+| `pnpm docs:generate` | Mettre à jour le wiki (OpenWiki)       |
+| `pnpm docs:setup`    | Configurer le système de documentation |
+| `pnpm docs:validate` | Valider les spécifications             |
 
 ## 📝 Création de spécifications
 
@@ -242,27 +238,21 @@ functionName(param1, param2);
    pnpm openspec:validate
    ```
 
-4. **Générer la documentation**
-
-   ```bash
-   pnpm openspec:generate
-   ```
-
-5. **Créer la documentation wiki**
+4. **Créer la documentation wiki**
 
    ```bash
    # Créer wiki/new-module.md
    ```
 
-6. **Générer le wiki**
+5. **Générer le wiki**
 
    ```bash
    pnpm openwiki:generate
    ```
 
-7. **Vérifier la documentation**
+6. **Vérifier la documentation**
    ```bash
-   pnpm docs:generate
+   pnpm docs:validate
    ```
 
 ### Pour une mise à jour

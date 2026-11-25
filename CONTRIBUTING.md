@@ -5,8 +5,7 @@ auto-hébergé, qui réunit le travail quotidien d'un engineering manager.
 
 ## Environnement
 
-- Node.js 22.12 ou plus récent (engines du vitest 5 du socle), pnpm via
-  corepack (`corepack pnpm`).
+- Node.js 24 ou plus récent, pnpm via corepack (`corepack pnpm`).
 - cloner puis installer : `pnpm install` ;
 - vérification complète (lint, format, types, tests) :
 
@@ -29,8 +28,6 @@ Les versions sont arbitrées par [Changesets](https://github.com/changesets/chan
 
 - Conventional Commits : `type(scope): résumé`, types `feat`, `fix`, `chore`,
   `refactor`, `test`, `docs` ;
-- chaque commit porte un `Signed-off-by:` conforme à l'identité git
-  (`git commit -s`), vérifié en CI (DCO) ;
 - toute nouvelle dépendance doit être compatible avec la licence
   Apache-2.0 : ni GPL, ni AGPL, ni SSPL.
 

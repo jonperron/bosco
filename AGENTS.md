@@ -25,7 +25,7 @@ working on it, and the `.vibe/rules/*.md` files before any commit.
   migrations
 - Tests: Vitest at every level; releases: Changesets; deploy: one Docker
   image, docker compose
-- CI: GitHub Actions — tests, OpenAPI contract check, DCO, i18n fr/en
+- CI: GitHub Actions — tests, OpenAPI contract check, i18n fr/en
 
 ## Principles (they are also code rules)
 
@@ -69,7 +69,7 @@ them:
 - [Testing](.vibe/rules/testing.md): TDD workflow, coverage targets, test
   types.
 - [Commit messages](.vibe/rules/commit-messages.md): Conventional Commits,
-  DCO sign-off, attribution trailer.
+  attribution trailer.
 
 ## Subagents
 

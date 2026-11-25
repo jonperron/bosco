@@ -8,7 +8,6 @@
 import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { execSync } from 'node:child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -106,33 +105,8 @@ defaultWiki.forEach(({ name, path }) => {
   }
 });
 
-// Try to run openspec init
-try {
-  console.log('\n🔍 Attempting to run openspec init...');
-  execSync('npx @fission-ai/openspec init --yes', {
-    cwd: projectRoot,
-    stdio: 'pipe',
-  });
-  console.log('✅ OpenSpec initialized');
-} catch (error) {
-  console.log('ℹ️  OpenSpec init skipped (already initialized or error)');
-}
-
-// Try to run openwiki init
-try {
-  console.log('\n🔍 Attempting to run openwiki init...');
-  execSync('npx openwiki init --yes', {
-    cwd: projectRoot,
-    stdio: 'pipe',
-  });
-  console.log('✅ OpenWiki initialized');
-} catch (error) {
-  console.log('ℹ️  OpenWiki init skipped (already initialized or error)');
-}
-
 console.log('\n✨ Documentation setup complete!');
 console.log('\nNext steps:');
-console.log('  1. Run: pnpm openspec:validate');
-console.log('  2. Run: pnpm openwiki:generate');
-console.log('  3. Run: pnpm docs:generate');
+console.log('  1. Run: pnpm openspec:init (once), then pnpm openspec:validate');
+console.log('  2. Run: pnpm openwiki:init (once), then pnpm openwiki:generate');
 console.log('\nOr run: pnpm openspec and pnpm openwiki for CLI access');

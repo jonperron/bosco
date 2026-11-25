@@ -30,7 +30,7 @@ Le socle v0 (fondation) de Bosco ne contient **aucune fonctionnalité de managem
 - [ ] Une donnée chiffrée par le module d'exemple reste illisible en base
 - [ ] On exporte puis on supprime toutes les données d'une personne
 - [ ] L'interface existe en français et en anglais
-- [ ] La CI est verte : tests, contrôle du contrat OpenAPI, vérification du DCO
+- [ ] La CI est verte : tests, contrôle du contrat OpenAPI
 
 ## 🏗️ Architecture
 
@@ -68,7 +68,7 @@ bosco/
 
 ### Prérequis
 
-- Node.js >= 22.12
+- Node.js >= 24
 - pnpm >= 9.0.0
 - Docker + Docker Compose
 - PostgreSQL (ou via Docker)
