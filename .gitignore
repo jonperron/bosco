@@ -22,14 +22,8 @@ coverage/
 .openspec/.tmp/
 .openspec/*.log
 
-# OpenWiki
-.openwiki/cache/
-.openwiki/checkpoints/
-.openwiki/*.log
-
 # Generated documentation (keep source specs)
 docs/specs/
-docs/wiki/
 
 # generated typed API client (rebuilt from the committed contract)
 packages/api-client/src/gen/

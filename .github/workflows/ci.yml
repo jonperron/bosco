@@ -29,11 +29,6 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        # swagger-ui-dist (via @nestjs/swagger) depends on @scarf/scarf, whose
-        # post-install, run by pnpm 9, sends install telemetry to scarf.sh;
-        # SCARF_ANALYTICS=false opts out.
-        env:
-          SCARF_ANALYTICS: 'false'
         run: pnpm install --frozen-lockfile
 
       - name: Lint

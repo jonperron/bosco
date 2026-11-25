@@ -8,11 +8,10 @@ AGENTS.md
 
 # Documentation generated files
 docs/specs/
-docs/wiki/
 
-# OpenSpec and OpenWiki configs
+# OpenSpec config, and the wiki openwiki generates
 .openspec/
-.openwiki/
+openwiki/
 
 # generated files
 packages/api-client/src/gen/

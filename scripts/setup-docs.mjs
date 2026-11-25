@@ -18,11 +18,8 @@ console.log('📚 Setting up Bosco documentation system...\n');
 // Ensure directories exist
 const dirs = [
   join(projectRoot, '.openspec'),
-  join(projectRoot, '.openwiki'),
   join(projectRoot, 'specs'),
-  join(projectRoot, 'wiki'),
   join(projectRoot, 'docs', 'specs'),
-  join(projectRoot, 'docs', 'wiki'),
 ];
 
 dirs.forEach((dir) => {
@@ -37,12 +34,6 @@ const openspecConfigPath = join(projectRoot, '.openspec', 'config.yaml');
 if (!existsSync(openspecConfigPath)) {
   console.log('\n⚠️  OpenSpec config not found. Creating default...');
   // We already created it, so this is just a fallback
-}
-
-// Check if OpenWiki config exists
-const openwikiConfigPath = join(projectRoot, '.openwiki', 'config.json');
-if (!existsSync(openwikiConfigPath)) {
-  console.log('⚠️  OpenWiki config not found. Creating default...');
 }
 
 // Check if package.json has the required dependencies
@@ -93,16 +84,12 @@ defaultSpecs.forEach(({ name, path }) => {
   }
 });
 
-// Create default wiki files if they don't exist
-const defaultWiki = [{ name: 'index.md', path: join(projectRoot, 'wiki', 'index.md') }];
-
-defaultWiki.forEach(({ name, path }) => {
-  if (!existsSync(path)) {
-    console.log(`⚠️  Default wiki file missing: ${name}`);
-  } else {
-    console.log(`✅ Wiki file exists: ${name}`);
-  }
-});
+// openwiki --init writes the wiki to openwiki/ at the repo root
+if (!existsSync(join(projectRoot, 'openwiki', 'index.md'))) {
+  console.log('⚠️  Wiki not generated yet: openwiki/index.md is missing');
+} else {
+  console.log('✅ Wiki exists: openwiki/index.md');
+}
 
 console.log('\n✨ Documentation setup complete!');
 console.log('\nNext steps:');
