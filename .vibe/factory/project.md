@@ -214,8 +214,10 @@ PR that raises a floor does it alone, on final numbers measured after rebase.
   finding, the candidates and the evidence, and merge only when they say
   so.
 - **Guardians PRs shall NEVER be auto-merged**, even if all CI checks are green and reviewers pass. Always report and wait for an explicit user decision before merging any PR that touches guardians.
-- Merge method for now: `--merge`, which keeps every commit. Lot 1
-  may codify another convention (squash, merge queue); write it here then.
+- Merge method: always `gh pr merge --rebase`, never `--merge` or
+  `--squash`. The `main` ruleset requires a linear history, which rejects
+  merge commits; rebasing also keeps every commit of the PR (user
+  decision, 2026-11-25).
 
 ## Behaviour baseline
 
