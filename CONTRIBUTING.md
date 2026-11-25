@@ -1,13 +1,15 @@
-# Guide du contributeur — bosco
+# Contributing guide — bosco
 
-Merci de votre intérêt pour bosco, un outil open source (Apache-2.0),
-auto-hébergé, qui réunit le travail quotidien d'un engineering manager.
+English · [Français](CONTRIBUTING.fr.md)
 
-## Environnement
+Thank you for your interest in bosco, an open-source (Apache-2.0),
+self-hosted tool that gathers an engineering manager's daily work.
 
-- Node.js 24 ou plus récent, pnpm via corepack (`corepack pnpm`).
-- cloner puis installer : `pnpm install` ;
-- vérification complète (lint, format, types, tests) :
+## Environment
+
+- Node.js 24 or newer, pnpm through corepack (`corepack pnpm`);
+- clone, then install: `pnpm install`;
+- full check (lint, format, types, tests):
 
   ```bash
   pnpm lint
@@ -16,30 +18,29 @@ auto-hébergé, qui réunit le travail quotidien d'un engineering manager.
   pnpm test
   ```
 
-- tout nouveau workspace reprend le même jeu de scripts (`build`, `lint`,
-  `test`, `typecheck`), orchestrés par Turborepo.
+- every new workspace provides the same set of scripts (`build`, `lint`,
+  `test`, `typecheck`), orchestrated by Turborepo.
 
 ## Versioning
 
-Les versions sont arbitrées par [Changesets](https://github.com/changesets/changesets)
-: pour tout changement visible, ajouter une entrée avec `pnpm changeset`.
+Versions are managed with [Changesets](https://github.com/changesets/changesets):
+for any user-visible change, add an entry with `pnpm changeset`.
 
 ## Commits
 
-- Conventional Commits : `type(scope): résumé`, types `feat`, `fix`, `chore`,
-  `refactor`, `test`, `docs` ;
-- toute nouvelle dépendance doit être compatible avec la licence
-  Apache-2.0 : ni GPL, ni AGPL, ni SSPL.
+- Conventional Commits: `type(scope): summary`, types `feat`, `fix`, `chore`,
+  `refactor`, `test`, `docs`;
+- every new dependency must be compatible with the Apache-2.0 licence: no
+  GPL, AGPL or SSPL.
 
-## Propriété d'un dossier
+## Working on a change
 
-- une branche par contributeur, ouverte sur `main` ;
-- toujours travailler dans son propre worktree ou clone, jamais sur la
-  branche courante d'un autre ;
-- ne pas merger une PR soi-même : la revue passe d'abord par les
-  mainteneurs.
+- one branch per contributor, opened against `main`;
+- always work in your own worktree or clone, never on someone else's
+  current branch;
+- do not merge your own PR: review goes through the maintainers first.
 
-## Charte de collecte des données
+## Data collection charter
 
-Toute contribution qui touche les données Personnelles doit respecter la
-[charte de collecte des données](docs/data-collection-charter.fr.md).
+Every contribution that touches personal data must respect the
+[data collection charter](docs/data-collection-charter.en.md).
