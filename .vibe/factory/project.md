@@ -27,7 +27,7 @@ rules override the [provisional] wording.
 
 ## Stack
 
-- **Runtime: Node.js ≥22.12** — required by vitest 5.x (earlier LTS versions are incompatible).
+- **Runtime: Node.js ≥24** (current LTS; also covers vitest 5.x, which needs ≥22.12).
 - Monorepo: pnpm + Turborepo; npm scripts only through pnpm
 - Backend: NestJS (`apps/api`), OpenAPI generated from routes, typed client
 - Frontend: React + Vite (`apps/web`), i18n fr/en

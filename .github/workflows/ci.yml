@@ -25,12 +25,13 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: pnpm
 
       - name: Install dependencies
-        # pnpm 10 asks every dependency's post-install to agree to telemetry;
-        # SCARF_ANALYTICS=false declines the scarf.sh telemetry at install time.
+        # swagger-ui-dist (via @nestjs/swagger) depends on @scarf/scarf, whose
+        # post-install, run by pnpm 9, sends install telemetry to scarf.sh;
+        # SCARF_ANALYTICS=false opts out.
         env:
           SCARF_ANALYTICS: 'false'
         run: pnpm install --frozen-lockfile

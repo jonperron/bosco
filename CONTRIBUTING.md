@@ -5,8 +5,7 @@ auto-hébergé, qui réunit le travail quotidien d'un engineering manager.
 
 ## Environnement
 
-- Node.js 22.12 ou plus récent (engines du vitest 5 du socle), pnpm via
-  corepack (`corepack pnpm`).
+- Node.js 24 ou plus récent, pnpm via corepack (`corepack pnpm`).
 - cloner puis installer : `pnpm install` ;
 - vérification complète (lint, format, types, tests) :
 

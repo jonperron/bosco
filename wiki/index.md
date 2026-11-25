@@ -68,7 +68,7 @@ bosco/
 
 ### Prérequis
 
-- Node.js >= 22.12
+- Node.js >= 24
 - pnpm >= 9.0.0
 - Docker + Docker Compose
 - PostgreSQL (ou via Docker)
