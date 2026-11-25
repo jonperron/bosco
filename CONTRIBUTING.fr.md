@@ -1,5 +1,7 @@
 # Guide du contributeur — bosco
 
+[English](CONTRIBUTING.md) · Français
+
 Merci de votre intérêt pour bosco, un outil open source (Apache-2.0),
 auto-hébergé, qui réunit le travail quotidien d'un engineering manager.
 
@@ -41,5 +43,5 @@ Les versions sont arbitrées par [Changesets](https://github.com/changesets/chan
 
 ## Charte de collecte des données
 
-Toute contribution qui touche les données Personnelles doit respecter la
+Toute contribution qui touche les données personnelles doit respecter la
 [charte de collecte des données](docs/data-collection-charter.fr.md).
