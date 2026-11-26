@@ -106,7 +106,15 @@ pnpm typecheck
 pnpm test                       # vitest, all workspaces, via turbo
 pnpm openapi:check              # contract: generated OpenAPI matches committed
 pnpm i18n:check                 # fr and en keys in sync
+pnpm test:e2e                   # Playwright smoke: builds, API serves the app, Chromium
 ```
+
+`pnpm test:e2e` needs Chromium once per machine:
+`pnpm --filter @bosco/web exec playwright install chromium`. If it cannot be
+installed, say so in the report; the CI `e2e` job must then prove it. The
+SPA fallback (deep links) 404s when the checkout path holds a dot directory
+(e.g. `.claude/worktrees/`): run it with `WEB_DIST` set to a dot-free symlink
+of `apps/web/dist`.
 
 If `pnpm install --frozen-lockfile` fails only because `pnpm-lock.yaml` on
 `main` lags a release, say so in the report and go on; any other failure
