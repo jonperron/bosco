@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:7fd77725d78f4adb283bb37dbf1df4a32d35cf2e4ee37addbc2987224527f626",
+  "claims": [
+    {
+      "id": "claim_13ace083706944d5ad4545ec77965c1c",
+      "statement": "Each task runs the routed reviewer first, then build, linter and test when no CRITICAL or MAJOR issue remains, adds security for crypto, OIDC, rights or dependency changes, and ends with docs-sync for behaviour or API changes.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L74-L84",
+          "version": "repo-lines-v1:sha256:b85ade4a8707a27c52e4089893f555302763b2e60b16cb8b1e0c097c9d4450ac:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZjY2E1NTg2MzRjMzEyMmE1ZTBiYzc5ODI4ZTE4ZDhhZWU5ZTAxMmEwMmVlNzg1NjYyYWIzNjEwN2RkNzYyMTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkzZmYxNDNhOTZiMjFlMTA4ZmZlYWFjNTE4YTFhNTgxYTAzYTE0ZjE1MGFmMWYzMmE2M2JjN2ZhNjY2ZGFjMDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImViMzJmMDMxYTY0OThmMDJmNWJlMTllMjkyZmY5MmYzNGMxOThkYzRlYTYyYjY3NDhjMGRkYzliMDI2NmRlMDEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f18654fb7be347ebb982a05990dd34ac",
+      "statement": "Multi-issue and PR work is delegated to the issue-driver, pr-consolidator, pr-rebaser, bot-review-responder and behaviour-differ factory agents, each in its own worktree except the read-only behaviour-differ.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L85-L102",
+          "version": "repo-lines-v1:sha256:d7d333ffb0bae020a4eb1d6b1991cd3d954dfeb1950dfdb2ea39aaff3cca9d99:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4YmEwZmM4NGE1NTdjZjAzOTQ5NzNiMTE1YWMyOTE1NjNkODA3NmU2NDM2YTRiNWZmZDcwYTI1ZDkxYTE3NDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNlMGRjY2NiNTAyN2Q4NWY0NmYxZGFlNjA2NWExZGZmMTFhZDg3YmJmMzhkMjQyNWQ2MGU0OTE4MDM1ZGIxODEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVlMzM0NGM1MjBkYzg4YzEwYThhYTk1YTI5ZTk5ZThhZjJlMGU4NTIwMWNlNjFmNjY2NWQxN2ZjZjIzY2UyY2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImViMWJjNWJjNGEyMzdmNTc4ZTZhZjRhNDE1ZDA2NDdmOTkxMGIwM2IzNjRlMWUyN2MxZjFkYmFhNzQzZDAzYmEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e9ecae53491244a1bacce05798860a80",
+      "statement": "The quality loop repeats change, gate, routed review and triage for at most five rounds, and every behaviour change or fix starts with a test seen failing on the old code.",
+      "evidence": [
+        {
+          "resource": "repo://.vibe/factory/loop.md#L11-L30",
+          "version": "repo-lines-v1:sha256:49439f608ab2a1e26b828a9d56bfac83b160881561370f30c8f078f9d488f155:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI0ZDIzMDhjNjcwODk2OWExODUzODNmZmE0NjBiYmZhZGIyM2ZhNWU1M2E4OWNjYzhlMzFlNmQyODc2MjNmZjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmNGQzMTE5MTA2MTJlMjJhMDE0ZmY4ZGFhNjYxODFhZjBiNTIxYWU3OGJjMDAwNDJjNThkOTlmYWE4OTAyMmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJkNDY2MTc3MWIyYjZkMGExODVjOWMxNGRhOWJlNjU2ZmViMDM4MGM4NTBiM2RlNzk0NTgwMjYxNzgyNmUxODAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE5MmFiZDE0YzI2MWM0NzFlZTM5YzUzMzUyMWIwZDY5Y2M0YTVjMWQ2M2E3MzVhOTE4MmFlYjAxODAyMzczNjIifQ"
+        },
+        {
+          "resource": "repo://.vibe/factory/loop.md#L63-L84",
+          "version": "repo-lines-v1:sha256:269852a433b167d61a62f33b8b7535f0bde43430013e5faba5f909b58bca9a38:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM5NTk2ZmQ2NjdjNTZhY2FkMmI1OWM5NGY0MTA5NDljYjM1NGM5NzYzYTczZmE5M2Q4YmY1ZjQ2ZTMzMWUwNGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM4MzQ4YjJkZjQyYjAwMWExYWM0ZjFhOTNhYzBhY2U4OGM5OWVlM2FiMzQ5M2VlNGY2MzY0MjQwZDlmZGYwZjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVjYzMwZGM0NzhjN2U1NjcxNDhhZmZiNjRhNTFkNzYyM2IzODU2ZjVhMWQyOGQwNTYwYWYxOTc3NmRmYjdkM2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRmMzlhNTY0OWViYjVjYWEzNjMzODIzZjVjMzkzZWRmMzdiNGM3MTUxYzNmYzE3ZmI2MzgwMjUwYjdkMjBjYmEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_845d761d20684a849832cee0056b2131",
+      "statement": "After a push, agents watch every CI check to completion and handle automated review comments in exactly one round.",
+      "evidence": [
+        {
+          "resource": "repo://.vibe/factory/loop.md#L126-L171",
+          "version": "repo-lines-v1:sha256:320396cfa9c0c0616fc85980004551883bb82b38326a64a1fba12804127d50d8:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRiN2FiMjgzYzIwYmRjYzMxNTM0YzVlMTRjYThhMzU2Nzc4ZGE3MzNjOGRhOGUxYTgyMGYwNWZjYmY3NDlhZDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRjMGExMzI0MjhjMmU3MjRjMzhkMDBjNmQ2ZjBlNDYyYjY2MjViODkwZGNmYjI1NDExMTA5NzdlZjVmMTQ2MTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFjNjBiMTgxZjFjMTgxOGQ3MjRlNzFhMWI3NjU2MzFhZjI3MDA1OGZhNzkzOTBlMDkwOTFhYjk5NDNjMjlhNGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxM2ExMmNhMTc5ZmQ1NjRhMTg0OWI5MDIwN2E2Y2QzMTdkMTA5OTY4M2ViNzBjOWU3YTQ1ZjM5ZjIwOTVmYTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_07b648a9f66f4c899f16b1bfbacb6817",
+      "statement": "Commit messages use English Conventional Commits with lowercase imperative subjects of at most 72 characters and types feat, fix, chore, refactor, test and docs.",
+      "evidence": [
+        {
+          "resource": "repo://.vibe/rules/commit-messages.md#L1-L29",
+          "version": "repo-lines-v1:sha256:4f5046b484e69a7f95bdbceb18a933c9dedd1e6891e2eab7aa108a161938ae92:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwMWQxZGZiZTZiNTdmNDQ2NTYwYzRlYzVhYzU4NDQ3MzUwNTk5NWZmODA0ZWY2MTI4MDlmNjYwMzE2ZGFmZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YzA2YzU2MWQ1YzMyNzM0MzY4NTI2OGE0NmIzMzkxZjM5OThlZWU4OTBkMmJlNTFmMGQyMWNjNGE1M2FlNmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3b1c742d7a614f459b312820b0906ee2",
+      "statement": "New dependencies must state an Apache-2.0-compatible licence (no GPL, AGPL or SSPL) and test fixtures must stay anonymous.",
+      "evidence": [
+        {
+          "resource": "repo://.vibe/factory/project.md#L81-L96",
+          "version": "repo-lines-v1:sha256:4cccedb605eb9a78c46573b594f12e63e080d95bdeeae942c130b7d10cf2bb2a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJjOGM1ODI0YjQwYmZkNmRjMWE4M2QzYWNjOGExYjM5NjdmNGU0YmRmNDJhZTYwMDY4ZDNlYmRhMDQ3ODFlYmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI0NDc0YzAzODc0NjBhZWEzNTAzNmQxODhjYjkwMWQ4NzZjNzU3NDRkZDAxNzE4YzI1OGFjY2U5ODVjZDI0MmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM1YjM4NmJiNjk0ZTk1ZWZiMDY2ZjIyYjUzNGNhMWY5NmY2MWE2NTRjM2EzZTNiZmEwYmIzZmQ2ODJmM2U4ZmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_fb5aaaf1af124ae3b6e8ba1057869112",
+      "statement": "The reviewer routing table maps changed paths to reviewer subagents, and docs-only changes need no reviewer.",
+      "evidence": [
+        {
+          "resource": "repo://.vibe/factory/project.md#L127-L144",
+          "version": "repo-lines-v1:sha256:625debd8cff80902a2b1ebae2d1a08f0e0170eeed41b733f217c6380e3c370e3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZkMmE4ZGE1MDZiNThiMzhkMDhkM2ZkMWVhNDBkZThiYmUxNDQ5OWIxYjJhZjc1ODJhYWFlNDI4NzkzNjEzMmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA4N2E3Y2M3NjgwNTMzYjg4NzNkYmM5MWZjOTk3MzVkZjA0ZmZjMDQyNDYyZmRkZWJmZWEwMmY1MzViZjBmYmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZTdkM2RmMjhiNmI3YTM4ZmE1MWVhNzRlZGU3NjQxY2ZmMzE1MzBiMDMxNjExNjZhMzNhNDM4NmZiNmE1YzUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_952f74b53196458a8102ef7a41d54809",
+      "statement": "sourcery-ai[bot] reviews each new PR, and its comments are read and replied to through the GitHub API.",
+      "evidence": [
+        {
+          "resource": "repo://.vibe/factory/project.md#L169-L183",
+          "version": "repo-lines-v1:sha256:b41229e444da7a0d6ba8e54fa47895a9f9fb6a9f425707609447652b4a41216a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgzODFiNmFiNmY2NzEzMzhjYzc5NzVlMmRlOGM1MzI5Mzg2Y2NmNjA4ZGU2NDQ3OGVlZTYzNjVkYWY3ZjVkM2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ3ZGQ3NDQ2OTg5N2U2MTdkOWEyZWYxYTY1OTIxZTE2NWIyM2VjMjJmZDRlY2I3MTg1YjE5MTk4ZDQxMWFlZTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ5Mjc4ZGM1NTEzZTIyZDU5YWU2NmM4ODZhZjVhNDY4ODcxM2M4OWEwMTk5ZmUwMmUwNjI0ZmZmNzA2NDJmYWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2054011ee9cc43948c695eaab462b296",
+      "statement": "PRs merge with gh pr merge --rebase only when all checks finished green, no thread is unanswered and the branch contains origin/main, and PRs touching guardians such as .github workflows, .vibe/factory, .vibe/rules or root manifests are never auto-merged.",
+      "evidence": [
+        {
+          "resource": "repo://.vibe/factory/project.md#L184-L229",
+          "version": "repo-lines-v1:sha256:70f661e38f7f17a0329320f18f8de201717da251bb226b73d2f323d03b810346:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzMmM3ZDRlODE2OGE2NDBmMGJlMmM3YjM4ZGIyYzI3NTAzMWIyZDU2YmFjZTJkZjQyMjQ3YmI1ZTJiNjBkNWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIyNjYyMTAxYzYwODgyZjhlMTIzMDg4ZjdhNDBmNDc0N2IzMjg3NDkzMDRkMjdlNTNhMWJlNjRjMjhhZWYxMjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI3NGU2YTEwNTdlOTlmNjkyNmY0Yzc3ZDgzZjdhM2QwY2NlYzVjN2JiMmYyZjUwODI0ZWRjZDllZDJmMThiYjUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_00329130f6894460bd6b775e7eb310f4",
+      "statement": "The behaviour baseline is the sorted OpenAPI document plus, later, the replayed schema dump, compared between refs.",
+      "evidence": [
+        {
+          "resource": "repo://.vibe/factory/project.md#L230-L246",
+          "version": "repo-lines-v1:sha256:d5a410c40a8539b8841619d0d7a8930b18133337f5435dda9958150392082938:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNlZjVkMjdlMjBlY2JjNmJiYTkyMGQ2NTFhZjI5NTY4YjZiZDc2OGNiODIyZmQ0OTQ3ZmI5M2Y5ZGM0YWY3M2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkwNDlhZGNjMzE4ZGExNzg2OWExNGY5NDY1ZmQ5NWU4MmM4MWRjYTRiYTM4MWI4OWMyMTczYjA4MzFjN2UwZmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE3YjY0NGUyZTNhNjllMWJiZjE1OTk3ZmY0MWRiY2JlNDIyYzEwNTgyNTRiY2JhYjZlYWEwM2QzNWQ1NWI0MGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-11-26T18:56:03.534Z"
+  }
+}

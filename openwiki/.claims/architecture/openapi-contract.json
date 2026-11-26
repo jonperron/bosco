@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:b62c35f2fec121d076abf946664c25e3d01686fdcb6a719b8e4c38b8fa429029",
+  "claims": [
+    {
+      "id": "claim_2c70d4e1df8c44c7bc5ca8a20f20417d",
+      "statement": "buildOpenapiDocument is the single builder of the OpenAPI document, used both by the Swagger UI and by the committed contract generation.",
+      "evidence": [
+        {
+          "resource": "repo://apps/api/src/app.factory.ts#L57-L59",
+          "version": "repo-lines-v1:sha256:a6480cbeb7f2449ab71d194d7c81a8a38542270057c0aedc1aafa06139a0b8ed:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDAzMzM4OWFkMzI4ZWYyNmMwZTYwNDg3YmQ4MjcwODc0MDJkMGE4ZmNiNWVjYmUyNzM1MWMzNGE4NGE3OGY4ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzEyZGExZDVjMzNiZDcwNzExNmY0OTNmNDZiNGEzZmFjY2JjNjk3NjAwNTY2YThmOGY0MDY5MmM2MmRmMWY2OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzE4OGU5MDViZmJmOTY2NjQ4YWM3YzUxZTMwNzljNzRhNzRjMjA2MGNhZmNhNWMyZTA2MzE0MTVlMTE2ODRmNiJ9"
+        },
+        {
+          "resource": "repo://apps/api/src/openapi.ts#L4-L20",
+          "version": "repo-lines-v1:sha256:80e5a5cb987ca63ba334636da94889a9f968486ce0095c48f90d9e47c2f4b570:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImViNjMxYjE4MzI5MDljY2VmYzQ4ZDI0NjM5OTJlMmRmMzY2ZTQwMGNjOWVhMzdhYTU5MGQ1Mzc0Zjk5MDEyMTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a4561a8a46e74cabafc9b9d44f455591",
+      "statement": "The generator script creates the app with apiDocs enabled and writes apps/api/openapi.json with object keys sorted recursively while preserving array order.",
+      "evidence": [
+        {
+          "resource": "repo://apps/api/scripts/generate-openapi.ts#L12-L44",
+          "version": "repo-lines-v1:sha256:f91766d8732e5c6222e5b33e86f954d44e1e7156ec30deb947e092825516d116:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmMTIxZDQ3Yjk5Yzg4ZTdmMjkzYzhiNDAwMDRkZDUyODVhNmY4ZDYzZjk1YWExMTQ3NWJmYjc0ZjExYWYxZWYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdhODRiNTY4MjE5OWVlODQxZWU4MmNmOWZkNzcyNDNiZmRkYThiMjM0Zjc5YmQwMzRmOWU2MzdiNDhhOWQ1ZWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c7f7d0e6dcc64b5b8abd924ea2136844",
+      "statement": "pnpm openapi:check regenerates the contract and fails when apps/api/openapi.json differs from the committed version.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/ci.yml#L42-L43",
+          "version": "repo-lines-v1:sha256:017bffa39cd4abe1bf00e7d901b5cd754f055c7b462c9e9c9fe23ffcb7788893:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTA3MWQ2YmZjNTE2ZTNkYWM1ZDAyMDhlZmM2NjM5NjE3MmU1MTRlNDIxMjM4NWVkYzY1YmYwNTRlZjFmZjlhYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmEzZWVmZjUwNGM4MjljNTIyNmM2YjExZTU0NDBmNjdhMGNhNzQwNmI5YmNjMTgyY2Y4ZjZhMjUwNTgzNDVlNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmQ2ODViNjg4YmJkMWQyNzY2MzBhZjQzZjE0ZjcwYWRjZTExYWEyN2ViMTI4YTMzYWI0YmM1NWYxZWVkODEzNiJ9"
+        },
+        {
+          "resource": "repo://package.json#L17-L17",
+          "version": "repo-lines-v1:sha256:3d9dd5cb3fa9d598f87f0c73d0f6dd21c59eb211a671f06ff3419d5f4f6d87e1:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2Q5ZGQ1Y2IzZmE5ZDU5OGY4N2YwYzczZDBmNmRkMjFjNTllYjIxMWE2NzFmMDZmZjM0MTlkNWY0ZjZkODdlMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2Q5ZGQ1Y2IzZmE5ZDU5OGY4N2YwYzczZDBmNmRkMjFjNTllYjIxMWE2NzFmMDZmZjM0MTlkNWY0ZjZkODdlMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzczYzc0YzVlZTgxOGUyZmJhYmYxOTQ5NTQ4YmJlMzllNGVkNWVlZGI5MmY3N2ZmZGUyMmY5Yzk0MjY4MTZhMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDJkZWNhNzBjZTdkMzc2ZTViNTExN2E4YTFjZmQ0ZWU2MThiNzMzMTA4YjA4Nzc4MmQ1M2RkMDAxNDBhOGJjNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_54c58c50ae8547b99702963e32bd17b5",
+      "statement": "@bosco/api-client generates its types from apps/api/openapi.json with openapi-typescript into git-ignored src/gen and wraps openapi-fetch createClient typed with those paths.",
+      "evidence": [
+        {
+          "resource": "repo://.gitignore#L27-L28",
+          "version": "repo-lines-v1:sha256:f2845dc8749ec2128fcfcc76d48e3cb4a75e18b21685a49b72e034930fa226c7:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDkwMjc2MzEzYzkwOTI1NDMyZmUwZThlMmM4MDAxMjEzYmIxYTgyZDkxNDhhZDg1M2E1MWZiNDZhNWY5N2JjZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTQwMjMzNDU5N2MwZWZhZTQ5ZTQ4MDI0MTQ2NzBlMTMxZDMyNjJmOTA0MWViMzRkMTY0N2ZjYWM1NGEzOTRmMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDRjYzVmZWU5NzIwNThhZDA0YjE4YjU4ODQzYjk1MjhlODRkY2NmNjZjNjgyM2NmYmE1YTMwYTljMDk5MGJiMCJ9"
+        },
+        {
+          "resource": "repo://packages/api-client/package.json#L17-L26",
+          "version": "repo-lines-v1:sha256:8b912d8c0d00501d62d066e86071391cc40d61d8e1c70883713a262553b39c1f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0ODMzZDU5NDljMDNhNDBjYTk1MjQ5MTYxMGE2NjU5NjQ0YjNhYTQ2NjM2MmY3OTkwMjBkYmYxOTgxNTQ3ZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkNWNkMmZiNGYzZGY4ODQ1MTUyNTViMzk1MjNmMmY4YjU0NzJiZWVhOWY1NjZmZmNhMjA0ZGI4MDI1NjEwNDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyNjdiMjczZTE4YWNhOTY1MDNlMmJiYjU4NGQ1Mjc4MGM1MzVjYTJlZTk5MjA2ZDlmMDUyZmRjZmZkYTBjODIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU0YTRhZDc3MTY5N2M3ZmFmYjIwNWNmMzVkOTUyOTQ0NThkOTMyNmYwYWU4ZTU1YmY5YzEyMTE2NWQ1MWYxNTMifQ"
+        },
+        {
+          "resource": "repo://packages/api-client/src/client.ts#L1-L13",
+          "version": "repo-lines-v1:sha256:bf58b6e54d799fe19a68e5219897c1366972f48e8d907ab93535b987eda0c4d4:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlhN2M2NzYxZjA5OTJjN2I1N2Y3NDcwZDJkZWVjZTUwZTIyMGEwOGYzZjM0YTk2OTQzMjE1MmZiNjIxNTU4ZjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA4ODcxNzgyY2U4YTg1NjI2NGQzMWQzNzQyY2M0MzFkOTk3OTU0YjdlNDU2ODYzMjRhMGVkNjljOWU3YWUyMGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4b0c2b9a937c4e24b360a16f99a8d57a",
+      "statement": "Turborepo makes build, typecheck and test depend on the generate task, whose input is apps/api/openapi.json and output src/gen.",
+      "evidence": [
+        {
+          "resource": "repo://turbo.json#L1-L26",
+          "version": "repo-lines-v1:sha256:301ad93ee39ffe1dc3d2a4992f839f8e54597aa24b54ee41d2b778f38d4ce539:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-11-26T18:56:03.534Z"
+  }
+}
