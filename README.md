@@ -4,6 +4,10 @@ Outil open source et auto-hébergé qui réunit le travail quotidien d'un
 engineering manager : les personnes, les tâches, les projets et les
 métriques d'équipe.
 
+Bosco simplifie la vie des managers ; ce n'est pas un SIRH. Seuls les
+managers (et l'administrateur de l'installation) l'utilisent : les personnes
+qu'ils encadrent sont des fiches tenues par le manager, sans compte.
+
 ## État
 
 Socle v0, lot 2 (squelette applicatif) : API NestJS avec route de santé
