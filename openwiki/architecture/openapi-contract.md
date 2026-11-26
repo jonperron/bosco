@@ -3,9 +3,6 @@ type: data-flow
 title: OpenAPI contract flow
 description: How the NestJS routes become the committed apps/api/openapi.json, how CI guards it, and how packages/api-client turns it into a typed openapi-fetch client used by the web app.
 tags: [openapi, contract, api-client, codegen, ci]
-verified:
-  - by: openwiki/0.4.3
-    at: 2026-11-26T18:56:03.534Z
 sources:
   - id: openwiki-source-164e2da859b5277df81c7d94
     resource: repo://.github/workflows/ci.yml
@@ -26,6 +23,9 @@ sources:
   - id: openwiki-source-440ae1e215cb02721dda855c
     resource: repo://turbo.json
 generated: { by: "claude-code", at: "2026-11-26T18:56:03.534Z" }
+verified:
+  - by: openwiki/0.4.3
+    at: 2026-11-26T19:14:34.660Z
 ---
 
 # OpenAPI contract flow

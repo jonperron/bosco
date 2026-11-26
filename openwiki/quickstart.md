@@ -3,9 +3,6 @@ type: guide
 title: Quickstart
 description: What Bosco is on main today, how to install it and run the checks, and where in this wiki to look for each kind of task.
 tags: [quickstart, onboarding, overview]
-verified:
-  - by: openwiki/0.4.3
-    at: 2026-11-26T18:56:03.534Z
 sources:
   - id: openwiki-source-80276df55c8da3940ca5955f
     resource: repo://apps/api/package.json
@@ -15,7 +12,10 @@ sources:
     resource: repo://CONTRIBUTING.md
   - id: openwiki-source-23775c3de52f3ab95a13cb8b
     resource: repo://README.md
-generated: { by: "claude-code", at: "2026-11-26T18:56:03.534Z" }
+generated: { by: "claude-code", at: "2026-11-26T19:14:34.660Z" }
+verified:
+  - by: openwiki/0.4.3
+    at: 2026-11-26T19:14:34.660Z
 ---
 
 # Quickstart
@@ -40,6 +40,15 @@ Then, in two separate terminals (each command stays in the foreground):
 pnpm --filter @bosco/api dev     # API on http://localhost:3000/api
 pnpm --filter @bosco/web dev     # Vite dev server, proxies /api
 ```
+
+Local database (Docker), for database work and `pnpm test:integration`:
+
+```bash
+docker compose up -d postgres && cp .env.example .env
+pnpm db:migrate && pnpm db:seed  # schema, then fictitious demo data
+```
+
+See [Core data model](architecture/data-model.md).
 
 Full gate, CI jobs and the browser smoke test:
 [Development workflow](workflows/development.md).
