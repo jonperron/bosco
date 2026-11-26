@@ -1,6 +1,14 @@
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitest/config';
 
-// Needs DATABASE_URL pointing at a Postgres where the role may create databases.
+// Needs DATABASE_URL pointing at a Postgres where the role may create databases. The repository
+// root .env is read when present; a variable already set in the environment wins.
+const rootEnv = fileURLToPath(new URL('../../.env', import.meta.url));
+if (existsSync(rootEnv)) {
+  process.loadEnvFile(rootEnv);
+}
+
 export default defineConfig({
   test: {
     environment: 'node',

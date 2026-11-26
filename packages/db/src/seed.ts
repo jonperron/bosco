@@ -1,4 +1,4 @@
-import { notInArray } from 'drizzle-orm';
+import { ne, notInArray } from 'drizzle-orm';
 import type { Database } from './client.js';
 import { managerAttachment, organisation, person, team, teamMembership } from './schema.js';
 
@@ -18,14 +18,20 @@ const NAMES = [
   ['Dominique', 'Omega'],
 ] as const;
 
-const PREVIOUS_PERIOD_START = new Date('2024-01-01T00:00:00Z');
-const CURRENT_PERIOD_START = new Date('2025-01-01T00:00:00Z');
+const DEMO_ORGANISATION_NAME = 'Demo organisation';
+const PREVIOUS_PERIOD_START = '2024-01-01T00:00:00Z';
+const CURRENT_PERIOD_START = '2025-01-01T00:00:00Z';
 
 // Fixed ids make the seed idempotent: a rerun conflicts on every primary key and inserts nothing.
 const KIND = { person: 1, team: 2, membership: 3, attachment: 4 } as const;
 function demoId(kind: keyof typeof KIND, index: number): string {
   const suffix = `${String(KIND[kind]).padStart(4, '0')}${String(index).padStart(8, '0')}`;
   return `00000000-0000-4000-8000-${suffix}`;
+}
+
+// Fresh Date objects on every call, so a caller mutating one cannot alter later results.
+function period(startedAt: string, endedAt: string | null) {
+  return { startedAt: new Date(startedAt), endedAt: endedAt === null ? null : new Date(endedAt) };
 }
 
 /** The demo organisation: 12 people, 2 teams, one manager change and one team change. */
@@ -42,7 +48,7 @@ export function demoData() {
   ];
 
   // [person, team or manager, start, end]
-  type Period = readonly [number, number, Date, Date | null];
+  type Period = readonly [number, number, string, string | null];
   const memberships: Period[] = [
     [2, 1, CURRENT_PERIOD_START, null],
     [4, 1, CURRENT_PERIOD_START, null],
@@ -73,54 +79,63 @@ export function demoData() {
   ];
 
   return {
-    organisation: { name: 'Demo organisation' },
+    organisation: { name: DEMO_ORGANISATION_NAME },
     people,
     teams,
     memberships: memberships.map(([member, teamIndex, startedAt, endedAt], index) => ({
       id: demoId('membership', index + 1),
       personId: personId(member),
       teamId: demoId('team', teamIndex),
-      startedAt,
-      endedAt,
+      ...period(startedAt, endedAt),
     })),
     attachments: attachments.map(([member, manager, startedAt, endedAt], index) => ({
       id: demoId('attachment', index + 1),
       personId: personId(member),
       managerId: personId(manager),
-      startedAt,
-      endedAt,
+      ...period(startedAt, endedAt),
     })),
   };
 }
 
 /**
  * Inserts the demo data; rows that already exist are left untouched, so reruns are no-ops.
- * Refuses to run when the database already holds people other than the demo ones.
+ * Refuses to run when the database already holds a real organisation, people or teams.
  */
 export async function seedDemoData(db: Database): Promise<void> {
   const data = demoData();
   const demoPersonIds = data.people.map((member) => member.id);
   const demoTeamIds = data.teams.map((demoTeam) => demoTeam.id);
-  await db.transaction(async (tx) => {
-    const otherPeople = await tx.$count(person, notInArray(person.id, demoPersonIds));
-    const otherTeams = await tx.$count(team, notInArray(team.id, demoTeamIds));
-    if (otherPeople + otherTeams > 0) {
-      throw new Error('Refusing to seed: the database holds non-demo people or teams.');
-    }
-    // Conflicts only on the fixed ids are expected; any other conflict must fail loudly.
-    await tx
-      .insert(organisation)
-      .values(data.organisation)
-      .onConflictDoNothing({ target: organisation.id });
-    await tx.insert(person).values(data.people).onConflictDoNothing({ target: person.id });
-    await tx.insert(team).values(data.teams).onConflictDoNothing({ target: team.id });
-    await tx
-      .insert(teamMembership)
-      .values(data.memberships)
-      .onConflictDoNothing({ target: teamMembership.id });
-    await tx
-      .insert(managerAttachment)
-      .values(data.attachments)
-      .onConflictDoNothing({ target: managerAttachment.id });
-  });
+  // Serializable: a concurrent serializable writer racing the checks below aborts the seed.
+  // shortcut: read-committed writers are not caught; take a table lock if seeding ever races them.
+  await db.transaction(
+    async (tx) => {
+      const otherOrganisations = await tx.$count(
+        organisation,
+        ne(organisation.name, DEMO_ORGANISATION_NAME),
+      );
+      const otherPeople = await tx.$count(person, notInArray(person.id, demoPersonIds));
+      const otherTeams = await tx.$count(team, notInArray(team.id, demoTeamIds));
+      if (otherOrganisations + otherPeople + otherTeams > 0) {
+        throw new Error(
+          'Refusing to seed: the database holds a non-demo organisation, people or teams.',
+        );
+      }
+      // Conflicts only on the fixed ids are expected; any other conflict must fail loudly.
+      await tx
+        .insert(organisation)
+        .values(data.organisation)
+        .onConflictDoNothing({ target: organisation.id });
+      await tx.insert(person).values(data.people).onConflictDoNothing({ target: person.id });
+      await tx.insert(team).values(data.teams).onConflictDoNothing({ target: team.id });
+      await tx
+        .insert(teamMembership)
+        .values(data.memberships)
+        .onConflictDoNothing({ target: teamMembership.id });
+      await tx
+        .insert(managerAttachment)
+        .values(data.attachments)
+        .onConflictDoNothing({ target: managerAttachment.id });
+    },
+    { isolationLevel: 'serializable' },
+  );
 }
