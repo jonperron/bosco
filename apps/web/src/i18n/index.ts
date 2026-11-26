@@ -54,7 +54,7 @@ if (!i18next.isInitialized) {
       lng: initialLanguage,
       fallbackLng: 'fr',
       interpolation: { escapeValue: false },
-      initImmediate: false,
+      initAsync: false,
     })
     .then(() => applyDocumentLanguage(initialLanguage));
 }

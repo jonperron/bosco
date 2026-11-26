@@ -7,9 +7,16 @@ import {
   i18n as i18nStore,
 } from '../src/i18n';
 
+// Read before any timer can run: the first render must already be translated.
+const initialisedAtImport = i18nStore.isInitialized;
+
 describe('i18n module', () => {
   beforeEach(() => {
     window.localStorage.clear();
+  });
+
+  it('is initialised synchronously at import', () => {
+    expect(initialisedAtImport).toBe(true);
   });
 
   it('exposes exactly fr and en', () => {
