@@ -18,6 +18,11 @@ auto-hébergé, qui réunit le travail quotidien d'un engineering manager.
   pnpm test
   ```
 
+- test de bout en bout dans un vrai navigateur (construit l'application,
+  servie par l'API) : installer Chromium une fois avec
+  `pnpm --filter @bosco/web exec playwright install chromium`, puis lancer
+  `pnpm test:e2e` ;
+
 - tout nouveau workspace reprend le même jeu de scripts (`build`, `lint`,
   `test`, `typecheck`), orchestrés par Turborepo.
 

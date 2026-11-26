@@ -18,6 +18,11 @@ self-hosted tool that gathers an engineering manager's daily work.
   pnpm test
   ```
 
+- end-to-end smoke test in a real browser (builds the app, the API serves
+  it): install Chromium once with
+  `pnpm --filter @bosco/web exec playwright install chromium`, then run
+  `pnpm test:e2e`;
+
 - every new workspace provides the same set of scripts (`build`, `lint`,
   `test`, `typecheck`), orchestrated by Turborepo.
 
