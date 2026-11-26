@@ -35,6 +35,8 @@ export async function createApp(options: CreateAppOptions = {}): Promise<INestAp
   app.use(
     helmet({
       contentSecurityPolicy: { directives: { upgradeInsecureRequests: null } },
+      // The app does not own its subdomains; leave their HSTS policy to the operator.
+      strictTransportSecurity: { includeSubDomains: false },
     }),
   );
   app.setGlobalPrefix('api');
