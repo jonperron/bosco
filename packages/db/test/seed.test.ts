@@ -29,6 +29,12 @@ describe('demoData', () => {
     }
   });
 
+  it('returns fresh dates, so mutating one result cannot alter the next', () => {
+    const first = demoData();
+    first.attachments[0]?.startedAt.setUTCFullYear(1999);
+    expect(demoData().attachments[0]?.startedAt.getUTCFullYear()).toBe(2025);
+  });
+
   it('keeps a manager-change history', () => {
     const closed = data.attachments.filter((attachment) => attachment.endedAt !== null);
     expect(closed.length).toBeGreaterThan(0);

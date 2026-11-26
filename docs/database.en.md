@@ -19,7 +19,7 @@ The host port is `${POSTGRES_PORT:-5432}`; if 5432 is taken, change
 `POSTGRES_PORT` and `DATABASE_URL` together in `.env`.
 
 The seed is idempotent and refuses to run when the database already holds
-people or teams that are not demo data.
+an organisation, people or teams that are not demo data.
 
 ## Tests
 

@@ -206,7 +206,11 @@ describe('core schema', () => {
     });
   });
 
-  it('refuses to seed into a database that holds real teams or people', async () => {
+  it('refuses to seed into a database that holds a real organisation, teams or people', async () => {
+    await db.update(organisation).set({ name: 'Real organisation' });
+    await expect(seedDemoData(db)).rejects.toThrow(/non-demo/);
+    await db.update(organisation).set({ name: demoData().organisation.name });
+
     await db.insert(team).values({ name: 'Real team' });
     await expect(seedDemoData(db)).rejects.toThrow(/non-demo/);
     await db.delete(team).where(eq(team.name, 'Real team'));

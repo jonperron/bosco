@@ -18,8 +18,9 @@ pnpm db:seed                    # données de démonstration fictives (example.c
 Le port hôte est `${POSTGRES_PORT:-5432}` ; si 5432 est pris, changer
 `POSTGRES_PORT` et `DATABASE_URL` ensemble dans `.env`.
 
-Le seed est idempotent et refuse de tourner quand la base contient déjà des
-personnes ou des équipes qui ne sont pas des données de démonstration.
+Le seed est idempotent et refuse de tourner quand la base contient déjà une
+organisation, des personnes ou des équipes qui ne sont pas des données de
+démonstration.
 
 ## Tests
 
