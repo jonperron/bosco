@@ -55,5 +55,7 @@ test('a deep link still serves the app', async ({ page }) => {
   const response = await page.goto('/people/42');
 
   expect(response?.status()).toBe(200);
+  // A redirect to / would also end on a 200 home page.
+  await expect(page).toHaveURL(/\/people\/42$/);
   await expect(page.getByText('Le socle de votre outillage managérial')).toBeVisible();
 });
