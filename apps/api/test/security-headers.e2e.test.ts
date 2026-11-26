@@ -36,6 +36,7 @@ describe('security headers', () => {
     expect(response.headers).not.toHaveProperty('x-powered-by');
     expect(response.headers['content-security-policy']).toContain("script-src 'self'");
     expect(response.headers['x-content-type-options']).toBe('nosniff');
+    expect(response.headers['strict-transport-security']).toBe('max-age=31536000');
     // Self-hosted installs may serve plain HTTP on a LAN address, where this
     // directive would upgrade the SPA's own scripts to an https URL that fails.
     expect(response.headers['content-security-policy']).not.toContain('upgrade-insecure-requests');
@@ -49,7 +50,12 @@ describe('security headers', () => {
     expect(response.status).toBe(200);
     expect(response.headers['content-security-policy']).toContain("script-src 'self'");
     // Every script of the page is an external same-origin file, so the CSP lets it run.
-    expect(response.text).not.toMatch(/<script>/);
+    const scriptTags = response.text.match(/<script\b[^>]*>/g) ?? [];
+    expect(scriptTags.length).toBeGreaterThan(0);
+    for (const tag of scriptTags) {
+      // A src without a scheme or a leading // stays on the page's origin.
+      expect(tag).toMatch(/\ssrc=["'](?![a-z][a-z0-9+.-]*:|\/\/)[^"']+["']/i);
+    }
     expect(response.text).toMatch(/<script src="[^"]*swagger-ui-init\.js">/);
   });
 });
