@@ -18,3 +18,7 @@ packages/api-client/src/gen/
 
 # generated contract, kept diff-friendly by the generator
 apps/api/openapi.json
+
+# Playwright outputs
+test-results/
+playwright-report/

@@ -13,6 +13,7 @@
     "format:check": "prettier --check .",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e",
     "openapi:check": "pnpm --filter @bosco/api generate:openapi && git diff --exit-code -- apps/api/openapi.json",
     "i18n:check": "pnpm --filter @bosco/web i18n:check",
     "openspec": "openspec",
