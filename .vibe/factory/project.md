@@ -145,8 +145,9 @@ changelog instead. Behaviour or API changes must update, through the
 
 - the relevant module doc or guide under `docs/` [provisional], fr and en;
 - a Conventional Commit type that matches the change (`fix` → patch,
-  `feat` → minor, `!` or `BREAKING CHANGE:` → major): release-please
-  builds the version and CHANGELOG from it;
+  `feat` → minor, `!` or `BREAKING CHANGE:` → major, or minor while the
+  version is below 1.0.0): release-please builds the version and
+  CHANGELOG from it;
 - `local/Plan socle v0.md` checkboxes only when a lot's done-criteria are
   met, and say so in the report — the plan files stay in French, and stay in
   `local/` (read them in the primary checkout).
