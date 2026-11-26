@@ -2,11 +2,17 @@ import { createRequire } from 'node:module';
 
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import type { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
 
+import type { NextFunction, Request, Response } from 'express';
+
 import { registerAppModule } from './app.module.js';
+import { resolveWebDist } from './config/web-dist.js';
 import { buildOpenapiDocument } from './openapi.js';
+
+const API_PATH = /^\/api(\/|$)/i;
 
 export interface CreateAppOptions {
   /** Directory of the built frontend to serve; null keeps the API only. */
@@ -22,8 +28,8 @@ export interface CreateAppOptions {
  * Testable entry point shared by main.ts and the OpenAPI generation script.
  */
 export async function createApp(options: CreateAppOptions = {}): Promise<INestApplication> {
-  const app = await NestFactory.create(
-    registerAppModule(options.version ?? '0.0.0', options.webDist ?? null),
+  const app = await NestFactory.create<NestExpressApplication>(
+    registerAppModule(options.version ?? '0.0.0'),
     {
       logger: ['error', 'warn', 'log'],
     },
@@ -39,6 +45,10 @@ export async function createApp(options: CreateAppOptions = {}): Promise<INestAp
       strictTransportSecurity: { includeSubDomains: false },
     }),
   );
+  const webDist = resolveWebDist(options.webDist ?? null);
+  if (webDist !== null) {
+    serveWebDist(app, webDist);
+  }
   app.setGlobalPrefix('api');
   // Unknown body fields are a 400, never silently dropped or mass-assigned.
   app.useGlobalPipes(
@@ -51,6 +61,27 @@ export async function createApp(options: CreateAppOptions = {}): Promise<INestAp
   await app.init();
 
   return app;
+}
+
+/**
+ * Serves the built frontend (production layout: one process, one port) and
+ * falls back to index.html for client-side routes, never for /api.
+ */
+function serveWebDist(app: NestExpressApplication, webDist: string): void {
+  app.useStaticAssets(webDist);
+  app.use((request: Request, response: Response, next: NextFunction) => {
+    if ((request.method !== 'GET' && request.method !== 'HEAD') || API_PATH.test(request.path)) {
+      next();
+      return;
+    }
+    // With root, send checks dotfiles only below webDist: a dot segment above it
+    // (~/.local/...) would otherwise turn every deep link into a 404.
+    response.sendFile('index.html', { root: webDist }, (error?: Error) => {
+      if (error !== undefined) {
+        next(error);
+      }
+    });
+  });
 }
 
 /**

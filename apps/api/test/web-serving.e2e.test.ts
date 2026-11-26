@@ -1,4 +1,4 @@
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
@@ -42,7 +42,7 @@ describe('API serving the web distribution', () => {
   it('never falls back to the SPA for unregistered API routes', async () => {
     runningApp = await createApp({ webDist, version: '9.9.9-test' });
 
-    for (const pathName of ['/api/nonexistent', '/api/a/b', '/api']) {
+    for (const pathName of ['/api/nonexistent', '/api/a/b', '/api', '/API/nonexistent']) {
       const response = await request(runningApp.getHttpServer()).get(pathName);
       expect(response.status, `GET ${pathName}`).toBe(404);
       expect(response.text, `GET ${pathName}`).not.toContain('id="root"');
@@ -55,5 +55,42 @@ describe('API serving the web distribution', () => {
     const apiRoute = await request(runningApp.getHttpServer()).get('/api/health');
     expect(apiRoute.status).toBe(200);
     expect(apiRoute.body['status']).toBe('ok');
+  });
+});
+
+// A dist under a dot segment (~/.local/..., .claude/worktrees/...) must still
+// serve deep links, while dotfiles inside the dist stay private.
+describe('API serving a web distribution under a dot-segment path', () => {
+  let dottedRoot: string;
+  let dottedDist: string;
+
+  beforeEach(() => {
+    dottedRoot = mkdtempSync(path.join(tmpdir(), 'bosco-web-dist-'));
+    dottedDist = path.join(dottedRoot, '.dotted', 'dist');
+    mkdirSync(path.join(dottedDist, '.git'), { recursive: true });
+    writeFileSync(path.join(dottedDist, 'index.html'), '<div id="root"></div>');
+    writeFileSync(path.join(dottedDist, '.secret'), 'SECRET-VALUE');
+    writeFileSync(path.join(dottedDist, '.git', 'config'), 'SECRET-GIT');
+  });
+
+  afterEach(() => {
+    rmSync(dottedRoot, { recursive: true, force: true });
+  });
+
+  it('falls back to index.html for client-side routes', async () => {
+    runningApp = await createApp({ webDist: dottedDist, version: '9.9.9-test' });
+
+    const deep = await request(runningApp.getHttpServer()).get('/people/42');
+    expect(deep.status).toBe(200);
+    expect(deep.text).toContain('id="root"');
+  });
+
+  it('never serves dotfiles from inside the distribution', async () => {
+    runningApp = await createApp({ webDist: dottedDist, version: '9.9.9-test' });
+
+    for (const pathName of ['/.secret', '/.git/config', '/assets/%2e%2e/.secret']) {
+      const response = await request(runningApp.getHttpServer()).get(pathName);
+      expect(response.text, `GET ${pathName}`).not.toContain('SECRET');
+    }
   });
 });
