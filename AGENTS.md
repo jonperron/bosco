@@ -23,7 +23,7 @@ working on it, and the `.vibe/rules/*.md` files before any commit.
 - Frontend: React + Vite (`apps/web`), i18n French and English
 - PostgreSQL as the only external dependency; Drizzle ORM, replayable
   migrations
-- Tests: Vitest at every level; releases: Changesets; deploy: one Docker
+- Tests: Vitest at every level; releases: release-please (from Conventional Commits); deploy: one Docker
   image, docker compose
 - CI: GitHub Actions — tests, OpenAPI contract check, i18n fr/en
 
@@ -79,7 +79,7 @@ Then run the `build`, `linter` and `test` subagents. Run the reviewer first;
 run the others when it found no CRITICAL or MAJOR issue. Any task touching
 crypto, OIDC, rights, or dependency changes also runs the `security`
 subagent. Behaviour or API changes run the `docs-sync` subagent last:
-specifications (here, docs and changesets) must always be up to date at the
+specifications (here, docs and the Conventional Commit type that drives the release) must always be up to date at the
 end of a task that adds, changes, or removes functionality.
 
 ## Factory subagents (multi-issue and PR work)

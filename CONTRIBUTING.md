@@ -23,8 +23,10 @@ self-hosted tool that gathers an engineering manager's daily work.
 
 ## Versioning
 
-Versions are managed with [Changesets](https://github.com/changesets/changesets):
-for any user-visible change, add an entry with `pnpm changeset`.
+Versions are managed with [release-please](https://github.com/googleapis/release-please):
+it reads the Conventional Commits merged into `main` and opens a release PR
+that bumps the version and updates `CHANGELOG.md` (`fix` → patch, `feat` →
+minor, `!` → major, or minor while below 1.0.0). Merging that PR tags the release.
 
 ## Commits
 

@@ -23,8 +23,11 @@ auto-hébergé, qui réunit le travail quotidien d'un engineering manager.
 
 ## Versioning
 
-Les versions sont arbitrées par [Changesets](https://github.com/changesets/changesets)
-: pour tout changement visible, ajouter une entrée avec `pnpm changeset`.
+Les versions sont gérées par [release-please](https://github.com/googleapis/release-please)
+: il lit les Conventional Commits fusionnés sur `main` et ouvre une PR de
+release qui monte la version et met à jour `CHANGELOG.md` (`fix` → patch,
+`feat` → mineure, `!` → majeure, ou mineure tant que la version est
+inférieure à 1.0.0). Fusionner cette PR crée le tag de release.
 
 ## Commits
 

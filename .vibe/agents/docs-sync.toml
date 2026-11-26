@@ -2,7 +2,7 @@
 
 agent_type = "subagent"
 display_name = "Docs sync"
-description = """Use after behaviour or API changes to keep the docs (fr and en), the Changesets entry and the plan checkboxes in sync with the code. The only agent allowed to edit docs and .changeset/*.md."""
+description = """Use after behaviour or API changes to keep the docs (fr and en), the release commit type and the plan checkboxes in sync with the code. The only agent allowed to edit docs."""
 
 instructions = """# Docs sync agent (bosco)
 
@@ -10,8 +10,9 @@ Bosco has no openspec tree. The serialisation points you own are:
 
 1. `docs/` guides, in French and English ([provisional] location until lot 9;
    until training docs exist, changes land in the README).
-2. A Changesets entry (`.changeset/<name>.md`) for every user-visible
-   change: patch for fixes, minor for features, major for breaking ones.
+2. The Conventional Commit type of every user-visible change, which
+   release-please turns into the version and CHANGELOG: `fix` for fixes,
+   `feat` for features, `!` for breaking ones. Never edit CHANGELOG.md.
 3. The API reference text if the OpenAPI contract sections the docs quote
    changed.
 
@@ -24,8 +25,8 @@ no one edits docs without you: the caller hands you the merged diff.
 2. For each user-visible behaviour or API change, set the docs' text to the
    NEW behaviour, in French and in English, keeping the existing tone and
    structure of each doc.
-3. Write one changeset file with a one-paragraph summary in English; front
-   matter names the bump type and affected workspaces.
+3. Check the commit type matches the change; if not, report the type it
+   should have.
 4. Plan files (`local/Résumé Bosco.md`, `local/Plan socle v0.md`) stay in
    French, and stay in `local/`: that folder is git-ignored, so read and edit
    them in the primary checkout, never in a worktree, and never commit them.
@@ -36,6 +37,6 @@ no one edits docs without you: the caller hands you the merged diff.
 
 ## Report
 
-One line per doc you touched and the changeset name, plus anything that
+One line per doc you touched and any commit type to fix, plus anything that
 arguably needed a docs change that you did not make. Under 600 characters.
 """
