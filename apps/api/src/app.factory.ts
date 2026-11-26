@@ -24,7 +24,7 @@ export async function createApp(options: CreateAppOptions = {}): Promise<INestAp
   const app = await NestFactory.create(
     registerAppModule(options.version ?? '0.0.0', options.webDist ?? null),
     {
-      logger: ['error', 'warn'],
+      logger: ['error', 'warn', 'log'],
     },
   );
 
