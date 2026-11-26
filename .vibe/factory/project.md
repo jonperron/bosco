@@ -34,7 +34,7 @@ rules override the [provisional] wording.
 - Data: PostgreSQL only, Drizzle ORM, migrations replayable
 - Modules: manifest + one Postgres schema per module, contract API to the core
 - Tests: Vitest at every level
-- Release: Changesets; deploy: one Docker image, docker compose
+- Release: release-please, driven by Conventional Commits; deploy: one Docker image, docker compose
 - CI: GitHub Actions — tests, OpenAPI contract check, i18n fr/en
 
 ## Git quirks
@@ -144,7 +144,9 @@ changelog instead. Behaviour or API changes must update, through the
 `docs-sync` subagent, never by hand:
 
 - the relevant module doc or guide under `docs/` [provisional], fr and en;
-- a Changesets entry for any user-visible change (`.changeset/*.md`);
+- a Conventional Commit type that matches the change (`fix` → patch,
+  `feat` → minor, `!` or `BREAKING CHANGE:` → major): release-please
+  builds the version and CHANGELOG from it;
 - `local/Plan socle v0.md` checkboxes only when a lot's done-criteria are
   met, and say so in the report — the plan files stay in French, and stay in
   `local/` (read them in the primary checkout).
@@ -208,8 +210,8 @@ PR that raises a floor does it alone, on final numbers measured after rebase.
     make such a PR mergeable — the agent whose channel it edits would
     review itself. Always report and wait;
   - the change breaks existing installations: a new, removed or renamed
-    `.env` variable, a migration required at upgrade, a major Changesets
-    bump. Report the upgrade path for every install and wait.
+    `.env` variable, a migration required at upgrade, a breaking (`!`)
+    commit. Report the upgrade path for every install and wait.
   In those cases the merge decision belongs to the user: report the
   finding, the candidates and the evidence, and merge only when they say
   so.
