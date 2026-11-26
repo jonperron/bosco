@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:9d28d7376792d7f570a33e25206b9019181cda83fd48756353a44a043a7002c0",
+  "pageVersion": "sha256:73d945ea8833762eae609f05e8caadf81778a15dc5f9fdfc88d4498fd8d293f2",
   "claims": [
     {
       "id": "claim_fa9ac08ac880491e9f8f0e4e4544e490",
@@ -38,11 +38,11 @@
     },
     {
       "id": "claim_7055dfe2a4f644ae90aaed3804738b59",
-      "statement": "The root package requires Node.js 24 or newer, pins pnpm via packageManager, and delegates build, lint, typecheck, test and test:e2e to Turborepo.",
+      "statement": "The root package requires Node.js 24 or newer, pins pnpm via packageManager, and delegates build, lint, typecheck, test, test:e2e and test:integration to Turborepo.",
       "evidence": [
         {
-          "resource": "repo://package.json#L1-L18",
-          "version": "repo-lines-v1:sha256:ac20c43d393ff158bf4e22232364fbf4572e9380b21df8a9637b6cd4b18fb623:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4MzRjZjQyMzk3NDY4MjRmZTlhNjMxY2JkYzMwNzAxNDUzY2ZjYzdlYjUzZTQwZTVlY2IzYmRmYWIzY2JiYjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxZTMyZWRhZDMzOGMxNTM5NzE1Y2M3OWI2MzY3MTQ5NTcyYTgwYzU3YWUzNWM5OTIxZWZiN2UxMzIyZDVhYWMifQ"
+          "resource": "repo://package.json#L1-L21",
+          "version": "repo-lines-v1:sha256:50187d0d859a6687537e0d3f42a8c2b2b5e1dc8ffd976c7cf5bf6fcd6853e810:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4MzRjZjQyMzk3NDY4MjRmZTlhNjMxY2JkYzMwNzAxNDUzY2ZjYzdlYjUzZTQwZTVlY2IzYmRmYWIzY2JiYjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxZTMyZWRhZDMzOGMxNTM5NzE1Y2M3OWI2MzY3MTQ5NTcyYTgwYzU3YWUzNWM5OTIxZWZiN2UxMzIyZDVhYWMifQ"
         }
       ]
     },
@@ -68,11 +68,11 @@
     },
     {
       "id": "claim_11f08f94959544f3ac74ebc2c0f3d30d",
-      "statement": "In the Turborepo graph, build, typecheck and test depend on ^build and generate, while test:e2e is uncached and depends on build and @bosco/api#build.",
+      "statement": "In the Turborepo graph, build, typecheck and test depend on ^build and generate, test:e2e is uncached and depends on build and @bosco/api#build, and test:integration is uncached, depends on ^build and passes DATABASE_URL through.",
       "evidence": [
         {
-          "resource": "repo://turbo.json#L1-L26",
-          "version": "repo-lines-v1:sha256:301ad93ee39ffe1dc3d2a4992f839f8e54597aa24b54ee41d2b778f38d4ce539:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://turbo.json#L1-L31",
+          "version": "repo-lines-v1:sha256:8018eb1bd357188be6807fd1a25f750402b99c7628a38d8f9404040bceb9fcc3:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     },
@@ -85,10 +85,20 @@
           "version": "repo-lines-v1:sha256:70b0936527a0d8379ee420eb0096a7a190eb2a9e7e189464a598eb01b1e0615e:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDAwODZmZWMxZDc2ZTczOWEyMGJiMTMwMjQ2YjUxNDdiYWYwMTM3ODU1NzAyZjQ3NDE2ODVhOGI1YWU5MmViYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjhhYWI0NDBkZDk1MGI3YjE4ZmQ3OGIxYjM4MDQwNmIyOWFmNmMzMjg1N2M0OWYyNmFlOTBiMjg5NGFlNTcwZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTU2NjRkMGY3MTUxNGE3OTBlMThlZjgzMzI4NDViOWMxM2EwY2U4Y2ViNTI1MDU4ZjkzNmI5OTRhOWI2NTUyOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzliN2JjZGNhOTdiNjIxMmE1MTQ4NWQwZjViYjAwZTdjYWU3YzBkYjFmYjBjMWI1MWQ1ZDRkMTQ1OGViNTg0MiJ9"
         }
       ]
+    },
+    {
+      "id": "claim_21bd96e7e6324405b26b43e6ef5b2b92",
+      "statement": "@bosco/db exposes db:migrate, db:seed and test:integration scripts, which the root package delegates to.",
+      "evidence": [
+        {
+          "resource": "repo://packages/db/package.json#L18-L27",
+          "version": "repo-lines-v1:sha256:d67da0ac617bcef7e3e73977c31ac8d08d46681fc9ef8d608872cab3a0a5f604:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0ODMzZDU5NDljMDNhNDBjYTk1MjQ5MTYxMGE2NjU5NjQ0YjNhYTQ2NjM2MmY3OTkwMjBkYmYxOTgxNTQ3ZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkNWNkMmZiNGYzZGY4ODQ1MTUyNTViMzk1MjNmMmY4YjU0NzJiZWVhOWY1NjZmZmNhMjA0ZGI4MDI1NjEwNDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY1MWY0MjdjOWJlYTNhN2ZlNWJiM2QxNzc2NmUyNjBkY2I1ZDc0N2MzYWU0YTNmZWEwYzNmZjBjZjJlZGVmNTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc4OThhNmQyODY5OTdhMjFhODE0ODlhNjFmYjU5NDA5YjlkMWVkM2QxMzNmZWI3N2E1NTI5ZTQ0ZTNhYTk5MGQifQ"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.4.3",
-    "at": "2026-11-26T18:56:03.534Z"
+    "at": "2026-11-26T19:14:34.660Z"
   }
 }

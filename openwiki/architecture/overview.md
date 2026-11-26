@@ -1,11 +1,8 @@
 ---
 type: architecture
 title: Monorepo architecture
-description: Layout of the Bosco pnpm + Turborepo monorepo, its three current workspaces, how they depend on each other at build and run time, and the Turborepo task graph.
+description: Layout of the Bosco pnpm + Turborepo monorepo, its four current workspaces, how they depend on each other at build and run time, and the Turborepo task graph.
 tags: [architecture, monorepo, pnpm, turborepo, typescript]
-verified:
-  - by: openwiki/0.4.3
-    at: 2026-11-26T18:56:03.534Z
 sources:
   - id: openwiki-source-8037e2358a2c4f9b2c722a11
     resource: repo://AGENTS.md
@@ -19,13 +16,18 @@ sources:
     resource: repo://eslint.config.mjs
   - id: openwiki-source-5b54a58d1b51cd490b0e7162
     resource: repo://package.json
+  - id: openwiki-source-5dfb476f661ea873868a4a09
+    resource: repo://packages/db/package.json
   - id: openwiki-source-40275cb92c3610938f16ade3
     resource: repo://pnpm-workspace.yaml
   - id: openwiki-source-df1e4d0dc0a35c64fd0e652b
     resource: repo://tsconfig.base.json
   - id: openwiki-source-440ae1e215cb02721dda855c
     resource: repo://turbo.json
-generated: { by: "claude-code", at: "2026-11-26T18:56:03.534Z" }
+generated: { by: "claude-code", at: "2026-11-26T19:14:34.660Z" }
+verified:
+  - by: openwiki/0.4.3
+    at: 2026-11-26T19:14:34.660Z
 ---
 
 # Monorepo architecture
@@ -48,6 +50,7 @@ core contract API) are listed in `AGENTS.md`.
 | `apps/api` | `@bosco/api` | NestJS backend; owns the OpenAPI contract and serves the built web app | [API application](api.md) |
 | `apps/web` | `@bosco/web` | React + Vite frontend, French and English | [Web application](web.md) |
 | `packages/api-client` | `@bosco/api-client` | Typed `openapi-fetch` client generated from the contract | [OpenAPI contract flow](openapi-contract.md) |
+| `packages/db` | `@bosco/db` | Drizzle schema of the `core` Postgres schema, migrations, demo seed | [Core data model](data-model.md) |
 
 The target layout in `AGENTS.md` (database schema, modules, guides) is
 created lot by lot; only what exists on `main` is described here.
@@ -73,7 +76,8 @@ apps/api ──writes──▶ apps/api/openapi.json ──generate──▶ pac
 
 - Node.js 24 or newer (`engines`), pnpm pinned through `packageManager`.
 - Root scripts delegate to Turborepo: `build`, `lint`, `typecheck`, `test`,
-  `test:e2e`; `format:check` runs Prettier on the whole tree;
+  `test:e2e`, `test:integration`; `db:migrate` and `db:seed` target
+  `@bosco/db`; `format:check` runs Prettier on the whole tree;
   `openapi:check` and `i18n:check` target one workspace each.
 - Every workspace provides `build`, `lint`, `test`, `typecheck`.
 - Shared TypeScript settings in `tsconfig.base.json`: strict mode,
@@ -91,6 +95,8 @@ From `turbo.json`:
 - `typecheck`, `test`: depend on `^build` and `generate`.
 - `test:e2e` (never cached): depends on the workspace `build` and on
   `@bosco/api#build`, and passes `CI`, `E2E_PORT`, `WEB_DIST` through.
+- `test:integration` (never cached): depends on `^build` and passes
+  `DATABASE_URL` through; only `@bosco/db` defines it.
 
 See [Development workflow](../workflows/development.md) for the gate built
 on top of these tasks.

@@ -1,11 +1,8 @@
 ---
 type: workflow
 title: Development workflow, CI and releases
-description: The local quality gate, the two GitHub Actions CI jobs (quality checks and the Playwright end-to-end smoke test), coverage floors, and how release-please turns Conventional Commits into versions.
+description: The local quality gate, the three GitHub Actions CI jobs (quality checks, PostgreSQL integration tests and the Playwright end-to-end smoke test), coverage floors, and how release-please turns Conventional Commits into versions.
 tags: [workflow, ci, testing, e2e, release]
-verified:
-  - by: openwiki/0.4.3
-    at: 2026-11-26T18:56:03.534Z
 sources:
   - id: openwiki-source-164e2da859b5277df81c7d94
     resource: repo://.github/workflows/ci.yml
@@ -21,11 +18,16 @@ sources:
     resource: repo://apps/web/playwright.config.ts
   - id: openwiki-source-6fe10cfb5ec054ca681eb262
     resource: repo://apps/web/vitest.config.ts
+  - id: openwiki-source-a090cecb71c7003c8ada0a5a
+    resource: repo://packages/db/vitest.integration.config.ts
   - id: openwiki-source-482fa4ca84f42b04ba025fc1
     resource: repo://release-please-config.json
   - id: openwiki-source-440ae1e215cb02721dda855c
     resource: repo://turbo.json
-generated: { by: "claude-code", at: "2026-11-26T18:56:03.534Z" }
+generated: { by: "claude-code", at: "2026-11-26T19:14:34.660Z" }
+verified:
+  - by: openwiki/0.4.3
+    at: 2026-11-26T19:14:34.660Z
 ---
 
 # Development workflow, CI and releases
@@ -58,10 +60,12 @@ Run from the repository root; CI runs the same commands
 | `pnpm openapi:check` | committed `apps/api/openapi.json` matches the routes ([contract flow](../architecture/openapi-contract.md)) |
 | `pnpm i18n:check` | `fr.json` and `en.json` have the same keys ([web app](../architecture/web.md)) |
 | `pnpm test:e2e` | Playwright smoke test in Chromium |
+| `pnpm test:integration` | DB, rights, crypto or module changes: migrations, seed and constraints against a real Postgres (`DATABASE_URL`) |
 
 Coverage: `apps/api` and `apps/web` enforce 80 % lines, functions, branches
 and statements in their `vitest.config.ts`. Floors are not edited inside an
-unrelated change.
+unrelated change. `@bosco/db` enforces the same floor in its integration run
+(`vitest.integration.config.ts`), since database code is never tested on a mock.
 
 ## End-to-end smoke test
 
@@ -82,12 +86,15 @@ with `pnpm --filter @bosco/web exec playwright install chromium`.
 ## CI (`.github/workflows/ci.yml`)
 
 Runs on every pull request and on pushes to `main`, with read-only
-permissions and in-progress runs cancelled per ref. Both jobs use Node 24
+permissions and in-progress runs cancelled per ref. Every job uses Node 24
 and the pnpm version from `packageManager`.
 
 - **`quality`** (Lint, format, typecheck, tests): frozen install, then
   `lint`, `format:check`, `typecheck`, `test`, `openapi:check`,
   `i18n:check`.
+- **`integration`** (PostgreSQL): a `postgres:19` service container, frozen
+  install, then `pnpm test:integration` with `DATABASE_URL` set
+  ([core data model](../architecture/data-model.md)).
 - **`e2e`** (End-to-end smoke): frozen install, Chromium with system deps,
   `pnpm test:e2e`; on failure it uploads the Playwright report and traces
   for seven days.
