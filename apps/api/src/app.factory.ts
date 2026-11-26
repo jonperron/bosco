@@ -3,6 +3,7 @@ import { createRequire } from 'node:module';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
+import helmet from 'helmet';
 
 import { registerAppModule } from './app.module.js';
 import { buildOpenapiDocument } from './openapi.js';
@@ -28,6 +29,14 @@ export async function createApp(options: CreateAppOptions = {}): Promise<INestAp
     },
   );
 
+  // Helmet's default CSP fits both the Vite build and the Swagger UI: only
+  // same-origin external scripts, inline styles allowed. upgrade-insecure-requests
+  // is dropped: on a plain-HTTP LAN install it would break the SPA's own scripts.
+  app.use(
+    helmet({
+      contentSecurityPolicy: { directives: { upgradeInsecureRequests: null } },
+    }),
+  );
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   if (options.apiDocs === true) {
