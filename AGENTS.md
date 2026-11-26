@@ -42,7 +42,7 @@ apps/
   api/                  # NestJS backend, OpenAPI + typed client generation
   web/                  # React + Vite frontend, fr/en i18n
 packages/               # shared packages (types, contract API, i18n resources)
-db/                     # Drizzle schema and migrations (core schema, lot 3)
+  db/                   # @bosco/db: Drizzle schema, migrations, demo seed (core schema, lot 3)
 docs/                   # guides, fr and en (lot 9)
 modules/                # module manifests, one Postgres schema per module (lot 7)
 ```

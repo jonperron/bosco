@@ -1,0 +1,41 @@
+{
+  "name": "@bosco/db",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Bosco core data: Drizzle schema, replayable migrations and demo seed",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/",
+    "migrations/"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx --env-file-if-exists=../../.env scripts/migrate.ts",
+    "db:seed": "tsx --env-file-if-exists=../../.env scripts/seed.ts"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.4",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "@types/pg": "^8.23.1",
+    "@vitest/coverage-v8": "^5.1.1",
+    "drizzle-kit": "^0.31.11",
+    "tsx": "^4",
+    "typescript": "^5.7.2",
+    "vitest": "^5.1.1"
+  }
+}
