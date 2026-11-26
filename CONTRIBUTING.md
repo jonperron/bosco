@@ -23,6 +23,12 @@ self-hosted tool that gathers an engineering manager's daily work.
   `pnpm --filter @bosco/web exec playwright install chromium`, then run
   `pnpm test:e2e`;
 
+- database (Docker): `docker compose up -d postgres`, `cp .env.example .env`
+  (if port 5432 is taken, change `POSTGRES_PORT` and `DATABASE_URL`
+  together), then `pnpm db:migrate` and, for demo data, `pnpm db:seed`;
+  `pnpm test:integration` runs the schema tests against it (`pnpm test`
+  needs no database). See the [database guide](docs/database.en.md);
+
 - every new workspace provides the same set of scripts (`build`, `lint`,
   `test`, `typecheck`), orchestrated by Turborepo.
 

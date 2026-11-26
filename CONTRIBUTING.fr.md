@@ -23,6 +23,13 @@ auto-hébergé, qui réunit le travail quotidien d'un engineering manager.
   `pnpm --filter @bosco/web exec playwright install chromium`, puis lancer
   `pnpm test:e2e` ;
 
+- base de données (Docker) : `docker compose up -d postgres`,
+  `cp .env.example .env` (si le port 5432 est pris, changer `POSTGRES_PORT`
+  et `DATABASE_URL` ensemble), puis `pnpm db:migrate` et, pour des données
+  de démonstration, `pnpm db:seed` ; `pnpm test:integration` lance les tests
+  du schéma dessus (`pnpm test` n'a besoin d'aucune base). Voir le
+  [guide de la base de données](docs/database.fr.md) ;
+
 - tout nouveau workspace reprend le même jeu de scripts (`build`, `lint`,
   `test`, `typecheck`), orchestrés par Turborepo.
 
