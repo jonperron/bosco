@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:96a972812c35e795531b8d53908238daec915018ac6dda69b4336506120ca96b",
+  "claims": [
+    {
+      "id": "claim_fa9ac08ac880491e9f8f0e4e4544e490",
+      "statement": "The pnpm workspace consists of the apps/* and packages/* directories.",
+      "evidence": [
+        {
+          "resource": "repo://pnpm-workspace.yaml#L1-L3",
+          "version": "repo-lines-v1:sha256:253208fa7c1b64372c219b9e19cef15ed70ca93b66a4d5c4c4d2297a5aff8880:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWRiMDc2ZWI4MGFkZTE5ZmVhM2UwYTQzMTk4NmI2NTVmNWZhNTllZDYyNjdlMTA3ZDY4OGI2MWMzZjQyMTc5NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODBjY2ZhN2IwNGIzODcxMmI4NTI5Y2I3M2QwYTAyOTU1N2Y2MDVkOTFjMGQwOTE5M2I3OTA3OTY3ZGRlMTQyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_71bd382358154212ad7a008b64815a1e",
+      "statement": "The web app depends on @bosco/api-client through a workspace:* dependency.",
+      "evidence": [
+        {
+          "resource": "repo://apps/web/package.json#L18-L24",
+          "version": "repo-lines-v1:sha256:3a2e71cb4d190875b4655dcfead85e3dc52c8205b5b181aa2970090153467fb1:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmEzYjQ2OWQ5ZTA5NzU3MjI0NjY2NzM0YzllZjdiMjU0ZDg4NTM0ZjVkNWJiNzA5ODk2MDgwNWM1NTNkYzMwNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2MzYzIzZGFhNWJmNGQ2MTlhY2RiMWIxNzhhYmNkNGFmODczNzdhYTJlZTZhNWVhMzJlNjg4MWFlMTIxMzM0YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWQyOTFjNWQ1NDU3ZjJkZDA3MjA0YmNmZTdlZjk3MTM4MTNjM2MxNjg1MTViMzA1MTU4MmJmMDlmNWZmMzJmNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_6937a9f12fd649bc8b37b21d21cfe75b",
+      "statement": "In production the API process serves the built frontend and its /api routes on one port; in development Vite proxies /api to localhost:3000.",
+      "evidence": [
+        {
+          "resource": "repo://apps/api/src/app.factory.ts#L66-L85",
+          "version": "repo-lines-v1:sha256:d85057aca4898096d5adad60c2a506b73e1aa93ba88d2b7798debdaf53df2beb:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJjZDgzMDdkYjAyZDMzMTUyZGFmYTdmNDhkOTBmMTk1ZTZjYzUxY2EyODljM2FlMzVjNWM0MTZkYTQ1Y2JkMmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdkMzY5MGI1ZjYwMzg5NjliY2Q1MGIzZjFkZjg0ZDUzNmUzYjUxYjI0OGZhNWIwNGFiMGYwOWIzNDc5NGNhM2IifQ"
+        },
+        {
+          "resource": "repo://apps/web/vite.config.ts#L4-L17",
+          "version": "repo-lines-v1:sha256:af16b9ac6225890ade706edf30ca804d45c07b0fdfd0104ab61f59881363f304:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkYTIxN2U0ZjgyN2VmNzdjM2JhODk1YjM1ZGI0YmZiYzMzM2ZiOTc2OWE2YjcyM2VlYzk3OWRmMmIxYzY4YTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRlMDAxMzMyN2QzMmMzOWVkZTU5YmY5ZGQxNjdkY2Q1YjZjNzVlYzBlYjNmMThhNmY4YzRlNjBiZGE5MDQzNzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7055dfe2a4f644ae90aaed3804738b59",
+      "statement": "The root package requires Node.js 24 or newer, pins pnpm via packageManager, and delegates build, lint, typecheck, test and test:e2e to Turborepo.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L1-L18",
+          "version": "repo-lines-v1:sha256:ac20c43d393ff158bf4e22232364fbf4572e9380b21df8a9637b6cd4b18fb623:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4MzRjZjQyMzk3NDY4MjRmZTlhNjMxY2JkYzMwNzAxNDUzY2ZjYzdlYjUzZTQwZTVlY2IzYmRmYWIzY2JiYjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxZTMyZWRhZDMzOGMxNTM5NzE1Y2M3OWI2MzY3MTQ5NTcyYTgwYzU3YWUzNWM5OTIxZWZiN2UxMzIyZDVhYWMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f013bb13b30b4cdab88f5381c79ce548",
+      "statement": "Shared TypeScript settings enable strict mode, noUncheckedIndexedAccess, NodeNext modules and forbid unused locals and parameters.",
+      "evidence": [
+        {
+          "resource": "repo://tsconfig.base.json#L1-L17",
+          "version": "repo-lines-v1:sha256:5020d314182b1ce5e353768a1fbbbe700265a08c011b838c6aaf4a501eb32acb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4abb1e99b992468fae0b030e7db9c251",
+      "statement": "ESLint forbids explicit any and non-null assertions and ignores generated code and the openwiki directory.",
+      "evidence": [
+        {
+          "resource": "repo://eslint.config.mjs#L1-L38",
+          "version": "repo-lines-v1:sha256:0e88719d9b3ccba99e1468606e153d4f3f5881be28b7dca1711a65bb16400c9d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVkMmIxNTYwOGExNTMyMWNiMDZhMTliMzUyYzZkZmNjMGIzZjU3NzZhNzk5YmUxZDE1YjIxZjBlMjE5NTM1N2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5OTY3ZWMxZWQzODM2ZjhlYjE3YWZmMTcyYjViZmVmN2RlNjA0ODVhNDM5YzZjYTExYzU5MWUxNzU1NzM5YWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_11f08f94959544f3ac74ebc2c0f3d30d",
+      "statement": "In the Turborepo graph, build, typecheck and test depend on ^build and generate, while test:e2e is uncached and depends on build and @bosco/api#build.",
+      "evidence": [
+        {
+          "resource": "repo://turbo.json#L1-L26",
+          "version": "repo-lines-v1:sha256:301ad93ee39ffe1dc3d2a4992f839f8e54597aa24b54ee41d2b778f38d4ce539:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d75b0817e146468789382da3fbf80726",
+      "statement": "AGENTS.md states the project principles: team-aggregated metrics, encrypted private notes, and modules reading only the core contract API.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L30-L36",
+          "version": "repo-lines-v1:sha256:70b0936527a0d8379ee420eb0096a7a190eb2a9e7e189464a598eb01b1e0615e:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDAwODZmZWMxZDc2ZTczOWEyMGJiMTMwMjQ2YjUxNDdiYWYwMTM3ODU1NzAyZjQ3NDE2ODVhOGI1YWU5MmViYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjhhYWI0NDBkZDk1MGI3YjE4ZmQ3OGIxYjM4MDQwNmIyOWFmNmMzMjg1N2M0OWYyNmFlOTBiMjg5NGFlNTcwZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTU2NjRkMGY3MTUxNGE3OTBlMThlZjgzMzI4NDViOWMxM2EwY2U4Y2ViNTI1MDU4ZjkzNmI5OTRhOWI2NTUyOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzliN2JjZGNhOTdiNjIxMmE1MTQ4NWQwZjViYjAwZTdjYWU3YzBkYjFmYjBjMWI1MWQ1ZDRkMTQ1OGViNTg0MiJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-11-26T18:56:03.534Z"
+  }
+}

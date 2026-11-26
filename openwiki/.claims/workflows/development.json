@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:99c19d06a575719dfd24dbec2b89ffac168cb9d8c0a2eff6ae9a928233be0bbc",
+  "claims": [
+    {
+      "id": "claim_4bc5d98dc0604712914b70c6be826364",
+      "statement": "The quality gate is pnpm install --frozen-lockfile, lint, format:check, typecheck, test, openapi:check, i18n:check and test:e2e.",
+      "evidence": [
+        {
+          "resource": "repo://.vibe/factory/project.md#L97-L126",
+          "version": "repo-lines-v1:sha256:ab4cadd05d4d364b887b8d11c879f835ebf804ffbb0242c053b005e52738072f:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYxNDU1OWY3MTIwYWQ5ZmUwMGJlMzNjMzQ1ZjI1YzY3NmUxMmM5MWIxOWY0MDhlMmIxOTllZTU4YmNlYzViYjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJmN2E4ZDMzMmJiNDY4M2VkZWRiNTJhYjJkNDg2ODY4OTkwYzc3YmNjOTg0ODEzZDNkNDZhMmM3NTA1NTM3ZjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlMDdiZWFlMzM2YTMzZWY5OGFlZTA0YjBkNjM2ODFkZjhkMGNhMjMzZDIwNDlhMjMxNDYyMDRkZGQ0Y2RjZTIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_23962afc4cdf469a894b41789d62224e",
+      "statement": "CI runs on pull requests and pushes to main with read-only permissions, and its quality job runs lint, format check, typecheck, tests, the OpenAPI contract check and the i18n key check.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/ci.yml#L1-L46",
+          "version": "repo-lines-v1:sha256:533a3de3ff6620c4cc2c8154dc65c989b2f0ed586f6243c4253d9fe4c1e97721:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2ZTFiMzJmYTA5MDc5YWUyZjAwMDFmZmYwZWNhMjdiNDk4NTk1N2Q0ZWI0ODU3OTI5YjNjZjA1OGZhYWU1NDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRiNzBkZmE1OGY3NWQxYmIwYzhhNjQ4OTAyNzZmY2I4MzFiNzQ4MWQ1ZTBlYWU5ZDJmZTU5ZTgxYTQ1NzAyZTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdjOGQ0MDQ5NGRmNDlmY2IzZmZmOTYxNWIwMjczNjc3MWMzZDkzMDczY2E1ZmNiMjc3NTFkYTBkOTFmZDNhM2YifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3bacdbf2c66f4c7495d62e80f3aa96bf",
+      "statement": "The CI e2e job installs Chromium with system dependencies, runs pnpm test:e2e and uploads the Playwright report on failure.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/ci.yml#L48-L83",
+          "version": "repo-lines-v1:sha256:71a949c172af1939d127ff9fac6526adfe836f93bc776d9a512f70c9dfcf9f4f:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliZjQ1ZDJiYzIxMDg5NWU2N2JkMWQyMGRhYWFjMWI1OTgyYTc2NjQwODI5ZmQxZjFiYjRhNjk5NTUyOTI5NDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY5YmNiZWIxNDQ2MmE5OWFiMDVhZDgwNTBjOWVmNGU1YmRiYTFlMzNhZjNiNTdmMDJjMzIyMTgzNDFkODg1OTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_33d57f015e24426cbea52e09b40c4043",
+      "statement": "Playwright starts the built API (node ../api/dist/main.js) on port 4310 or E2E_PORT, waits for /api/health and runs Chromium against it.",
+      "evidence": [
+        {
+          "resource": "repo://apps/web/playwright.config.ts#L1-L27",
+          "version": "repo-lines-v1:sha256:f94d4e58a49ca7c15b3cb39130f460582845e6a25a845b86ad0f346da76a06d6:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmNThjMzMyMGM0Mjg4MjM0ZDVkMjZhMDk1YWEzZjY0ZmMxMjc2YWU0MzM0MDE3YzBkNzM2OTBhYTkyYTZiYzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5b68be32eeb24edcb8a650e50252c5d7",
+      "statement": "The e2e smoke tests check the French home page with the API version, a persisted switch to English, and a deep link served at its own URL, failing on any console error or page error.",
+      "evidence": [
+        {
+          "resource": "repo://apps/web/e2e/home.spec.ts#L11-L61",
+          "version": "repo-lines-v1:sha256:68f61eeb08973fbaa0c56162a5530b0f6f580528401eb0b83efd79b090ccbdea:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYwMmE5YTFmMWY0NmFjOTAyMWIyNGZlMWEzMDA2OGE1YWU2ZDE0OWVhOTIzYzQ4NGI0YWM2MzA5ZDM0OTdmNTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_129954ee6c6b4ae49d503c0f79544bac",
+      "statement": "test:e2e depends on the web build and @bosco/api#build and is never cached.",
+      "evidence": [
+        {
+          "resource": "repo://turbo.json#L20-L24",
+          "version": "repo-lines-v1:sha256:c47dbdf6dc52d83e339537c4bc23261065cc30df7e46a91c80ee55064daca285:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWM2YmU0Yjc5N2Q4NWM3MjFmMjRhNDBlYWEzNTE1NWM4NTM1ODI5YzdmZjRlNWEyYTRhYTJjMDVkOTE1MmY4NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmQ1MzQxZjg4Mjk2MWIxNGUxODE3NDJiNzE1ODBhNjY5ZTQ5ZWE2NzkwYThkMGE4Y2I2ODc4ZmZhOTgxZmRjNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjIsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGY3MzlhMDZjMWNiYjEyNDRlMzM2M2QzOGJjZjlmYTUwY2U4NGZlZDM5OWMyMTkzYTNjN2YwOGQ1OTkxOGIyYSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_cafaa3c78ff347fcaaa2b8e9a4d9ef8a",
+      "statement": "release-please runs on pushes to main with a single root version that is also written into the api, web and api-client package.json files, bumping minor for breaking changes before 1.0.0.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/release-please.yml#L1-L25",
+          "version": "repo-lines-v1:sha256:7e2bc8cbb67d9f38958ea64a5d621c133508bf36b5aba1c9a452feafe2e224cc:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5NjliNjMzMjE4MzFkOTkxMWRkNWFkOTlmMTM5NjYyMTIyYTA0YmU2YmU4Zjk5ZWY5MThiMmE1N2NjNDlhOTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjNTU5NDMxYWU3NTI1MGI0MzcwZTQyNDJmZTZhZGRmNmQxYTI0YWY1YzE1Y2NhNGU4YjUxMzUzMjU4NGQzMTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://release-please-config.json#L1-L15",
+          "version": "repo-lines-v1:sha256:a5013d922c0b895ccc8b1fbca123ec780f26d118959ccd8a60d17f3c4e6f05cd:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_229207f1fe17459c92a7086c3a4f0400",
+      "statement": "The API and web workspaces enforce an 80% coverage floor.",
+      "evidence": [
+        {
+          "resource": "repo://apps/api/vitest.config.ts#L14-L27",
+          "version": "repo-lines-v1:sha256:3424d639d7485438421539e0ec6e1ef8e3a2ab39c09812a86dcb01e582b55cfd:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4MDg0NGQ1Y2Q4NTcxYzEwZDc5M2ZhYjEzZTJlZTFlMDZlMTliZTJlZTgyYTM0MjVlZWYyYTdlMDBkZDNiMzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMGNkYjk3MmE3YmZiN2VkMjQ2ZjlmZjY3MjM4NWU1NWY0OTY4ZmMxMTA0M2RjNWI2ODRkNTFkZmEzMWRiY2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjViMjQ5MTBhY2U4MTY2ZTEyYjYyY2JjZDE3NWI4YjE3MzE3YTFjMGQwMjZiYjM0Y2VjMDRiN2Y3OGU1MDYzNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcyZjA0ZWRmNzkzYzgxZTc3M2MxY2ZlODVmMjhkODc4ODQxYjczYWM4MGVmNTQ4MDNkZGVjYWRlN2JkMGI5NjIifQ"
+        },
+        {
+          "resource": "repo://apps/web/vitest.config.ts#L9-L20",
+          "version": "repo-lines-v1:sha256:994bc2412b089813749c55b77a1bc97928f620cfb368c7a24c318f2c5eadab12:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU4MDgwMjY3ZDQzZWYwZGI3ODhmYWE3NDFiMDg2Mjc1MWU3ZjVjMzM3MGZmYTQ3ODQ2MzFlM2IzOTc0NTViZDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMGNkYjk3MmE3YmZiN2VkMjQ2ZjlmZjY3MjM4NWU1NWY0OTY4ZmMxMTA0M2RjNWI2ODRkNTFkZmEzMWRiY2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMyNTM5NzA5ZmUzYTk4YzdmYWU5NWU4MTQ3YTlkNzVmYzZlNzIzYzE5N2QwNDY2MGUyMjA5YjhiYzRjMDAyNzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI4M2MwM2ZiZGY5YjM0NmFhNTUyNzg2YjVlZWJiM2FhZDRmYWM4M2FiOWU1YzZiNWQ1MTVhM2ViNTljZWVkNTIifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-11-26T18:56:03.534Z"
+  }
+}

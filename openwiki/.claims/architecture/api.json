@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:1e2f4a9419bdf46404f56d8be589c8e37c735aaaac8dfdec1d627783c19f4a0c",
+  "claims": [
+    {
+      "id": "claim_722e54231e9447698d5e98aed1888206",
+      "statement": "createApp builds the fully wired NestJS application without listening and is shared by main.ts and the OpenAPI generation script.",
+      "evidence": [
+        {
+          "resource": "repo://apps/api/scripts/generate-openapi.ts#L32-L42",
+          "version": "repo-lines-v1:sha256:b88aae475741d1bb811c8925a3d775cbcfd3262d23236c6fd823aeb8007b1dae:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkxODQ0NjU1OThkZTI4ZTU3ZTVmMmFhNjNhYTg2YzYwZDVlMWZmZTFjZDAzMDY3ZDlhMTE5YzYzZTBiYmIwOWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcxODg3MGE4MDQwOWY4YzRjOTk0ODA3YWY4MjU5Y2MwNGJkMGM1Y2EyZTlmMWMzYjEzZGVmMTBiMTYyNzg2ZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU0NTg0Mzc5MjlhMDhkZDNjYzRmYjRjYWQwODZhYzQxOTdhZDAwYTg5Y2QyNDExNzA1ODg5NjA4MjE3ZGZmOTkifQ"
+        },
+        {
+          "resource": "repo://apps/api/src/app.factory.ts#L26-L64",
+          "version": "repo-lines-v1:sha256:b76162809a1fd9faffae1d0d37375f8eb064be73b55cb5d628ce08f416558d59:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY1ZGVhNWI3NmNjNmU2YWVlODBmZjAwNjIwMzg2YWIxYjc5OWQ0N2E4MmVlOGU1MGI5MTdjNDUzMjVkOThjYmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVjZTNkNTU0MGMwZDNiYmUyYTY2OGY4OTcyMjliMzYwNWQ3OTljNWU3NDExNjVlOWVlMjVmOTQ4YjA3MjY2MWMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6352487a628b47ce84c09be67c548a13",
+      "statement": "main.ts loads the optional .env next to package.json once, validates the environment, reads the package version and listens on the validated PORT, setting exit code 1 on startup failure.",
+      "evidence": [
+        {
+          "resource": "repo://apps/api/src/main.ts#L13-L39",
+          "version": "repo-lines-v1:sha256:d3e8b636bfdbfbad5bc7738c4bfc6c12af05875ab6e99eb597dad2bbb8d8be8d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUwMzViYzRjMTM1MTdjYmZiNTdiNTBmZDJhZmZhZGNlMTlmZWU3NmE1MzQ3MzM0MTg0MzdiZGExY2RkODFhMmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNiMmRkZTU5ZDg5YzA5YWFmZDY4ZjkyNTZjOWJkMzUxZmRhOTEwZTkwN2Y3OTU3NTJhZjYzNzY1MWUzNWY5MTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0d7f2f69322b4381ae6482e1c4f391b2",
+      "statement": "The API declares only PORT (default 3000, 1-65535), WEB_DIST and API_DOCS_ENABLED (default false); malformed values throw EnvValidationError and unknown variables are ignored.",
+      "evidence": [
+        {
+          "resource": "repo://apps/api/.env.example#L1-L12",
+          "version": "repo-lines-v1:sha256:f2e35c5f74bc890f7931a893ab60415b4a842a187237155dd8362b93b3ab5d43:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlODYwOTZjM2Y4ZGU2Y2QyZDI1NzZmMjU3NmVmYzA0ZmUyOTQ5OGIxNjY1NTlhYjUzODIzNzlhMzc2ZGIxZjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE0OGZlMDhlMjJiZTFkODJhNWJjNTQ2MGJmYjg0NDY0YTdkYWQ3MTExNjZmMzRmY2VlZTllZWJkMmI0NGE2ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://apps/api/src/config/env.ts#L5-L77",
+          "version": "repo-lines-v1:sha256:9f82e5e8cc32a8904463f9e24a4144c3dff9a4f0d112d878d48fc40f2828cd49:eyJzZWxlY3RlZExpbmVDb3VudCI6NzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3OGIzYWFiOWZmZmEwMjQyMWQ1NmI0MjI2MjYyMDVmNWNhOWZjNzAxN2MxOTBiYjM5MTc2NjUwYTA4ZjMwMTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZkNmY1OWZhZDQwOTFhYjZmMDQ4OWY3NDBiOGRhZWMzYjhiZmM0Nzg2ZTgxNjdkNWVjMTE2NGU3ZmFlZjU0MTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjliZDlmOTU4YmQ2Y2NhNDZmODE4OWJjYTEzNzQ5YTU1NjMyMmJlZmI0OTRmNjhiY2ZmM2VkN2MxYjdjZjQxNmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_05cf061964cf42c288dee6274ce509c8",
+      "statement": "A missing .env file is tolerated, but any other read error is fatal.",
+      "evidence": [
+        {
+          "resource": "repo://apps/api/src/config/env.ts#L79-L92",
+          "version": "repo-lines-v1:sha256:20040ff2bc53cfc8af6e2364c608b76b03e1cec80d09fdb9bab20ab3ecd6da1b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMDQwZTA5NWE5NGUyYWRhNzRlNDIxZjM3MTg3NTFhOTFhODEwYmZkNjZmNDhmNGU5MzljN2I3NDgwZWI2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0b4e8b65409743808b4c92873825c5f8",
+      "statement": "Helmet is applied with its default CSP minus upgrade-insecure-requests and with HSTS includeSubDomains disabled.",
+      "evidence": [
+        {
+          "resource": "repo://apps/api/src/app.factory.ts#L38-L47",
+          "version": "repo-lines-v1:sha256:a8cf080153e84ba762b1baf6a26dea1ac38a4a05adf3f59aedd5ddc21a842e3c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1YTJlY2UzMzhhMWY2MjU2NzA1Mzc5NjFmOGE5OTUzMGUyMzcwNjhiOGRiOWNiODU4YmYwODQ4Mjg1NWI3ODciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1ZWYwMWJjMDhkYmMzYjYzZTRlNzVlYTNkMjZhNWI5NDE4OTE4NzdlMjdhZDg5MTMyOWM4NDExZDdkOGRjNGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEzMGM1OGE5MTcwNWFhODYzZTdmZDIzOTJkZGE0ZGNhYzM0YjQwODQ0ZjQ2NzgxZGNjOWI2M2VlYTM3ZmRjMmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM1ZGY2NGQ4NTRlNzU5YTZiMGQzMDhlMjRmNmYxOGFkODM0MzBhM2I1MTcyNmY3MzRjZGYzMDhjNThmODNkNWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bfd4bf47b5914cab94772d75a0274596",
+      "statement": "A global ValidationPipe with whitelist and forbidNonWhitelisted rejects unknown body fields with 400, and all routes live under the /api prefix.",
+      "evidence": [
+        {
+          "resource": "repo://apps/api/src/app.factory.ts#L52-L56",
+          "version": "repo-lines-v1:sha256:444d8cefb148dabff073879efba55c1a3fba4e07cc513bf8bfa9f62c6b108bf4:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjhjMWFmZDg1YmNmNDNkMzQ2OWJhZTgyZGVjMzRkZjExZTllZWFhNjIxYmUzNmMxNDllZDYwOWFiMzA3NmE0ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTVlZjAxYmMwOGRiYzNiNjNlNGU3NWVhM2QyNmE1Yjk0MTg5MTg3N2UyN2FkODkxMzI5Yzg0MTFkN2Q4ZGM0ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWZiNWY0ODg0NjQxMWI4YzhlNTczNjNlNzNlYTk4N2Y3YTU0NDY2ZTkyNGUxNjMzOThmOWVhNGM4NzBlNWQ5ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTY0ODBjYmViN2YyNDQ5YWI3MWQxOTRkN2M4MWE4YTM4NTQyMjcwMDU3YzBhZWRjMWFhZmEwNjEzOWEwYjhlZCJ9"
+        },
+        {
+          "resource": "repo://apps/api/test/validation.e2e.test.ts#L34-L56",
+          "version": "repo-lines-v1:sha256:a0052b9307336aa8a9a5ade8ea134bd82a9d8bf2df96e819eff94ce7933a8c02:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYxZTE0NTg0ZTA1YjViNTEwOWU0MzVkNGIwNjYwYjk1NjVlYjhhNDVjODRkZTMxNmJjYzBiNmFiNTBjZDAzZjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImViMWVhMTVhMGY3YjFkNzc0MWMwOTJkZTgwMmQzOWZkYTQ0MzRlY2YwNWY5NDM1OGM2ZjM2OWNhOTExNmUyMmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2e96944f9eb84158915d9ba7d25340e6",
+      "statement": "Swagger UI is mounted at /api/docs only when the apiDocs option is true.",
+      "evidence": [
+        {
+          "resource": "repo://apps/api/src/app.factory.ts#L57-L59",
+          "version": "repo-lines-v1:sha256:a6480cbeb7f2449ab71d194d7c81a8a38542270057c0aedc1aafa06139a0b8ed:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDAzMzM4OWFkMzI4ZWYyNmMwZTYwNDg3YmQ4MjcwODc0MDJkMGE4ZmNiNWVjYmUyNzM1MWMzNGE4NGE3OGY4ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzEyZGExZDVjMzNiZDcwNzExNmY0OTNmNDZiNGEzZmFjY2JjNjk3NjAwNTY2YThmOGY0MDY5MmM2MmRmMWY2OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzE4OGU5MDViZmJmOTY2NjQ4YWM3YzUxZTMwNzljNzRhNzRjMjA2MGNhZmNhNWMyZTA2MzE0MTVlMTE2ODRmNiJ9"
+        },
+        {
+          "resource": "repo://apps/api/test/health.e2e.test.ts#L42-L59",
+          "version": "repo-lines-v1:sha256:e4bbfcecfc9e261de3213fb8f9b201c7d43eee2634b5e2d806aae61abfc8583b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiYzk2Y2M3NDQ5NGY2NTFjOTM1MTMzMDdhYmUyMzE2ZDY1OGUzODkyZmQ5NmM0ODZhMGNiZTk5NGQyNzhjNDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e9b49a575f2b41b3a60f9f4e4dfe9c1c",
+      "statement": "When a web distribution resolves, the API serves its static files and falls back to index.html for GET/HEAD requests outside /api, using sendFile with root so dot segments above the distribution do not break deep links.",
+      "evidence": [
+        {
+          "resource": "repo://apps/api/src/app.factory.ts#L66-L85",
+          "version": "repo-lines-v1:sha256:d85057aca4898096d5adad60c2a506b73e1aa93ba88d2b7798debdaf53df2beb:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJjZDgzMDdkYjAyZDMzMTUyZGFmYTdmNDhkOTBmMTk1ZTZjYzUxY2EyODljM2FlMzVjNWM0MTZkYTQ1Y2JkMmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdkMzY5MGI1ZjYwMzg5NjliY2Q1MGIzZjFkZjg0ZDUzNmUzYjUxYjI0OGZhNWIwNGFiMGYwOWIzNDc5NGNhM2IifQ"
+        },
+        {
+          "resource": "repo://apps/api/test/web-serving.e2e.test.ts#L29-L96",
+          "version": "repo-lines-v1:sha256:8ee0be02488eec151a5e35a95147aba3d9fd5bed495523fb0db32fece89dd047:eyJzZWxlY3RlZExpbmVDb3VudCI6NjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5ZDMwMGVkOTQ5MDY4MGJkYTI3NGJiOTkzYzVmZDZmMzE4MjMyZmUwYzVkYTY1ZTI3OWJmYzZkYjY1NGM4Y2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlmNjMyMjIyN2M3Zjc0ZjlkNjZjN2ViMTBhNGJlNTc5ZmU0MDgxOTBhMzM1ZTkwNGEyY2EwZDUzNzZhOTdlZmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_085a42f06a3f411dabaf524e235d9fe6",
+      "statement": "resolveWebDist prefers an explicit WEB_DIST made absolute, then the sibling apps/web/dist, and returns null so the API can boot without a frontend.",
+      "evidence": [
+        {
+          "resource": "repo://apps/api/src/config/web-dist.ts#L4-L25",
+          "version": "repo-lines-v1:sha256:048745bcba6f7e8aa457c5714b9826a741cbdc0e086c3227ea2b3c0de8527c12:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVmY2YxOGRlNmIyNjVmZDkxMGY0ODExNDUwNGZlZDcyMTU0MTNiMWUwMjRmMTQ0M2ZmZDNjMWUwMGM2OGEyNjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7a77dd105bc44feab0e76691132292d7",
+      "statement": "GET /api/health returns status 'ok', the package version injected via the APP_VERSION token, and floored process uptime in seconds.",
+      "evidence": [
+        {
+          "resource": "repo://apps/api/src/health/health.controller.ts#L6-L30",
+          "version": "repo-lines-v1:sha256:b8ca8ac82284293d3b7712d7fb07838f48cbe5121552c5d65c7823fddc39736b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3YWQzZDI2YTk0YTUxMjQ5YzRiNzEyOWVhM2FiNjQ2OTZiNDVjYTQwYzY4OTZmODRlMTRhMjU1MDA3YTIzNzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwMGJiYmI4YWYzNmEzYmVkNWNhYjg5ZDcxZjY0Y2I3YzA3NDYxYTY3ODNkMjVjMDJlOGIzYmQxY2ViNDNiMWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://apps/api/src/health/health.module.ts#L7-L17",
+          "version": "repo-lines-v1:sha256:5ec5097243b0846a6d0887248e32b3535148ac614fdd361d099ddd3448f73fb8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjNWQ5NmNmMzkyMDQ4NTViZjNjMGFlNjVmNmIyOGVjM2ZjOWFjNTBiYjZlYzA3YzZkYzBmMDAwN2MzMjY1ZGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRjYWIyNDVkMTkxOGZmNzJjMGQyYTM5MGNlNzU4YjI3NzkyN2U4ZWFmZDAxYzZhZDc0MTQ3ZmE4OTQwZWYxMGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://apps/api/src/health/health.service.ts#L5-L17",
+          "version": "repo-lines-v1:sha256:6131e3963bc6d132d7b86e6d0f4e1916738b6479912f9df028347697b8139830:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1NjM5MzZlYTQwZDdlNGRjNGVhZTU3MTViZGEyNDE5OTE4MjQ2MmNmOTM3OGY2OGExYTExY2RjN2FmODQwYjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNlMGZjYWJlNDk2NDJlYmViNGEyN2Q0MDE3NTM5MDNmYThjN2VjNTlhYjhlNWE4MWY3YWM4YzhlMGI1Yjc0MGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_11b8ff4a182c474cba7de29501375136",
+      "statement": "API tests run on Vitest with the SWC plugin for decorator metadata and an 80% coverage floor on src excluding main.ts.",
+      "evidence": [
+        {
+          "resource": "repo://apps/api/vitest.config.ts#L1-L34",
+          "version": "repo-lines-v1:sha256:ccc3d7a462a05109947e10c39a0b16285560689eb71e721dd95d3e783bc0a255:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkMGNiYzM0OTk3ODNmMjJiM2Q5YmI5YTBkZDljNjAzZTczY2Y4MDkxZmRiNzVhMjgzZDllZWY4YzAxNzkyMGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-11-26T18:56:03.534Z"
+  }
+}
