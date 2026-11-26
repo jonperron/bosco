@@ -22,3 +22,6 @@ apps/api/openapi.json
 # Playwright outputs
 test-results/
 playwright-report/
+
+# drizzle-kit snapshots and journal, kept as generated
+packages/db/migrations/meta/

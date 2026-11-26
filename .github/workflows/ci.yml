@@ -49,6 +49,42 @@ jobs:
       - name: i18n fr/en keys
         run: pnpm i18n:check
 
+  integration:
+    name: Integration tests (PostgreSQL)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:19
+        env:
+          POSTGRES_USER: bosco
+          POSTGRES_PASSWORD: bosco
+          POSTGRES_DB: bosco
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U bosco -d bosco"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgres://bosco:bosco@localhost:5432/bosco
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        # pnpm version comes from the packageManager field of package.json
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Migrations, seed and constraints against a real database
+        run: pnpm test:integration
+
   e2e:
     name: End-to-end smoke (Playwright, Chromium)
     runs-on: ubuntu-latest

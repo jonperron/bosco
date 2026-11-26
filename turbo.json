@@ -21,6 +21,11 @@
       "dependsOn": ["build", "@bosco/api#build"],
       "cache": false,
       "passThroughEnv": ["CI", "E2E_PORT", "WEB_DIST"]
+    },
+    "test:integration": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "passThroughEnv": ["DATABASE_URL"]
     }
   }
 }

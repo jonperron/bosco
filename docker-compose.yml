@@ -1,0 +1,21 @@
+# Local development database. `docker compose up -d postgres`, then see .env.example.
+services:
+  postgres:
+    image: postgres:19
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-bosco}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bosco}
+      POSTGRES_DB: ${POSTGRES_DB:-bosco}
+    # Loopback only: the development database is never reachable from the network.
+    ports:
+      - '127.0.0.1:${POSTGRES_PORT:-5432}:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres-data:
