@@ -157,11 +157,13 @@ changelog instead. Behaviour or API changes must update, through the
   met, and say so in the report — the plan files stay in French, and stay in
   `local/` (read them in the primary checkout).
 
-Open decisions from the plan (see "Décisions ouvertes"): work that lands
-before a decision is taken implements the option its code needs with the
-least commitment, and lists the open question in its report. Never decide an
-open plan question (key loss handling, master key location, note ownership on
-manager change, N+2 access) inside a PR.
+Plan decisions (see "Décisions prises" in `local/Plan socle v0.md`): apply
+them; they are settled. A question the plan does not answer, and that touches
+the data model, security or who uses the tool, is open: implement the option
+its code needs with the least commitment, list the question in the report,
+and never decide it inside a PR. The user may redefine the project; when the
+plan and a repo file disagree, the plan wins and the repo file is updated by
+a PR.
 
 Shared floors: do not edit coverage thresholds or the done-criteria list; a
 PR that raises a floor does it alone, on final numbers measured after rebase.
@@ -202,10 +204,9 @@ PR that raises a floor does it alone, on final numbers measured after rebase.
     encryption design;
   - any reviewer (subagent or bot) states a human review is needed
     (same trigger as `loop.md`, After the push, step 3);
-  - the PR settles an open decision of `local/Plan socle v0.md` (key loss,
-    master key, note ownership on manager change, N+2 access): do not even
-    implement the choice — pick nothing, report the options (see Docs sync,
-    Open decisions);
+  - the PR settles a question the plan leaves open (see Docs sync, Plan
+    decisions): do not even implement the choice — pick nothing, report the
+    options;
   - a migration destroys or rewrites data: `DROP`, `ALTER` with possible
     loss, restructuring of the `core` schema or the manager-attachment
     history. A green gate does not prove an existing install's data

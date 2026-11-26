@@ -7,12 +7,16 @@ project instructions; the factory conventions live under `.vibe/`.
 
 Bosco is a self-hosted, open-source (Apache-2.0) tool that gathers an
 engineering manager's daily work: people, tasks, projects, team metrics.
+It makes managers' lives simpler; it is not an HR system. Only managers
+(and the install's administrator) use it, for their own work: the people
+they manage are records the manager keeps, and never log in. Do not design
+accounts, roles, screens or routes for them.
 The socle v0 carries no management feature: it delivers identity, access
 control, the module framework, GDPR export/deletion and packaging, and
 every module plugs into it. See `local/Résumé Bosco.md` and
 `local/Plan socle v0.md` — local, git-ignored files (read them in the
 primary checkout; worktrees do not have them), in French — for the goal,
-the nine lots and the open decisions.
+the nine lots and the decisions taken ("Décisions prises").
 Always read the section of `local/Plan socle v0.md` for your lot before
 working on it, and the `.vibe/rules/*.md` files before any commit.
 
@@ -30,7 +34,8 @@ working on it, and the `.vibe/rules/*.md` files before any commit.
 ## Principles (they are also code rules)
 
 - Metrics are aggregated per team; nothing ranks an individual.
-- Private notes are encrypted, one key per manager.
+- Private notes are encrypted, one key per manager; the administrator holds a
+  backup key, so the administrator can recover (and read) them.
 - Every number traces back to its source; one organisation per install.
 - A module never reads another module's tables — only the core contract API.
 - The rights matrix and the GDPR lifecycle are tested automatically.
@@ -54,7 +59,7 @@ All of this is [target] structure: it exists as soon as its lot creates it.
 | File | Purpose |
 |------|---------|
 | `local/Résumé Bosco.md` | What bosco is, the modules, the technical choices (local only) |
-| `local/Plan socle v0.md` | The nine lots, done-criteria, dependencies, open decisions (local only) |
+| `local/Plan socle v0.md` | The nine lots, done-criteria, dependencies, decisions taken (local only) |
 | `.vibe/factory/loop.md` | The factory quality loop every agent follows |
 | `.vibe/factory/project.md` | The repo profile: gate, worktree setup, routing, baseline |
 | `.vibe/rules/*.md` | Coding style, testing, commit messages |
