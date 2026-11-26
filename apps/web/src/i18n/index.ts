@@ -9,12 +9,16 @@ export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 
 const STORAGE_KEY = 'bosco.language';
 
+// Called inside the try blocks: blocked storage (cookies disabled, sandboxed
+// iframe) throws a SecurityError on merely reading `localStorage`.
+function resolveStorage(storage: Storage | null | undefined): Storage | null {
+  return storage === undefined ? globalThis.localStorage : storage;
+}
+
 /** Reads the stored language, falling back to fr (the default of the socle). */
-export function readStoredLanguage(
-  storage: Storage | null = globalThis.localStorage,
-): SupportedLanguage {
+export function readStoredLanguage(storage?: Storage | null): SupportedLanguage {
   try {
-    const stored = storage?.getItem(STORAGE_KEY);
+    const stored = resolveStorage(storage)?.getItem(STORAGE_KEY);
     return stored !== null &&
       stored !== undefined &&
       SUPPORTED_LANGUAGES.includes(stored as SupportedLanguage)
@@ -62,7 +66,7 @@ if (!i18next.isInitialized) {
 /** Switches the language, persists the choice and keeps the document in sync. */
 export function changeLanguage(
   language: SupportedLanguage,
-  storage: Storage | null = globalThis.localStorage,
+  storage?: Storage | null,
 ): Promise<void> {
   return i18next
     .changeLanguage(language)
@@ -73,7 +77,7 @@ export function changeLanguage(
       // Try to persist the choice, but don't let storage failures
       // prevent the language switch from completing
       try {
-        storage?.setItem(STORAGE_KEY, language);
+        resolveStorage(storage)?.setItem(STORAGE_KEY, language);
       } catch (error) {
         console.warn('[i18n] Failed to persist language preference to localStorage:', error);
         // Continue without failing - the language switch succeeded

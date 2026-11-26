@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
   changeLanguage,
@@ -41,5 +41,36 @@ describe('i18n module', () => {
     await changeLanguage('en');
     expect(readStoredLanguage()).toBe('en');
     expect(i18nStore.language).toBe('en');
+  });
+
+  describe('when the browser blocks storage', () => {
+    // Blocked storage (cookies disabled, sandboxed iframe) throws on mere access.
+    const original = Object.getOwnPropertyDescriptor(globalThis, 'localStorage');
+
+    beforeEach(() => {
+      vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+      Object.defineProperty(globalThis, 'localStorage', {
+        configurable: true,
+        get() {
+          throw new DOMException('The operation is insecure.', 'SecurityError');
+        },
+      });
+    });
+
+    afterEach(() => {
+      if (original) Object.defineProperty(globalThis, 'localStorage', original);
+      vi.restoreAllMocks();
+    });
+
+    it('readStoredLanguage falls back to fr', () => {
+      expect(readStoredLanguage()).toBe('fr');
+      expect(console.warn).toHaveBeenCalled();
+    });
+
+    it('changeLanguage still switches the language', async () => {
+      await changeLanguage('en');
+      expect(i18nStore.language).toBe('en');
+      expect(console.warn).toHaveBeenCalled();
+    });
   });
 });
