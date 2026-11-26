@@ -32,6 +32,11 @@ Vite interface served by the API. There is no management feature yet.
 ```bash
 corepack pnpm install
 pnpm lint && pnpm format:check && pnpm typecheck && pnpm test
+```
+
+Then, in two separate terminals (each command stays in the foreground):
+
+```bash
 pnpm --filter @bosco/api dev     # API on http://localhost:3000/api
 pnpm --filter @bosco/web dev     # Vite dev server, proxies /api
 ```

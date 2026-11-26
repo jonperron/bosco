@@ -5,7 +5,7 @@ description: Summary of how changes are made in Bosco by humans and agents, with
 tags: [conventions, workflow, agents, git, review]
 verified:
   - by: openwiki/0.4.3
-    at: 2026-11-26T18:56:03.534Z
+    at: 2026-11-26T19:08:05.094Z
 sources:
   - id: openwiki-source-dec1f45c1688b7bbf05c2ef6
     resource: repo://.vibe/factory/loop.md
@@ -87,14 +87,15 @@ and each comment gets a reply (`project.md`, Automated PR reviewer).
 ## Merging
 
 - Merge only when every check on the head finished with SUCCESS, SKIPPED or
-  NEUTRAL, no review thread is unanswered, and the branch contains
-  `origin/main` (fetched right before). The merge runs as its own command,
+  NEUTRAL, no review thread is unanswered, the branch contains
+  `origin/main` (fetched right before), and `mergeStateStatus` is neither
+  `DIRTY` nor `BLOCKED`. The merge runs as its own command,
   never chained after a wait script.
 - Method: always `gh pr merge --rebase` (the `main` ruleset requires a
   linear history).
 - Never auto-merged, always left to the user: PRs touching the "guardians"
   (`.github/` workflows, hooks, `.vibe/factory/`, `.vibe/rules/`, root
-  manifests, Docker base image), open security or architecture findings,
+  manifests with runtime dependency changes, Docker base image), open security or architecture findings,
   destructive migrations, changes that break existing installs, or PRs
   that would settle an open planning decision.
 

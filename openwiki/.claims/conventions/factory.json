@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:7fd77725d78f4adb283bb37dbf1df4a32d35cf2e4ee37addbc2987224527f626",
+  "pageVersion": "sha256:aadb6a248663a24aa18f8bc4a0b7232e8987604f4640b273ea58be38cfd60d89",
   "claims": [
     {
       "id": "claim_13ace083706944d5ad4545ec77965c1c",
@@ -88,7 +88,7 @@
     },
     {
       "id": "claim_2054011ee9cc43948c695eaab462b296",
-      "statement": "PRs merge with gh pr merge --rebase only when all checks finished green, no thread is unanswered and the branch contains origin/main, and PRs touching guardians such as .github workflows, .vibe/factory, .vibe/rules or root manifests are never auto-merged.",
+      "statement": "PRs merge with gh pr merge --rebase only when all checks finished green, no thread is unanswered, the branch contains origin/main and mergeStateStatus is not DIRTY or BLOCKED, and PRs touching guardians such as .github workflows, .vibe/factory, .vibe/rules or root manifests with runtime dependency changes are never auto-merged.",
       "evidence": [
         {
           "resource": "repo://.vibe/factory/project.md#L184-L229",
@@ -109,6 +109,6 @@
   ],
   "verification": {
     "by": "openwiki/0.4.3",
-    "at": "2026-11-26T18:56:03.534Z"
+    "at": "2026-11-26T19:08:05.094Z"
   }
 }

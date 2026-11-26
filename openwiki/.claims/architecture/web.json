@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:ee6fb41359ca4a1ce5f6aa421b1f0ffad8dd7b14c67e0cb4a0219733fd7f71c4",
+  "pageVersion": "sha256:587e2882af3f582781ed01763db417b7d227162b359aaffd243d0b9ef25154f6",
   "claims": [
     {
       "id": "claim_c4441129ad0148b98f4f7f9ce2b8f1aa",
@@ -44,7 +44,7 @@
     },
     {
       "id": "claim_e21d7e95da764e069b35863d88d6791d",
-      "statement": "i18n supports exactly fr and en with fr as default and fallback, initialises synchronously from bundled resources, and persists the choice in localStorage under bosco.language, falling back to fr when storage is unusable.",
+      "statement": "i18n supports exactly fr and en with fr as default and fallback, initialises synchronously from bundled resources, and persists the choice in localStorage under bosco.language, falling back to fr for an unsupported value or a throwing getItem; the localStorage default parameter is read outside the try block.",
       "evidence": [
         {
           "resource": "repo://apps/web/src/i18n/index.ts#L7-L60",
@@ -85,6 +85,6 @@
   ],
   "verification": {
     "by": "openwiki/0.4.3",
-    "at": "2026-11-26T18:56:03.534Z"
+    "at": "2026-11-26T19:08:05.094Z"
   }
 }

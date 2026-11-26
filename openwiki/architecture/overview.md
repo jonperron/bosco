@@ -31,8 +31,10 @@ generated: { by: "claude-code", at: "2026-11-26T18:56:03.534Z" }
 # Monorepo architecture
 
 Bosco is a self-hosted, Apache-2.0 tool for engineering managers. The code
-on `main` is the socle v0 skeleton: identity, rights, modules and GDPR
-features arrive with later lots; today the repository holds an API, a web
+on `main` is the start of the socle v0, which delivers identity, access
+control, the module framework, GDPR export/deletion and packaging (no
+management feature). Those socle capabilities land lot by lot; today the
+repository holds an API, a web
 app and the typed client that joins them. Project principles (team-level
 metrics only, encrypted private notes, modules talking only through the
 core contract API) are listed in `AGENTS.md`.

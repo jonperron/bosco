@@ -5,7 +5,7 @@ description: How apps/web boots, calls the API only through the typed client, ha
 tags: [web, react, vite, i18n, frontend]
 verified:
   - by: openwiki/0.4.3
-    at: 2026-11-26T18:56:03.534Z
+    at: 2026-11-26T19:08:05.094Z
 sources:
   - id: openwiki-source-b3f97d6cb262c4910a4638b7
     resource: repo://apps/web/scripts/i18n-check.mjs
@@ -63,9 +63,11 @@ typed against the committed contract (see
   initialised synchronously (`initAsync: false`), so the first render is
   already translated.
 - The choice is persisted in `localStorage` under `bosco.language`. An
-  unsupported stored value, or a storage that throws (private browsing),
-  falls back to `fr`; a failed write logs a warning but the switch still
-  happens.
+  unsupported stored value, or a `getItem` that throws, falls back to `fr`;
+  a failed write logs a warning but the switch still happens. Caveat: the
+  `storage` default parameter reads `globalThis.localStorage` before the
+  `try`, so a browser that throws on that property access itself is not
+  covered by the fallback.
 - `changeLanguage` also sets `<html lang>` for screen readers and spell
   check. The language buttons expose `aria-pressed`.
 - "Bosco" and the autonyms "Français" / "English" are deliberately not
