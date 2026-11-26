@@ -38,7 +38,10 @@ export async function createApp(options: CreateAppOptions = {}): Promise<INestAp
     }),
   );
   app.setGlobalPrefix('api');
-  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  // Unknown body fields are a 400, never silently dropped or mass-assigned.
+  app.useGlobalPipes(
+    new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true }),
+  );
   if (options.apiDocs === true) {
     SwaggerModule.setup('api/docs', app, buildOpenapiDocument(app));
   }
