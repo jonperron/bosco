@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:94db4f44b82478f94aceeece66be7c9983442bc06b903c7cb578a4d4af47c61c",
+  "claims": [
+    {
+      "id": "claim_7bc7ef94c3ab4bc1ab16086649d9bb98",
+      "statement": "The current state of main is the socle v0 skeleton: a NestJS API with a typed health route and CI-checked OpenAPI contract, a generated typed client, and a bilingual React + Vite UI served by the backend, with no management feature.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L1-L14",
+          "version": "repo-lines-v1:sha256:0aabcb04dd49a1eccefe660faf21a2df963b280a11718fa68517bc861e92e11e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhM2M1MjljNzJmOWFiOWQ0NDk1OWUwMjIyYzk4Yzg0NzQ1MWQ2MzUyMjFiNTE0NWUxZDA5NTY3ZjdiZDBjZGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhYjgwM2UxYmNkZTE2OGJkZmQxNDgzNjM0ODM4ZDczNGM3YjIwZTgyOWRlZDNkYzA5NzI2N2JmMWRkMzVhYTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY3NzEyZDBjM2JiY2EyN2YyNTZmZmEyYzQ4MmJjY2VhMDE4NWFmZTdlMGJiZjVkODllYTQzYzk5MDA0OTkzZDYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e4be57de37944de89a570653dfefd9bd",
+      "statement": "Contributors need Node.js 24 or newer with pnpm through corepack, and the full local check is lint, format:check, typecheck and test.",
+      "evidence": [
+        {
+          "resource": "repo://CONTRIBUTING.md#L1-L30",
+          "version": "repo-lines-v1:sha256:c9279add26106555ec8714b30c10cd78def6b48d3aa4c2a434f8a3c2cb48c91e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyNGM2ZmVhNWJiYzM5NGVmYjYyNGFmY2Q3NTg4YmI0MDYzNDVlNDY4ZjI4OTQ1NzQzOGRiMGU4YzBjMjI5MmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhiMWI4M2Q2NWJhMzE5ZDQ0OTMyZWI3ODdhODhkNDg4NmYzMjc3YjkwNGJlZGYwNjk2NTFiYjEwN2EwMjc5NTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_207c1041687f43478d422c0233f680d9",
+      "statement": "The API dev script runs src/main.ts under tsx watch and the web dev script runs Vite.",
+      "evidence": [
+        {
+          "resource": "repo://apps/api/package.json#L7-L15",
+          "version": "repo-lines-v1:sha256:45462159d3d0c87575ec66cc6b9976b1634b63fba2748dd065602743bc8cd1b5:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ4MzNkNTk0OWMwM2E0MGNhOTUyNDkxNjEwYTY2NTk2NDRiM2FhNDY2MzYyZjc5OTAyMGRiZjE5ODE1NDdkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2UwY2E1YjA1ZTQ0NzFhNzcwMWEyZWRkNTIyMDUxNmQ3ZjI5YTE3ZGY0YTc2YmIyZWRhY2RlNWRmOTBjZTgxMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmVhNTdjNGI1MjIxYWM4ZGZiZTkyMjU0YzlhZGI0OTgxMGI1NWZlMjEzMDM4MDY4NzJlM2QyOWNjNjk4MGI4YyJ9"
+        },
+        {
+          "resource": "repo://apps/web/package.json#L8-L17",
+          "version": "repo-lines-v1:sha256:7ba9742bfa16b149a5a7a2a33f03ab032da5aa9acb4b3c2801f1a6b9c8416fb0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0ODMzZDU5NDljMDNhNDBjYTk1MjQ5MTYxMGE2NjU5NjQ0YjNhYTQ2NjM2MmY3OTkwMjBkYmYxOTgxNTQ3ZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkNWNkMmZiNGYzZGY4ODQ1MTUyNTViMzk1MjNmMmY4YjU0NzJiZWVhOWY1NjZmZmNhMjA0ZGI4MDI1NjEwNDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgxOGEzYjZkZmNlMzNjN2NmNDQxZmZhOTBiNzc1OWUzMWU5MjQyMDg4OGExNWI0NjZmM2M0NzllY2NlMzgyY2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUxNjBjZTM5MmFkOTlmNmVkYTAxNTI0NWJlN2VjZTNjZTYwMTJjNmI3YTViMDE2Mzc4MjZjMmE5ZmI2YTQwYzUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-11-26T18:56:03.534Z"
+  }
+}

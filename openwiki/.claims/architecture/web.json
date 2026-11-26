@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:587e2882af3f582781ed01763db417b7d227162b359aaffd243d0b9ef25154f6",
+  "claims": [
+    {
+      "id": "claim_c4441129ad0148b98f4f7f9ce2b8f1aa",
+      "statement": "main.tsx imports the i18n module and renders HomePage in StrictMode into #root, throwing if the element is missing.",
+      "evidence": [
+        {
+          "resource": "repo://apps/web/src/main.tsx#L1-L17",
+          "version": "repo-lines-v1:sha256:795cff610d0112a7c8e4b735629854649886c450ad385d2d357abdb7991e9574:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZlODcyZGFlNjFmMDQ5OTNhZDY2ZTQ4MzgxZjczNzA2NjU0ZTQ0NDdlNjJjMTE4MDg5YWM1NmQ3MzYxZThlMWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5OTY3ZWMxZWQzODM2ZjhlYjE3YWZmMTcyYjViZmVmN2RlNjA0ODVhNDM5YzZjYTExYzU5MWUxNzU1NzM5YWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_968cfa23e2014ae382987d1fdcdc77ba",
+      "statement": "The web app uses a single module-level typed API client built from VITE_API_BASE_URL (empty by default, so same-origin), and maps any health failure, typed or transport, to an error state.",
+      "evidence": [
+        {
+          "resource": "repo://apps/web/src/home-page.tsx#L8-L36",
+          "version": "repo-lines-v1:sha256:9e10808f444610c57b88c81ddfc2f7dbb3e737fadf379aa883df51d527aff5f0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE4NDg2ZDEyODg0ZTM5ZDcyZDQ4NTRmYTQwYmZkYjUyNTY3OWJjYjQzMjM2YzQ1ZDZkYWM3YjA3ZjBlYjk3ODIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVkNmYwMGFiM2VlODEyMWJlNThjNjc3YTcyNDI4OGRlOGYzZjVmMWEyMTEyNDA2ZWZjMGI3NWFjNTBmNmRmNTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d4937e46390f4aac919650de1cdf5e85",
+      "statement": "The health-loading effect ignores superseded answers so the StrictMode double effect cannot race.",
+      "evidence": [
+        {
+          "resource": "repo://apps/web/src/home-page.tsx#L42-L55",
+          "version": "repo-lines-v1:sha256:78c76dbf1a7933a1da93fc9f45983ea559a8628b64049231a2b3e2e9f31ea715:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU3MmY4MmI1MzM5YTBhMDdhNzdmM2RiNTczOWVhMjdiMjM0YzI2M2JiZjZjOTVjZjdlZGU4YTEzNjdjNDFiM2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYzUyZjA4YjM5YjA4YjAxYzhkMzA4YmY4ODBiMGJlZjAyZmQxZGZjYzlkOWFhOTNhNGQxYjVmNGQ1OGI2Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU4NTRkM2MyNzdiMDhlYjJlOTBlMTA2NjMwMGE5OTZjNmZlYzlmNjJkOTUzYjIyYWZiYzlkYjY4YzI1YWMxYjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxNThkOGUzZGI5YTA0YWM3MDgzNTRiMThmOWQyMWE5NGYyNDgwZDc2NjE5YWFiMmY0MDYxOWI1YmE3ZjIyOTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9e904fa10bc143eaa0361fa4e946c9fc",
+      "statement": "Vite's dev server proxies /api to http://localhost:3000.",
+      "evidence": [
+        {
+          "resource": "repo://apps/web/vite.config.ts#L4-L17",
+          "version": "repo-lines-v1:sha256:af16b9ac6225890ade706edf30ca804d45c07b0fdfd0104ab61f59881363f304:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkYTIxN2U0ZjgyN2VmNzdjM2JhODk1YjM1ZGI0YmZiYzMzM2ZiOTc2OWE2YjcyM2VlYzk3OWRmMmIxYzY4YTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRlMDAxMzMyN2QzMmMzOWVkZTU5YmY5ZGQxNjdkY2Q1YjZjNzVlYzBlYjNmMThhNmY4YzRlNjBiZGE5MDQzNzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e21d7e95da764e069b35863d88d6791d",
+      "statement": "i18n supports exactly fr and en with fr as default and fallback, initialises synchronously from bundled resources, and persists the choice in localStorage under bosco.language, falling back to fr for an unsupported value or a throwing getItem; the localStorage default parameter is read outside the try block.",
+      "evidence": [
+        {
+          "resource": "repo://apps/web/src/i18n/index.ts#L7-L60",
+          "version": "repo-lines-v1:sha256:bfab569adee1616ef423fdcb1bb91b402c3de4a3b3e2d887df8debe21b24ead2:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjNjBkMzgxOGVkYjcyMmYxZjA2ZTU1Y2JkOTA4YTFhYzI5YjdiYzg3ZTNmMThhMmZiOWMyNDAwOWIzYzdlZWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA1NDIyODA0ZGM1OTRlODNkNDZkNjcyY2Y0NzBjY2ZhOTJmMTgyNWY4YWVlNTVkOTgzYTdjODYxOTRmZWZmMTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQwN2EzNjg0NWQzYWRhMWUwN2IxYzZkY2IxYTQ5MGJkOGZkOTcyOGM2ZTM3NzdhMTM1NjZlMjhmZDRjMGQ1ZTIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a73682f8c4d446418e97b288913b31c2",
+      "statement": "changeLanguage updates the document lang attribute and tolerates storage write failures.",
+      "evidence": [
+        {
+          "resource": "repo://apps/web/src/i18n/index.ts#L62-L83",
+          "version": "repo-lines-v1:sha256:88592b0d5b87a7e7a72fab23a9dbd6bfaf43976139441de89049fb935f0d6d18:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2OTExNzBlMDViMTkzZTlhZjkyZjgwZmNlYWExZGE5MWMwZDM0MWVjMWEwZmE1Mzc2OTljMzZiMDZhYWViNmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZkOGI3YmNhMDMxMTVkMjNiODQ1Y2NiN2UzNTY1ZjI5NDRjZGMxNTA3MTE3YjI3NzJjMjVhNmRlM2VmZDNkZDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4ce89ae66cd84e39bbb431713ad2f265",
+      "statement": "The i18n check flattens fr and en locale files and fails when either misses a key present in the other.",
+      "evidence": [
+        {
+          "resource": "repo://apps/web/scripts/i18n-check.mjs#L1-L60",
+          "version": "repo-lines-v1:sha256:704cdcd39e0c0dccd904dc4f48bc53489673294ff349b56ec46c3e15ea311c09:eyJzZWxlY3RlZExpbmVDb3VudCI6NjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1OWM0Nzg3MmI3MWYxMjU4OTk0Mjg5MjQ2NGU3NjRjMGRiMzUwYzIwYjcyMjI4NjQ1NjE1Y2MzNmUwYTA3MjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU0M2UyY2M1OGJkYTdjODgwYTJmN2IzNzhhMmZmZTQyYjY2MWNiNDc4ZGMwODBmYWU0YmI2Y2ZiMzA3MjBiOTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_20a54fb049c84192824223b33e5e5e23",
+      "statement": "Web tests run in jsdom with an 80% coverage floor on src excluding main.tsx.",
+      "evidence": [
+        {
+          "resource": "repo://apps/web/vitest.config.ts#L1-L22",
+          "version": "repo-lines-v1:sha256:a597fb6eb27ed8d7b341086eea2fadec512d94314119a9d123d4dfbc51fe042a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1NTU5OWZhMzdhOThjOGQyNGEzNTEyZWE3M2RlZmY5ZjEwMDY3NWYxZjBjNzUzNDVjNmQ3MjgxNzExYmVlMmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-11-26T19:08:05.094Z"
+  }
+}
