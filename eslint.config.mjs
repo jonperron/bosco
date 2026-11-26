@@ -13,6 +13,8 @@ export default tseslint.config(
       'docs/**',
       'specs/**',
       'openwiki/**',
+      '**/test-results/**',
+      '**/playwright-report/**',
     ],
   },
   js.configs.recommended,

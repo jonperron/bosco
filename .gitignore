@@ -27,3 +27,7 @@ docs/specs/
 
 # generated typed API client (rebuilt from the committed contract)
 packages/api-client/src/gen/
+
+# Playwright outputs
+test-results/
+playwright-report/
