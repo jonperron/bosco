@@ -39,7 +39,9 @@ working on it, and the `.vibe/rules/*.md` files before any commit.
 
 - Metrics are aggregated per team; nothing ranks an individual.
 - Private notes are encrypted, one key per manager; each manager gets their
-  own recovery key, and no one else can read their notes.
+  own recovery key, which gives no one else access to their notes (planned:
+  today `packages/crypto` still recovers through an install-level key whose
+  holder can read every manager's notes).
 - Every number traces back to its source; one organisation per install.
 - A module never reads another module's tables — only the core contract API.
 - The rights matrix and the GDPR lifecycle are tested automatically.
