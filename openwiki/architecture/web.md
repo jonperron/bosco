@@ -5,7 +5,7 @@ description: How apps/web boots, calls the API only through the typed client, ha
 tags: [web, react, vite, i18n, frontend]
 verified:
   - by: openwiki/0.4.3
-    at: 2026-11-26T19:08:05.094Z
+    at: 2026-11-27T20:00:37.028Z
 sources:
   - id: openwiki-source-b3f97d6cb262c4910a4638b7
     resource: repo://apps/web/scripts/i18n-check.mjs
@@ -15,11 +15,13 @@ sources:
     resource: repo://apps/web/src/i18n/index.ts
   - id: openwiki-source-8e8b395281c4996e784ae3b5
     resource: repo://apps/web/src/main.tsx
+  - id: openwiki-source-922a6bd82519e37e775589c1
+    resource: repo://apps/web/test/i18n.test.ts
   - id: openwiki-source-03f6dd3375679341910a29c1
     resource: repo://apps/web/vite.config.ts
   - id: openwiki-source-6fe10cfb5ec054ca681eb262
     resource: repo://apps/web/vitest.config.ts
-generated: { by: "claude-code", at: "2026-11-26T18:56:03.534Z" }
+generated: { by: "claude-code", at: "2026-11-27T20:00:37.028Z" }
 ---
 
 # Web application (React + Vite) and i18n
@@ -64,10 +66,12 @@ typed against the committed contract (see
   already translated.
 - The choice is persisted in `localStorage` under `bosco.language`. An
   unsupported stored value, or a `getItem` that throws, falls back to `fr`;
-  a failed write logs a warning but the switch still happens. Caveat: the
-  `storage` default parameter reads `globalThis.localStorage` before the
-  `try`, so a browser that throws on that property access itself is not
-  covered by the fallback.
+  a failed write logs a warning but the switch still happens. The default
+  `globalThis.localStorage` is resolved inside the `try` blocks
+  (`resolveStorage`), so a browser that throws a `SecurityError` on merely
+  reading that property (cookies disabled, sandboxed iframe) is covered too:
+  the read falls back to `fr`, and `changeLanguage` still switches the
+  language and `<html lang>`.
 - `changeLanguage` also sets `<html lang>` for screen readers and spell
   check. The language buttons expose `aria-pressed`.
 - "Bosco" and the autonyms "Français" / "English" are deliberately not

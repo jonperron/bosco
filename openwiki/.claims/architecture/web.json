@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:587e2882af3f582781ed01763db417b7d227162b359aaffd243d0b9ef25154f6",
+  "pageVersion": "sha256:31bdf90a03f88b88e9915ff132e3257ba8e237a86bcc80d08762adec7751ad13",
   "claims": [
     {
       "id": "claim_c4441129ad0148b98f4f7f9ce2b8f1aa",
@@ -44,11 +44,11 @@
     },
     {
       "id": "claim_e21d7e95da764e069b35863d88d6791d",
-      "statement": "i18n supports exactly fr and en with fr as default and fallback, initialises synchronously from bundled resources, and persists the choice in localStorage under bosco.language, falling back to fr for an unsupported value or a throwing getItem; the localStorage default parameter is read outside the try block.",
+      "statement": "i18n supports exactly fr and en with fr as default and fallback, initialises synchronously from bundled resources, and persists the choice in localStorage under bosco.language, falling back to fr for an unsupported value or a throwing getItem.",
       "evidence": [
         {
-          "resource": "repo://apps/web/src/i18n/index.ts#L7-L60",
-          "version": "repo-lines-v1:sha256:bfab569adee1616ef423fdcb1bb91b402c3de4a3b3e2d887df8debe21b24ead2:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjNjBkMzgxOGVkYjcyMmYxZjA2ZTU1Y2JkOTA4YTFhYzI5YjdiYzg3ZTNmMThhMmZiOWMyNDAwOWIzYzdlZWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA1NDIyODA0ZGM1OTRlODNkNDZkNjcyY2Y0NzBjY2ZhOTJmMTgyNWY4YWVlNTVkOTgzYTdjODYxOTRmZWZmMTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQwN2EzNjg0NWQzYWRhMWUwN2IxYzZkY2IxYTQ5MGJkOGZkOTcyOGM2ZTM3NzdhMTM1NjZlMjhmZDRjMGQ1ZTIifQ"
+          "resource": "repo://apps/web/src/i18n/index.ts#L7-L64",
+          "version": "repo-lines-v1:sha256:590a34e8a22194e3f572c730beb53ec7c50ee5999cee82e96bc8726f674c95b1:eyJzZWxlY3RlZExpbmVDb3VudCI6NTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjNjBkMzgxOGVkYjcyMmYxZjA2ZTU1Y2JkOTA4YTFhYzI5YjdiYzg3ZTNmMThhMmZiOWMyNDAwOWIzYzdlZWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA1NDIyODA0ZGM1OTRlODNkNDZkNjcyY2Y0NzBjY2ZhOTJmMTgyNWY4YWVlNTVkOTgzYTdjODYxOTRmZWZmMTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQwN2EzNjg0NWQzYWRhMWUwN2IxYzZkY2IxYTQ5MGJkOGZkOTcyOGM2ZTM3NzdhMTM1NjZlMjhmZDRjMGQ1ZTIifQ"
         }
       ]
     },
@@ -57,8 +57,8 @@
       "statement": "changeLanguage updates the document lang attribute and tolerates storage write failures.",
       "evidence": [
         {
-          "resource": "repo://apps/web/src/i18n/index.ts#L62-L83",
-          "version": "repo-lines-v1:sha256:88592b0d5b87a7e7a72fab23a9dbd6bfaf43976139441de89049fb935f0d6d18:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2OTExNzBlMDViMTkzZTlhZjkyZjgwZmNlYWExZGE5MWMwZDM0MWVjMWEwZmE1Mzc2OTljMzZiMDZhYWViNmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZkOGI3YmNhMDMxMTVkMjNiODQ1Y2NiN2UzNTY1ZjI5NDRjZGMxNTA3MTE3YjI3NzJjMjVhNmRlM2VmZDNkZDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://apps/web/src/i18n/index.ts#L66-L87",
+          "version": "repo-lines-v1:sha256:45343ded4f7dafc34f163215639f78b839dd2f708065d3ce1b7a87e633ef1b00:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2OTExNzBlMDViMTkzZTlhZjkyZjgwZmNlYWExZGE5MWMwZDM0MWVjMWEwZmE1Mzc2OTljMzZiMDZhYWViNmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZkOGI3YmNhMDMxMTVkMjNiODQ1Y2NiN2UzNTY1ZjI5NDRjZGMxNTA3MTE3YjI3NzJjMjVhNmRlM2VmZDNkZDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     },
@@ -81,10 +81,28 @@
           "version": "repo-lines-v1:sha256:a597fb6eb27ed8d7b341086eea2fadec512d94314119a9d123d4dfbc51fe042a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1NTU5OWZhMzdhOThjOGQyNGEzNTEyZWE3M2RlZmY5ZjEwMDY3NWYxZjBjNzUzNDVjNmQ3MjgxNzExYmVlMmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
+    },
+    {
+      "id": "claim_581c26cef5de4a63867f97b9af328b16",
+      "statement": "The default globalThis.localStorage is resolved inside the try blocks via resolveStorage, so a browser that throws a SecurityError on reading the localStorage property falls back to fr on read and still switches the language on changeLanguage, only logging a warning.",
+      "evidence": [
+        {
+          "resource": "repo://apps/web/src/i18n/index.ts#L12-L33",
+          "version": "repo-lines-v1:sha256:282b56db7a0679f3fa9cbbc9f09f4398d402a685d2f69ab381893645eb17ec70:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhZDM1NDVkYjcwNTE2ZDAxYTE5ZmI2OTVmNmYxNzc3NjI1YzE1NDJiOTQyNzc3YTM1NDdhMjg0OTRlOGM0YmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRjMTRiYzU5YTcyMTE2NmQ2MTFhNTdmOGQ5NDRlOWVjZjI0NGNhOWZkNDc5MTA4OTI5M2U1MDczODdiMmYxMzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQyZDAxYTFhNDExMDJhZTZmMjFlYTljZDBlNjY4MzNmODVkOWNkZTE1YWFkMGFhMmU5NWIyMGY1YWE0YTA1YTUifQ"
+        },
+        {
+          "resource": "repo://apps/web/src/i18n/index.ts#L66-L87",
+          "version": "repo-lines-v1:sha256:45343ded4f7dafc34f163215639f78b839dd2f708065d3ce1b7a87e633ef1b00:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2OTExNzBlMDViMTkzZTlhZjkyZjgwZmNlYWExZGE5MWMwZDM0MWVjMWEwZmE1Mzc2OTljMzZiMDZhYWViNmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZkOGI3YmNhMDMxMTVkMjNiODQ1Y2NiN2UzNTY1ZjI5NDRjZGMxNTA3MTE3YjI3NzJjMjVhNmRlM2VmZDNkZDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://apps/web/test/i18n.test.ts#L46-L79",
+          "version": "repo-lines-v1:sha256:4def083df48ec7c8881c4192f4ffe728d79893ef40687a19cd636309c722f384:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUxNWYyZjhmOWE3MmZjZDcxZjBjNWZmNGUyNDhmNDI1MjZiNGQ3NzZiMDBmMjU4NjNhNWJkZjAzOTAyZDdkZTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU2Y2E5YTgxZDk4MTFhZTM3MDEwYjM0OTNhN2M2ODFiNjljYzljMDMyMTg3MzRhYmY3YjUxNGU2YTQ4MTU0NDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.4.3",
-    "at": "2026-11-26T19:08:05.094Z"
+    "at": "2026-11-27T20:00:37.028Z"
   }
 }
