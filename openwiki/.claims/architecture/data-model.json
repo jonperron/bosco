@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:a95d7fbf2834889bb541fbfaefb98a1419b6d47f7b0a74a0681ed6d2c55be8fa",
+  "pageVersion": "sha256:e72780fc6945a6cbcf837cb8759355f83a75a68ec81408f60bf1538ee6ff60f1",
   "claims": [
     {
       "id": "claim_b71b4b3639bb40e0b7fd890b2da9e940",
@@ -81,10 +81,60 @@
           "version": "repo-lines-v1:sha256:06544d082f5b17c4a90a07dd79ede23fc7b9e2368ecdd43d70052d66967abd88:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0Y2IyNjkyMzM2NDEwYWMyNzcxMjczYTExYmI5NzRlNmZlNDQ3ODUwMzExZGQ5NzhmOTM4N2MyMzk2ZmFkODkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxM2Y0ZDk2NjFlOWQyYzNlMWEyODllNTgzMjI5OWJlYTE0Y2RiNjRiZjg4NjYxZGY3MTdiMTJmYTAyZDAxMWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjljODdmMmY1ZWNlN2M4ZTY0NTI2OTZlYWUwNDA2MDgxYWNiMjQ0YzA4NjJiNjYyOWY5NGViMTJiMWZmZGE4NmQifQ"
         }
       ]
+    },
+    {
+      "id": "claim_827bac8a605c4ef0ae18089060c98a79",
+      "statement": "parsePeopleCsv validates every line before any write, rejecting repeated emails and self-management, and throws a PeopleCsvError listing every problem by line.",
+      "evidence": [
+        {
+          "resource": "repo://packages/db/src/people-import.ts#L70-L123",
+          "version": "repo-lines-v1:sha256:2c14b668942830939bbc647d98943174b1b6a79065a40be4f0e1e3d41f5fa37a:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImViZDFkODU3ZjcwZjRmMWU2MTI3MGNkOGI5NzA3NDEyNGZmNDJjMjA4YjY3ZTE4Yjg2ZTIxZDQyMWFkNjYxZWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEwNWI3ZWI4Zjg5ZWZhYWMyZmQ1MzNmOGZmNDBkYjQ5ZjQ3MDA3YmYwOWM1ZmE1ZGFmNmM0MzhhNDE5YWYzMzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjliZWRhYjI0ZjQ3NzQ4NWQ5NWJhOWYyMDAwODJmMWE4MjdmM2Q0YWIwNmU5NThkMDE5NjgyMGIwODkxNWQ0YTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_dd7eae322f994db689fcbc11a984d7ba",
+      "statement": "importPeopleCsv runs in one transaction under pg_advisory_xact_lock(hashtext('bosco.people_import')) and dates manager changes with clock_timestamp() read after the lock is held.",
+      "evidence": [
+        {
+          "resource": "repo://packages/db/src/people-import.ts#L132-L152",
+          "version": "repo-lines-v1:sha256:25277dfafe1075f1e9b243e3230c6173f867097434f4ede745397d53e6db9c25:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjYmE5YWQ5YWNjMDM3N2M1YzUyNzNkMWI2YWRjMTE0MTExNzQ4MjUyM2VlOTg2MTA2MWFlMDMxNjk4NzFiZjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRiMmE3ODcyZjYyMTQ0ZjlhMTE4MWE5YjRmOGU2MTcyZDFjYjQ0MzUwZmM0MDlkZWY1MWM5YWU5YjcyNzc0MDUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJhOGJiNjBjN2M4OWI1MzBmNTBkMjVhMDZiOTFjZTk2NWI2ZjEwZTM2OWViMDFmMThmODRjNTQ3OWZiNGUzMzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI3NmE5NWE4YjdiZTgwN2Q3YTg0NGY2MjQzYTVlYzdmZTc2Yjg3NTQ5ODhiYzdjMWQ4NjNlMmQ1M2I3ZTBkODQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_802b3add117143faa0efb7b677d393d0",
+      "statement": "Imported emails must be printable ASCII with one @ and a dot in the domain, so JS toLowerCase() and Postgres lower() agree on the upsert key.",
+      "evidence": [
+        {
+          "resource": "repo://packages/db/src/people-import.ts#L8-L10",
+          "version": "repo-lines-v1:sha256:785c8121a9a7ee504083d8c09672c59decd3c1adfd8fbeff7f9fe3b99bc63288:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWY4NTkxZjM4MTY3ZWJhYzZhYTg5MDAxZjNlZjQ5YWZjMjUyZDg2NzRlNzIzNTAxMDY2OTY4OTEyZDc3MDhlZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjMyMTYxMjFlNzU0OTIwMjhiY2Q3NDAxYTc0YjI1NTdjMzdkOTk0NDBmYmVlNWI4NzE2YjJkNWM2N2U5NzI3MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWViMzQwZGU3M2VjZGYzOWE3MjdjMTI3YmM0ZGYwZWVlNWQ5Nzc1NjlhYmY5MTc4MzkxZTAyYmIyOTMzNzhiNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTYyODk3NmIwNDAxZjUzZDBmYzQxNTc3MTViZWQyMzhlZmFhOGRjNTQ5MTRkYWY0OGNkM2ZhN2FhMTA0YTViZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ca85e2dd225d4ad8a0dfe319b095ff44",
+      "statement": "Postgres' 65535-parameter cap limits an import to about 20,000 rows because each step is one statement.",
+      "evidence": [
+        {
+          "resource": "repo://packages/db/src/people-import.ts#L135-L136",
+          "version": "repo-lines-v1:sha256:a6e482d0756221a67a86db1282087947bfc5fa3e5a7e4952a358408a9679cf5a:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjg2MDc1ODdhZTQxNjhhMTJhZjkwYmYzODQ3MjYxZTQ5ZDQ1NmMxYzkyNGFkM2E2ZWQ4OWU5MGRjMmNlNjRkYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTU0NDVmYzM2MjYwMDk3MWU0YTY0YWViYTU4MWE4NTc1MjI4NDAzMmJhNTFhMjkwY2FhNGY3NDc5YmYzYmM4YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjZjZWI0OTE1ZGFmNWQ4NmU1NTFmYWEwMDRlMDA5NDU5OTM2YzY0NTg1OTBiNzU3OTBiMThjNGJmYzJlMWVlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmJiMTEwZDdmYTNjNWI1ODkyNmYxZDJjZjgwYjYxMmU4Yzg4NzhhZjg2MzkyZThmNjczMTEyYzk4ZDdiMDY1NCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_15b369da9ae04c3eae7cfa517ad6d146",
+      "statement": "The CSV parser accepts RFC 4180 records ending in CRLF, LF or CR, optionally quoted fields with doubled quotes, and is strict on stray quotes.",
+      "evidence": [
+        {
+          "resource": "repo://packages/db/src/csv.ts#L17-L21",
+          "version": "repo-lines-v1:sha256:cedc5d5231ef901cef5eae678c0f1e48f90d7e08c82258a319d418953d3e6b1d:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjY5OWZlMzZhOGIyMDY5ZDJjZjUwMjc5YWIyMDlmMDkzYmZmODkxNzU3OWQyMzYyYjMzYzVhYWE5YjhlY2EwNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmI1ODBlOTY0ZjgzYTQ3M2Y0M2Q0NDM4NDYyOTQ5ZDY4YjU2MDBmZGE3ODdmMTYzNzQ1ZDAwZGU4OWNiZjM2YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDA5NWQ3YzBiMTIyNWZlMzA3YzE5Mzg5YzA1MjhhMzVhYjlkZWUxMTYzODZiMjM2OWRmMjA5MmFiYjdiZjY5ZiJ9"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.4.3",
-    "at": "2026-11-26T19:14:34.660Z"
+    "at": "2026-11-27T19:49:50.532Z"
   }
 }

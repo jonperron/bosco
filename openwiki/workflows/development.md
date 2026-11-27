@@ -24,10 +24,10 @@ sources:
     resource: repo://release-please-config.json
   - id: openwiki-source-440ae1e215cb02721dda855c
     resource: repo://turbo.json
-generated: { by: "claude-code", at: "2026-11-26T19:14:34.660Z" }
+generated: { by: "claude-code", at: "2026-11-27T19:49:50.532Z" }
 verified:
   - by: openwiki/0.4.3
-    at: 2026-11-26T19:14:34.660Z
+    at: 2026-11-27T19:49:50.532Z
 ---
 
 # Development workflow, CI and releases
@@ -65,7 +65,8 @@ Run from the repository root; CI runs the same commands
 Coverage: `apps/api` and `apps/web` enforce 80 % lines, functions, branches
 and statements in their `vitest.config.ts`. Floors are not edited inside an
 unrelated change. `@bosco/db` enforces the same floor in its integration run
-(`vitest.integration.config.ts`), since database code is never tested on a mock.
+(`vitest.integration.config.ts`), since database code is never tested on a mock;
+that run includes its unit tests too, so it is the workspace's coverage gate.
 
 ## End-to-end smoke test
 
