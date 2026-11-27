@@ -26,7 +26,18 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await db?.$client.end();
+  if (db) {
+    // pool.end() resolves before its clients' sockets close; wait for every 'remove' so that
+    // DROP ... WITH (FORCE) cannot kill a closing backend (unhandled 57P01 error).
+    const pool = db.$client;
+    let open = pool.totalCount;
+    const closed = new Promise<void>((resolve) => {
+      if (open === 0) resolve();
+      pool.on('remove', () => --open === 0 && resolve());
+    });
+    await pool.end();
+    await closed;
+  }
   await admin.query(`DROP DATABASE IF EXISTS "${databaseName}" WITH (FORCE)`);
   await admin.end();
 });
