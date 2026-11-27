@@ -30,9 +30,11 @@ clé par manager, protégée par une clé maître propre à l'installation. Elle
 sont illisibles en clair en base de données et visibles uniquement de leur
 propriétaire, dans les conditions de partage choisies. Chaque manager
 recevra sa propre clé de secours pour récupérer ses notes s'il perd sa clé,
-et personne d'autre ne pourra les lire. Aujourd'hui, le recouvrement passe
-encore par une clé de recouvrement propre à l'installation, en attendant ce
-changement (voir [chiffrement par enveloppe](crypto-envelope.fr.md)).
+et cette clé ne donnera accès à ses notes à personne d'autre. Ce n'est pas
+encore le cas : aujourd'hui, le recouvrement passe par une clé de
+recouvrement propre à l'installation, et qui la détient peut lire les notes
+privées de tous les managers (voir
+[chiffrement par enveloppe](crypto-envelope.fr.md)).
 Quand une personne change de manager, ses notes de 1:1 sont archivées : ni
 transférées au nouveau manager, ni laissées actives.
 
