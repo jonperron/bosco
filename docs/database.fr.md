@@ -54,5 +54,43 @@ que drizzle-kit ne sait pas exprimer : elles vivent dans une migration
 bosco s'adresse aux seuls managers, pour leur propre usage : un manager crée
 des fiches pour des personnes qui ne se connectent jamais, et aucun compte
 collaborateur n'est prévu. Les personnes sont saisies à la main ou importées
-en CSV ; les deux arrivent dans des lots ultérieurs, avec
-l'authentification.
+en CSV ; les écrans et les routes de l'une et l'autre arrivent dans des lots
+ultérieurs, avec l'authentification.
+
+## Importer des personnes en CSV
+
+`importPeopleCsv(db, csvText)`, dans `@bosco/db`, importe des personnes
+depuis un fichier CSV. Aucune route ni aucun écran ne l'appelle encore.
+
+```csv
+display_name,email,manager_email
+Ada Alpha,ada@example.com,
+Bo Beta,bo@example.com,ada@example.com
+```
+
+- CSV RFC 4180 : séparateur virgule, champs entre guillemets doubles
+  facultatifs, un guillemet doublé pour un guillemet, fins de ligne CRLF ou
+  LF. Les lignes vides sont ignorées.
+- La ligne d'en-tête est obligatoire. Les colonnes `display_name` et `email`
+  sont obligatoires, `manager_email` est facultative ; l'ordre et la casse
+  des colonnes sont libres. Toute autre colonne fait rejeter le fichier.
+- Les e-mails sont en ASCII imprimable, avec un seul `@` et un point dans le
+  domaine ; rien ne vérifie qu'ils sont distribuables.
+- Tout ou rien : une seule ligne invalide fait rejeter tout le fichier, et
+  rien n'est écrit. L'erreur liste chaque problème par ligne et par colonne,
+  jamais une valeur du fichier ; le message montre les 20 premiers.
+- Les personnes sont reconnues par leur e-mail, sans tenir compte de la
+  casse : un e-mail connu met à jour le nom affiché, un nouveau crée une
+  personne.
+- Un `manager_email` non vide doit désigner quelqu'un du fichier ou déjà en
+  base. S'il désigne un nouveau manager, le rattachement ouvert se termine
+  et un nouveau commence au même instant ; l'historique est conservé. Un
+  `manager_email` vide laisse le manager actuel tel quel.
+- Les imports passent un par un (un verrou consultatif Postgres). Les
+  autres écritures dans `core.person` ne prennent pas ce verrou.
+
+Pas encore pris en charge : les équipes, le retrait d'un manager, les
+fichiers séparés par `;`, les e-mails hors ASCII, une taille maximale ou une
+attente maximale du verrou (toutes deux pour la route qui appellera
+l'import), et les cycles de managers (A manage B, B manage A), que le lot
+des droits empêchera.
