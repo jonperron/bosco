@@ -68,6 +68,9 @@ describe('i18n module', () => {
     });
 
     it('changeLanguage still switches the language', async () => {
+      // Start from fr on the shared instance, whatever the earlier tests left.
+      await i18nStore.changeLanguage('fr');
+      expect(i18nStore.language).toBe('fr');
       await changeLanguage('en');
       expect(i18nStore.language).toBe('en');
       expect(console.warn).toHaveBeenCalled();
