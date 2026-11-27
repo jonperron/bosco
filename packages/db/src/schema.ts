@@ -1,5 +1,14 @@
 import { sql } from 'drizzle-orm';
-import { boolean, check, pgSchema, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
+import {
+  boolean,
+  check,
+  index,
+  pgSchema,
+  text,
+  timestamp,
+  uniqueIndex,
+  uuid,
+} from 'drizzle-orm/pg-core';
 
 export const core = pgSchema('core');
 
@@ -28,7 +37,7 @@ export const organisation = core.table(
   (table) => [check('organisation_single_row', sql`${table.id}`)],
 );
 
-// Independent of any login account: accounts arrive with lot 4.
+// A record a manager keeps, independent of the login account table (core.account).
 export const person = core.table(
   'person',
   {
@@ -80,5 +89,38 @@ export const managerAttachment = core.table(
   (table) => [
     check('manager_attachment_not_self', sql`${table.personId} <> ${table.managerId}`),
     check('manager_attachment_period_order', sql`${table.endedAt} > ${table.startedAt}`),
+  ],
+);
+
+// A manager's login account. Not linked to core.person: whether it maps to a person is open (lot 5).
+export const account = core.table(
+  'account',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    // The Google OIDC `sub` claim: the stable identity; the email may change. Unique alone
+    // because Google is the only issuer; a second one would make the key (issuer, subject).
+    oidcSubject: text('oidc_subject').notNull().unique(),
+    email: text('email').notNull(),
+    displayName: text('display_name').notNull(),
+    ...timestamps,
+  },
+  (table) => [uniqueIndex('account_email_lower_unique').on(sql`lower(${table.email})`)],
+);
+
+// Server-side sessions, so a logout revokes. Only a SHA-256 hash of the token is stored.
+export const session = core.table(
+  'session',
+  {
+    tokenHash: text('token_hash').primaryKey(),
+    accountId: uuid('account_id')
+      .notNull()
+      .references(() => account.id, { onDelete: 'cascade' }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+  },
+  (table) => [
+    check('session_expires_after_created', sql`${table.expiresAt} > ${table.createdAt}`),
+    index('session_account_id_index').on(table.accountId),
+    index('session_expires_at_index').on(table.expiresAt),
   ],
 );

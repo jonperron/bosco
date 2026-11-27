@@ -40,9 +40,35 @@ demo seed. It is not wired into the API yet. The user-facing guide is
 | `team` | name | none beyond the key |
 | `team_membership` | person in team, `[started_at, ended_at)` | end after start; no two overlapping periods for the same person in the same team |
 | `manager_attachment` | person → manager, `[started_at, ended_at)` | nobody is their own manager; end after start; no two overlapping periods for the same person |
+| `account` | a manager's login: `oidc_subject`, email, display name | subject unique (`account_oidc_subject_unique`); email unique ignoring case (`account_email_lower_unique`); no link to `person` |
+| `session` | `token_hash` (SHA-256 of the token), account, `expires_at` | `expires_at > created_at`; indexes on `account_id` and `expires_at` |
 
 An open period has `ended_at` null. Every foreign key is `ON DELETE
-RESTRICT`: a person or team still referenced cannot be deleted.
+RESTRICT`: a person or team still referenced cannot be deleted. The one
+exception is `session.account_id`, `ON DELETE CASCADE`: sessions die with
+their account.
+
+## Accounts and sessions
+
+`packages/db/src/accounts.ts` and `sessions.ts`, exported by `@bosco/db`
+and not called by any route yet (the API step comes next). Any verified
+Google account of the company domain becomes a manager account at first
+login: no admin, no invitation, no role column.
+
+- `upsertAccountFromOidc(db, {subject, email, displayName})` trusts a
+  caller-verified ID token, upserts on `oidc_subject`, follows email and
+  name changes and moves `updated_at` at each login. An email held by
+  another subject raises `AccountEmailConflictError` (mapped from
+  `account_email_lower_unique`): accounts are never merged.
+- `createSession(db, accountId, lifetimeSeconds)` draws 32 random bytes,
+  stores only their SHA-256 hash, computes `expires_at` with the database
+  `now()`, and returns the raw token once; a non-positive or non-finite
+  lifetime throws `RangeError`.
+- `findSession` returns `{account, expiresAt}` or `null` (unknown or
+  expired); `deleteSession` (logout) returns whether a row went;
+  `deleteExpiredSessions` returns the count.
+
+Whether a manager's account maps to a `person` record is open (lot 5).
 
 The overlap rules are `EXCLUDE USING gist` constraints on
 `tstzrange(started_at, ended_at)` with the trusted `btree_gist` extension.
@@ -53,7 +79,11 @@ drizzle-kit cannot express them, so they live in the hand-written migration
 
 - `pnpm db:migrate` runs the drizzle-orm migrator over
   `packages/db/migrations`; applied migrations are skipped, so it is safe to
-  rerun.
+  rerun. `runMigrations` holds a session advisory lock
+  (`hashtext('bosco.migrations')`) on one dedicated connection, so
+  concurrent API instances queue; the connection is destroyed afterwards,
+  which releases the lock even after a failure. No wait limit yet.
+  `0002_accounts_sessions.sql` (generated) only adds tables.
 - `pnpm db:seed` inserts fictitious demo data (names on `example.com`) with
   fixed ids, so a rerun inserts nothing. It refuses when the database holds a
   non-demo organisation, people or teams.
@@ -89,6 +119,7 @@ database.
 ## Product decisions and deferred work
 
 bosco is for managers only: a manager keeps records for people who never log
-in, so `person` has no account link. Entering people by hand comes in a later
+in, so `person` has no account link, and `account` (the manager's login)
+has none to `person`. Entering people by hand comes in a later
 lot. CSV import exists as a library function only (see above). Manager-cycle prevention is an application rule for the
 rights lot; the GDPR deletion cascade is decided with the GDPR lot.

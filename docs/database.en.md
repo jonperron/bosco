@@ -36,6 +36,10 @@ forbid overlapping periods are `EXCLUDE` constraints, which drizzle-kit
 cannot express: they live in a hand-written migration
 (`0001_period_overlap.sql`).
 
+`pnpm db:migrate` takes a Postgres advisory lock, so several API instances
+starting at once migrate safely: they wait their turn. There is no wait
+limit yet.
+
 ## The `core` data model
 
 - `organisation`: exactly one row — one organisation per install;
@@ -46,13 +50,42 @@ cannot express: they live in a hand-written migration
   optional end (`[started_at, ended_at)`, open while the end is empty).
   Periods never overlap: a person is in a given team at most once, and has
   at most one manager, at any instant; nobody is their own manager;
+- `account`: a manager's login account (see below);
+- `session`: an open session of an account;
 - foreign keys restrict deletes: a person or team still referenced cannot be
-  deleted.
+  deleted. Sessions are the exception: they are deleted with their account.
 
 bosco is for managers only, for their own use: a manager creates records for
 people who never log in, and no collaborator accounts are planned. People
 are entered by hand or imported from CSV; the screens and routes for both
 come in later lots, with authentication.
+
+## Accounts and sessions
+
+Any verified Google account of the company domain signs in as a manager,
+and its account is created at its first login: no administrator, no
+invitation, no role. An account holds the OIDC subject (the stable
+identity, unique), an email (unique ignoring case) and a display name. It
+is not linked to a `person` record: whether a manager's account maps to a
+person is an open question.
+
+Sessions live in the database, so logging out revokes them. A session
+stores only the SHA-256 hash of a random 256-bit token; its expiry is
+computed on the database clock.
+
+`@bosco/db` exports the functions; no route calls them yet:
+
+- `upsertAccountFromOidc(db, { subject, email, displayName })`: the caller
+  must have verified the ID token. Matches on the subject, follows email and
+  name changes. An email held by another subject raises
+  `AccountEmailConflictError`: accounts are never merged;
+- `createSession(db, accountId, lifetimeSeconds)` returns the raw token,
+  readable only this once, and its expiry. A lifetime that is not a positive
+  number raises a `RangeError`;
+- `findSession(db, token)` returns the account and expiry, or `null` if the
+  token is unknown or expired;
+- `deleteSession(db, token)` logs out, and says whether a session matched;
+- `deleteExpiredSessions(db)` deletes expired sessions and returns how many.
 
 ## Importing people from CSV
 
