@@ -32,11 +32,12 @@ describe('parseCsv', () => {
   it('numbers each record by the line it starts on', () => {
     const records = parseCsv('h\n"two\nlines"\nnext\n');
     expect(records.map((record) => record.line)).toEqual([1, 2, 4]);
+    expect(parseCsv('h\r"two\rlines"\rnext').map((record) => record.line)).toEqual([1, 2, 4]);
   });
 
   it('returns no record for an empty text and skips a byte order mark', () => {
     expect(parseCsv('')).toEqual([]);
-    expect(fields('﻿a,b\n')).toEqual([['a', 'b']]);
+    expect(fields('\uFEFFa,b\n')).toEqual([['a', 'b']]);
   });
 
   it.each([

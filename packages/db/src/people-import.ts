@@ -7,6 +7,7 @@ const REQUIRED_COLUMNS = ['display_name', 'email'] as const;
 const COLUMNS: readonly string[] = [...REQUIRED_COLUMNS, 'manager_email'];
 // Shape check only: one @, no spaces, a dot in the domain. Deliverability is not checked.
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_PROBLEMS_IN_MESSAGE = 20;
 
 export interface PeopleCsvRow {
   readonly line: number;
@@ -29,7 +30,12 @@ export interface PeopleImportResult {
 /** The file was rejected as a whole. Messages name lines and columns, never a value. */
 export class PeopleCsvError extends Error {
   constructor(readonly problems: readonly PeopleCsvProblem[]) {
-    const lines = problems.map((problem) => `line ${problem.line}: ${problem.message}`);
+    const lines = problems
+      .slice(0, MAX_PROBLEMS_IN_MESSAGE)
+      .map((problem) => `line ${problem.line}: ${problem.message}`);
+    if (problems.length > MAX_PROBLEMS_IN_MESSAGE) {
+      lines.push(`...and ${problems.length - MAX_PROBLEMS_IN_MESSAGE} more`);
+    }
     super(`Invalid people CSV, nothing imported:\n${lines.join('\n')}`);
     this.name = 'PeopleCsvError';
   }
@@ -40,7 +46,10 @@ function readHeader(names: readonly string[], line: number): void {
     ...REQUIRED_COLUMNS.filter((name) => !names.includes(name)).map(
       (name) => `missing column ${name}`,
     ),
-    ...names.filter((name) => !COLUMNS.includes(name)).map((name) => `unknown column ${name}`),
+    // By position: an unknown header cell may be a data row (a file without a header).
+    ...names.flatMap((name, index) =>
+      COLUMNS.includes(name) ? [] : [`unknown column ${index + 1}`],
+    ),
     ...names
       .filter((name, index) => COLUMNS.includes(name) && names.indexOf(name) !== index)
       .map((name) => `repeated column ${name}`),
@@ -129,6 +138,8 @@ export async function importPeopleCsv(db: Database, csvText: string): Promise<Pe
   if (emails.length === 0) return { created: 0, updated: 0, managersChanged: 0 };
 
   return db.transaction(async (tx) => {
+    // Imports queue behind each other, so each one reads what the previous one committed.
+    await tx.execute(sql`select pg_advisory_xact_lock(hashtext('bosco.people_import'))`);
     const lowerEmail = sql<string>`lower(${person.email})`;
     const existing = await tx
       .select({ id: person.id, email: lowerEmail, displayName: person.displayName })
