@@ -66,12 +66,13 @@ Bo Beta,bo@example.com,ada@example.com
 ```
 
 - RFC 4180 CSV: comma-separated, fields optionally in double quotes, a
-  doubled quote for a quote, CRLF or LF line ends. Blank lines are skipped.
+  doubled quote for a quote, CRLF, LF or CR line ends. Blank lines are skipped.
 - The header row is required. `display_name` and `email` are required
   columns, `manager_email` is optional; columns are matched in any order and
   case. Any other column rejects the file.
 - Emails are printable ASCII with one `@` and a dot in the domain; nothing
   checks that they are deliverable.
+  Display names cannot hold control characters (tabs, NUL...).
 - All or nothing: one invalid line rejects the whole file and nothing is
   written. The error lists each problem by line and column, never a value
   from the file; the message shows the first 20.

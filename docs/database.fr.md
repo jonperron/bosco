@@ -69,13 +69,15 @@ Bo Beta,bo@example.com,ada@example.com
 ```
 
 - CSV RFC 4180 : séparateur virgule, champs entre guillemets doubles
-  facultatifs, un guillemet doublé pour un guillemet, fins de ligne CRLF ou
-  LF. Les lignes vides sont ignorées.
+  facultatifs, un guillemet doublé pour un guillemet, fins de ligne CRLF, LF
+  ou CR. Les lignes vides sont ignorées.
 - La ligne d'en-tête est obligatoire. Les colonnes `display_name` et `email`
   sont obligatoires, `manager_email` est facultative ; l'ordre et la casse
   des colonnes sont libres. Toute autre colonne fait rejeter le fichier.
 - Les e-mails sont en ASCII imprimable, avec un seul `@` et un point dans le
   domaine ; rien ne vérifie qu'ils sont distribuables.
+  Les noms affichés ne peuvent pas contenir de caractères de contrôle
+  (tabulation, NUL...).
 - Tout ou rien : une seule ligne invalide fait rejeter tout le fichier, et
   rien n'est écrit. L'erreur liste chaque problème par ligne et par colonne,
   jamais une valeur du fichier ; le message montre les 20 premiers.
