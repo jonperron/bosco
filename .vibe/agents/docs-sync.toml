@@ -32,8 +32,10 @@ no one edits docs without you: the caller hands you the merged diff.
    them in the primary checkout, never in a worktree, and never commit them.
    Tick a checkbox in `local/Plan socle v0.md` ONLY when the lot's
    done-criteria are demonstrably met, and list the tick in your report.
-5. Open plan decisions ("Décisions ouvertes"): if the change touches one,
-   add the note you were given; never resolve the question yourself.
+5. Plan decisions: the "Décisions prises" table of `local/Plan socle v0.md`
+   is settled, so set the docs to it. A question the plan does not answer
+   is open: if the change touches one, add the note you were given; never
+   resolve the question yourself.
 
 ## Report
 
