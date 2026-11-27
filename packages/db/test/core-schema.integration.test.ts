@@ -4,7 +4,14 @@ import pg from 'pg';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { createDatabase, type Database } from '../src/client.js';
 import { runMigrations } from '../src/migrate.js';
-import { managerAttachment, organisation, person, team, teamMembership } from '../src/schema.js';
+import {
+  account,
+  managerAttachment,
+  organisation,
+  person,
+  team,
+  teamMembership,
+} from '../src/schema.js';
 import { demoData, seedDemoData } from '../src/seed.js';
 
 const baseUrl = process.env.DATABASE_URL;
@@ -230,5 +237,14 @@ describe('core schema', () => {
     const before = await rowCounts();
     await expect(seedDemoData(db)).rejects.toThrow(/non-demo/);
     expect(await rowCounts()).toEqual(before);
+  });
+
+  it('refuses to seed into a database where a manager has signed in', async () => {
+    await db.delete(person).where(eq(person.email, 'someone@example.org'));
+    await seedDemoData(db);
+    await db
+      .insert(account)
+      .values({ oidcSubject: 'sub-real', email: 'real@example.org', displayName: 'Real' });
+    await expect(seedDemoData(db)).rejects.toThrow(/non-demo/);
   });
 });

@@ -13,8 +13,8 @@ export interface OidcIdentity {
 
 /** The email belongs to an account with another OIDC subject; accounts are never merged. */
 export class AccountEmailConflictError extends Error {
-  constructor(options?: ErrorOptions) {
-    super('This email already belongs to another account.', options);
+  constructor() {
+    super('This email already belongs to another account.');
     this.name = 'AccountEmailConflictError';
   }
 }
@@ -46,7 +46,8 @@ export async function upsertAccountFromOidc(
     const cause: unknown = error instanceof Error ? error.cause : undefined;
     if (cause instanceof Object && 'constraint' in cause) {
       if (cause.constraint === 'account_email_lower_unique') {
-        throw new AccountEmailConflictError({ cause: error });
+        // No cause: the driver error's detail quotes the email, which must not reach logs.
+        throw new AccountEmailConflictError();
       }
     }
     throw error;

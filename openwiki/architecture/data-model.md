@@ -41,7 +41,7 @@ demo seed. It is not wired into the API yet. The user-facing guide is
 | `team_membership` | person in team, `[started_at, ended_at)` | end after start; no two overlapping periods for the same person in the same team |
 | `manager_attachment` | person → manager, `[started_at, ended_at)` | nobody is their own manager; end after start; no two overlapping periods for the same person |
 | `account` | a manager's login: `oidc_subject`, email, display name | subject unique (`account_oidc_subject_unique`); email unique ignoring case (`account_email_lower_unique`); no link to `person` |
-| `session` | `token_hash` (SHA-256 of the token), account, `expires_at` | `expires_at > created_at`; indexes on `account_id` and `expires_at` |
+| `session` | `token_hash` (SHA-256 of the token), account, `expires_at` | `expires_at > created_at`; `token_hash` is 64 lowercase hex chars (`session_token_hash_format`), so a raw token cannot be stored; indexes on `account_id` and `expires_at` |
 
 An open period has `ended_at` null. Every foreign key is `ON DELETE
 RESTRICT`: a person or team still referenced cannot be deleted. The one
@@ -59,11 +59,12 @@ login: no admin, no invitation, no role column.
   caller-verified ID token, upserts on `oidc_subject`, follows email and
   name changes and moves `updated_at` at each login. An email held by
   another subject raises `AccountEmailConflictError` (mapped from
-  `account_email_lower_unique`): accounts are never merged.
+  `account_email_lower_unique`, with no cause attached since the driver
+  error quotes the email): accounts are never merged.
 - `createSession(db, accountId, lifetimeSeconds)` draws 32 random bytes,
   stores only their SHA-256 hash, computes `expires_at` with the database
-  `now()`, and returns the raw token once; a non-positive or non-finite
-  lifetime throws `RangeError`.
+  `now()`, and returns the raw token once; a lifetime that is not a whole
+  number of seconds in 1..2^31 - 1 throws `RangeError`.
 - `findSession` returns `{account, expiresAt}` or `null` (unknown or
   expired); `deleteSession` (logout) returns whether a row went;
   `deleteExpiredSessions` returns the count.
@@ -86,7 +87,7 @@ drizzle-kit cannot express them, so they live in the hand-written migration
   `0002_accounts_sessions.sql` (generated) only adds tables.
 - `pnpm db:seed` inserts fictitious demo data (names on `example.com`) with
   fixed ids, so a rerun inserts nothing. It refuses when the database holds a
-  non-demo organisation, people or teams.
+  non-demo organisation, people or teams, or any account.
 - New migrations: change `src/schema.ts`, then
   `pnpm --filter @bosco/db db:generate`.
 - Local database: root `docker-compose.yml`, service `postgres`

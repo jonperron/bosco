@@ -19,7 +19,8 @@ The host port is `${POSTGRES_PORT:-5432}`; if 5432 is taken, change
 `POSTGRES_PORT` and `DATABASE_URL` together in `.env`.
 
 The seed is idempotent and refuses to run when the database already holds
-an organisation, people or teams that are not demo data.
+an organisation, people or teams that are not demo data, or any account
+(a manager has signed in).
 
 ## Tests
 
@@ -70,18 +71,20 @@ is not linked to a `person` record: whether a manager's account maps to a
 person is an open question.
 
 Sessions live in the database, so logging out revokes them. A session
-stores only the SHA-256 hash of a random 256-bit token; its expiry is
-computed on the database clock.
+stores only the SHA-256 hash of a random 256-bit token; the database
+refuses anything that is not a SHA-256 hex digest, so a raw token cannot be
+stored by mistake. Its expiry is computed on the database clock.
 
 `@bosco/db` exports the functions; no route calls them yet:
 
 - `upsertAccountFromOidc(db, { subject, email, displayName })`: the caller
   must have verified the ID token. Matches on the subject, follows email and
   name changes. An email held by another subject raises
-  `AccountEmailConflictError`: accounts are never merged;
+  `AccountEmailConflictError` (with no cause: the driver error quotes the
+  email): accounts are never merged;
 - `createSession(db, accountId, lifetimeSeconds)` returns the raw token,
-  readable only this once, and its expiry. A lifetime that is not a positive
-  number raises a `RangeError`;
+  readable only this once, and its expiry. A lifetime that is not a whole
+  number of seconds from 1 to 2^31 - 1 raises a `RangeError`;
 - `findSession(db, token)` returns the account and expiry, or `null` if the
   token is unknown or expired;
 - `deleteSession(db, token)` logs out, and says whether a session matched;

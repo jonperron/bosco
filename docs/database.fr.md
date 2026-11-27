@@ -20,7 +20,7 @@ Le port hôte est `${POSTGRES_PORT:-5432}` ; si 5432 est pris, changer
 
 Le seed est idempotent et refuse de tourner quand la base contient déjà une
 organisation, des personnes ou des équipes qui ne sont pas des données de
-démonstration.
+démonstration, ou un compte (un manager s'est connecté).
 
 ## Tests
 
@@ -74,18 +74,21 @@ casse) et un nom affiché. Il n'est pas lié à une fiche `person` : savoir si
 le compte d'un manager correspond à une personne est une question ouverte.
 
 Les sessions vivent en base, donc se déconnecter les révoque. Une session
-ne stocke que l'empreinte SHA-256 d'un jeton aléatoire de 256 bits ; son
-expiration est calculée sur l'horloge de la base.
+ne stocke que l'empreinte SHA-256 d'un jeton aléatoire de 256 bits ; la base
+refuse tout ce qui n'est pas une empreinte SHA-256 hexadécimale, si bien
+qu'un jeton brut ne peut pas être stocké par erreur. Son expiration est
+calculée sur l'horloge de la base.
 
 `@bosco/db` exporte les fonctions ; aucune route ne les appelle encore :
 
 - `upsertAccountFromOidc(db, { subject, email, displayName })` : l'appelant
   doit avoir vérifié l'ID token. Reconnaît le compte par son sujet, suit les
   changements d'e-mail et de nom. Un e-mail détenu par un autre sujet lève
-  `AccountEmailConflictError` : les comptes ne sont jamais fusionnés ;
+  `AccountEmailConflictError` (sans cause : l'erreur du pilote cite
+  l'e-mail) : les comptes ne sont jamais fusionnés ;
 - `createSession(db, accountId, lifetimeSeconds)` renvoie le jeton brut,
   lisible cette seule fois, et son expiration. Une durée qui n'est pas un
-  nombre positif lève une `RangeError` ;
+  nombre entier de secondes de 1 à 2^31 - 1 lève une `RangeError` ;
 - `findSession(db, token)` renvoie le compte et l'expiration, ou `null` si
   le jeton est inconnu ou expiré ;
 - `deleteSession(db, token)` déconnecte, et indique si une session
