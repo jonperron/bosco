@@ -28,7 +28,11 @@ individualisé ou à un score.
 Les notes privées prises pendant les entretiens sont **chiffrées**, avec une
 clé par manager, protégée par une clé maître propre à l'installation. Elles
 sont illisibles en clair en base de données et visibles uniquement de leur
-propriétaire, dans les conditions de partage choisies.
+propriétaire, dans les conditions de partage choisies, à une exception près :
+l'administrateur de l'installation détient une clé de secours, qui sert à
+récupérer les notes quand un manager perd sa clé, et peut donc lire toutes
+les notes privées. Quand une personne change de manager, ses notes de 1:1
+sont archivées : ni transférées au nouveau manager, ni laissées actives.
 
 ## 4. Traçabilité de chaque nombre
 

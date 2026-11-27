@@ -26,7 +26,11 @@ ones, objectives), never for individual control or a score.
 Private notes taken during one-on-ones are **encrypted**, with one key per
 manager, protected by an installation-specific master key. They are unreadable
 in the clear in the database and visible only to their owner, under the
-sharing conditions the organisation has chosen.
+sharing conditions the organisation has chosen, with one exception: the
+installation's administrator holds a backup key, used to recover the notes
+when a manager loses their key, and can therefore read every private note.
+When a person changes manager, their one-on-one notes are archived: neither
+handed to the new manager nor left active.
 
 ## 4. Traceability of every number
 

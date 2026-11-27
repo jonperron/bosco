@@ -62,7 +62,7 @@ api:
 
     - method: GET
       path: /people
-      description: List all people in the organization
+      description: List the people the authenticated manager keeps records for
       tags:
         - core
         - people
@@ -77,7 +77,7 @@ api:
 
     - method: POST
       path: /people
-      description: Create a new person
+      description: Create a person record (people never log in)
       tags:
         - core
         - people
@@ -97,7 +97,9 @@ components:
   schemas:
     Person:
       type: object
-      description: A person in the organization
+      description: |
+        A person record kept by a manager. People never log in: a Person
+        carries no account, role or credentials.
       properties:
         id:
           type: string
@@ -106,17 +108,14 @@ components:
         email:
           type: string
           format: email
-          description: Email address
+          nullable: true
+          description: Contact email, optional (not a login)
         firstName:
           type: string
           description: First name
         lastName:
           type: string
           description: Last name
-        role:
-          type: string
-          enum: [admin, manager, collaborator]
-          description: User role
         teamId:
           type: string
           format: uuid
@@ -136,10 +135,8 @@ components:
           description: Last update timestamp
       required:
         - id
-        - email
         - firstName
         - lastName
-        - role
         - createdAt
 
     PersonCreate:
@@ -149,13 +146,11 @@ components:
         email:
           type: string
           format: email
+          nullable: true
         firstName:
           type: string
         lastName:
           type: string
-        role:
-          type: string
-          enum: [admin, manager, collaborator]
         teamId:
           type: string
           format: uuid
@@ -164,10 +159,8 @@ components:
           format: uuid
           nullable: true
       required:
-        - email
         - firstName
         - lastName
-        - role
 
     Team:
       type: object
