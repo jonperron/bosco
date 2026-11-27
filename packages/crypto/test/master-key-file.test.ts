@@ -44,6 +44,11 @@ describe('loadMasterKeyFromFile', () => {
     expect(String(error)).not.toContain('secret');
   });
 
+  it('refuses an oversized file before decoding it', async () => {
+    const env = await fileWith('huge', `${keyBase64}${' '.repeat(4096)}\n`);
+    await expect(loadMasterKeyFromFile(env)).rejects.toThrow(/larger than 256 bytes/);
+  });
+
   it('fails on a key of the wrong size', async () => {
     const env = await fileWith('short', Buffer.alloc(16).toString('base64'));
     await expect(loadMasterKeyFromFile(env)).rejects.toThrow(/master key must be 32 bytes/);

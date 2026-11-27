@@ -37,7 +37,10 @@ le schéma et l'API qu'un module utilise.
   `fill(0)` après usage.
 - `rewrapManagerKey(wrappedKey, ownerId, oldMasterKey, newMasterKey)` fait
   tourner la clé maître : la clé de données est ré-enveloppée, les données
-  ne bougent pas.
+  ne bougent pas. Une clé déjà enveloppée sous la nouvelle clé maître est
+  renvoyée telle quelle : une rotation interrompue se reprend en la
+  relançant sur tous les managers. Gardez l'ancien fichier de clé maître
+  jusqu'à ce que cette passe ait réussi.
 - `rotateManagerKey(wrappedKey, masterKey, ownerId, recoveryPublicKey, items)`
   fait tourner la clé d'un manager : chaque `{ ciphertext, purpose }` fourni
   est déchiffré puis rechiffré sous une nouvelle clé de données, tout ou
@@ -47,7 +50,7 @@ le schéma et l'API qu'un module utilise.
   `recoverManagerKey(recoveryKey, ownerId, keyPair, masterKey, verify)` :
   voir plus bas.
 - `loadMasterKeyFromFile()` lit la clé maître dans le fichier désigné par
-  `BOSCO_MASTER_KEY_FILE`.
+  `BOSCO_MASTER_KEY_FILE` ; un fichier de plus de 256 octets est refusé.
 - Toute erreur lève une `CryptoError`, dont le message ne contient jamais de
   clé.
 
@@ -61,9 +64,13 @@ le schéma et l'API qu'un module utilise.
   pour la clé publique de l'administrateur ; la clé privée reste hors ligne
   et n'est sortie que pour un recouvrement. L'administrateur peut donc lire
   les notes de tous les managers. Une boîte scellée ne prouve pas qui l'a
-  scellée : passez toujours à `recoverManagerKey` un chiffré existant du
+  scellée : `recoverManagerKey` exige donc un chiffré existant du
   propriétaire en `verify`, afin qu'une clé de recouvrement implantée soit
-  refusée.
+  refusée. Choisissez-en un écrit avant la falsification supposée (le plus
+  ancien, par exemple) : qui peut écrire en base pourrait implanter un
+  chiffré assorti à côté d'une clé de recouvrement implantée. Un
+  propriétaire sans chiffré n'a rien à recouvrer : générez-lui plutôt une
+  nouvelle clé de manager.
 - **Quand une personne change de manager, les notes d'entretien sont
   archivées, pas transférées.** Aucune fonction de transfert n'existe.
 

@@ -26,6 +26,15 @@ export class CryptoError extends Error {
   override name = 'CryptoError';
 }
 
+/** Every public entry point awaits this, so a WASM load failure is a CryptoError too. */
+export async function sodiumReady(): Promise<void> {
+  try {
+    await sodium.ready;
+  } catch (error) {
+    throw new CryptoError('libsodium failed to initialise', { cause: error });
+  }
+}
+
 export function requireLength(bytes: Uint8Array, length: number, label: string): void {
   if (bytes.length !== length) {
     throw new CryptoError(`${label} must be ${length} bytes`);

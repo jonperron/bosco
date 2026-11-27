@@ -9,6 +9,7 @@ import {
   requireLength,
   requireText,
   sealAead,
+  sodiumReady,
   withVersion,
   type StoredCiphertext,
 } from './format.js';
@@ -23,7 +24,7 @@ export interface RecoveryKeyPair {
 }
 
 export async function generateRecoveryKeyPair(): Promise<RecoveryKeyPair> {
-  await sodium.ready;
+  await sodiumReady();
   const { publicKey, privateKey } = sodium.crypto_box_keypair();
   return { publicKey, privateKey };
 }
@@ -51,17 +52,23 @@ export function sealForRecovery(
  * `masterKey` (the current or a replacement one). Returns the new wrapped key to store.
  *
  * A sealed box does not prove who sealed it: anyone with the public key and database write
- * access could plant a recovery key holding a data key they know. Pass one of the owner's
- * existing ciphertexts as `verify` so a planted key is refused.
+ * access could plant a recovery key holding a data key they know. `verify`, one of the owner's
+ * existing ciphertexts, is therefore required: a key that does not open it is refused. Pick one
+ * written before the suspected tampering (the oldest, say): a database writer could plant a
+ * matching ciphertext next to a planted recovery key. An
+ * owner with no ciphertext has nothing to recover: generate a fresh manager key instead.
  */
 export async function recoverManagerKey(
   recoveryKey: Uint8Array,
   ownerId: string,
   recoveryKeyPair: RecoveryKeyPair,
   masterKey: Uint8Array,
-  verify?: StoredCiphertext,
+  verify: StoredCiphertext,
 ): Promise<Uint8Array> {
-  await sodium.ready;
+  await sodiumReady();
+  if (!verify) {
+    throw new CryptoError("recovery needs one of the owner's existing ciphertexts as verify");
+  }
   requireText(ownerId, 'ownerId');
   requireLength(masterKey, KEY_BYTES, 'master key');
   const sealed = readVersioned(recoveryKey, sodium.crypto_box_SEALBYTES + KEY_BYTES);
@@ -82,10 +89,8 @@ export async function recoverManagerKey(
       throw new CryptoError('recovery failed: the recovery key belongs to another owner');
     }
     const managerKey = message.subarray(0, KEY_BYTES);
-    if (verify) {
-      const context = { ownerId, purpose: verify.purpose };
-      sodium.memzero(openAead(verify.ciphertext, contentData(context), managerKey));
-    }
+    const context = { ownerId, purpose: verify.purpose };
+    sodium.memzero(openAead(verify.ciphertext, contentData(context), managerKey));
     return sealAead(managerKey, managerKeyData(ownerId), masterKey);
   } finally {
     sodium.memzero(message);

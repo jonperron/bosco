@@ -1,5 +1,6 @@
 import sodium from 'libsodium-wrappers';
 import {
+  CryptoError,
   KEY_BYTES,
   contentData,
   managerKeyData,
@@ -7,6 +8,7 @@ import {
   requireLength,
   requireText,
   sealAead,
+  sodiumReady,
   type EncryptionContext,
   type StoredCiphertext,
 } from './format.js';
@@ -26,7 +28,7 @@ export interface RotatedManagerKey extends ManagerKey {
 }
 
 export async function generateMasterKey(): Promise<Uint8Array> {
-  await sodium.ready;
+  await sodiumReady();
   return sodium.crypto_aead_xchacha20poly1305_ietf_keygen();
 }
 
@@ -58,6 +60,16 @@ function withManagerKey<T>(
   }
 }
 
+function opensUnder(wrappedKey: Uint8Array, ownerId: string, masterKey: Uint8Array): boolean {
+  try {
+    withManagerKey(wrappedKey, ownerId, masterKey, () => undefined);
+    return true;
+  } catch (error) {
+    if (error instanceof CryptoError) return false;
+    throw error;
+  }
+}
+
 function withNewManagerKey<T>(use: (managerKey: Uint8Array) => T): T {
   const managerKey = sodium.crypto_aead_xchacha20poly1305_ietf_keygen();
   try {
@@ -72,7 +84,7 @@ export async function generateManagerKey(
   ownerId: string,
   recoveryPublicKey: Uint8Array,
 ): Promise<ManagerKey> {
-  await sodium.ready;
+  await sodiumReady();
   requireText(ownerId, 'ownerId');
   requireLength(masterKey, KEY_BYTES, 'master key');
   return withNewManagerKey((managerKey) => seal(managerKey, ownerId, masterKey, recoveryPublicKey));
@@ -84,7 +96,7 @@ export async function encrypt(
   masterKey: Uint8Array,
   context: EncryptionContext,
 ): Promise<Uint8Array> {
-  await sodium.ready;
+  await sodiumReady();
   requireText(context.purpose, 'purpose');
   return withManagerKey(wrappedKey, context.ownerId, masterKey, (managerKey) =>
     sealAead(plaintext, contentData(context), managerKey),
@@ -98,22 +110,27 @@ export async function decrypt(
   masterKey: Uint8Array,
   context: EncryptionContext,
 ): Promise<Uint8Array> {
-  await sodium.ready;
+  await sodiumReady();
   requireText(context.purpose, 'purpose');
   return withManagerKey(wrappedKey, context.ownerId, masterKey, (managerKey) =>
     openAead(ciphertext, contentData(context), managerKey),
   );
 }
 
-/** Master key rotation: wraps the same manager key under the new master key; data is untouched. */
+/**
+ * Master key rotation: wraps the same manager key under the new master key; data is untouched.
+ * A key already wrapped under the new master key is returned as is, so an interrupted rotation
+ * is resumed by running it again over every manager. Keep the old key until that run succeeds.
+ */
 export async function rewrapManagerKey(
   wrappedKey: Uint8Array,
   ownerId: string,
   oldMasterKey: Uint8Array,
   newMasterKey: Uint8Array,
 ): Promise<Uint8Array> {
-  await sodium.ready;
+  await sodiumReady();
   requireLength(newMasterKey, KEY_BYTES, 'master key');
+  if (opensUnder(wrappedKey, ownerId, newMasterKey)) return wrappedKey;
   return withManagerKey(wrappedKey, ownerId, oldMasterKey, (managerKey) =>
     sealAead(managerKey, managerKeyData(ownerId), newMasterKey),
   );
@@ -131,7 +148,7 @@ export async function rotateManagerKey(
   recoveryPublicKey: Uint8Array,
   items: readonly StoredCiphertext[],
 ): Promise<RotatedManagerKey> {
-  await sodium.ready;
+  await sodiumReady();
   const opened: { plaintext: Uint8Array; context: EncryptionContext }[] = [];
   try {
     withManagerKey(wrappedKey, ownerId, masterKey, (managerKey) => {
