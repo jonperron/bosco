@@ -69,12 +69,10 @@ describe('parsePeopleCsv', () => {
   });
 
   it('shows at most 20 problems in the message, and keeps them all on the error', () => {
-    const rows = Array.from({ length: 25 }, () => ',x@example.com,');
+    const rows = Array.from({ length: 25 }, (_row, index) => `,p${index}@example.com,`);
     const error = (() => {
       try {
-        parsePeopleCsv(
-          [HEADER, ...rows.map((_row, index) => `,p${index}@example.com,`)].join('\n'),
-        );
+        parsePeopleCsv([HEADER, ...rows].join('\n'));
       } catch (caught) {
         return caught as PeopleCsvError;
       }
@@ -103,6 +101,15 @@ describe('parsePeopleCsv', () => {
       { line: 7, message: 'a person cannot be their own manager' },
       { line: 8, message: 'email duplicates line 2' },
       { line: 9, message: 'expected 3 fields, found 2' },
+    ]);
+  });
+
+  it('rejects emails outside ASCII, which Postgres may case-fold differently', () => {
+    expect(
+      problemsOf(`${HEADER}\nZoe,zoé@example.com,\nYan,yan@example.com,İa@example.com\n`),
+    ).toEqual([
+      { line: 2, message: 'email is malformed' },
+      { line: 3, message: 'manager_email is malformed' },
     ]);
   });
 

@@ -161,6 +161,24 @@ describe('importPeopleCsv', () => {
     expect(ivy?.total).toBe(1);
   });
 
+  it('dates a manager change from when the import got the lock, not when it began', async () => {
+    // An import that began earlier but waited on the lock must not end a newer attachment
+    // before it started (manager_attachment_period_order).
+    const holder = new pg.Client({ connectionString: db.$client.options.connectionString });
+    await holder.connect();
+    await holder.query('BEGIN');
+    await holder.query("select pg_advisory_xact_lock(hashtext('bosco.people_import'))");
+    const waiting = importPeopleCsv(db, csv('Bo Beta,bo@example.com,ada@example.com'));
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    const released = new Date();
+    await holder.query('COMMIT');
+    await holder.end();
+    expect(await waiting).toEqual({ created: 0, updated: 0, managersChanged: 1 });
+    const [, previous, current] = await attachmentsOf('bo@example.com');
+    expect(current?.startedAt.getTime()).toBeGreaterThanOrEqual(released.getTime() - 50);
+    expect(previous?.endedAt).toEqual(current?.startedAt);
+  });
+
   it('rolls the whole file back when the database refuses one change', async () => {
     // An open attachment that starts in the future cannot be ended now.
     const [gil] = await db

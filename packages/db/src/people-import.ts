@@ -5,8 +5,9 @@ import { managerAttachment, person } from './schema.js';
 
 const REQUIRED_COLUMNS = ['display_name', 'email'] as const;
 const COLUMNS: readonly string[] = [...REQUIRED_COLUMNS, 'manager_email'];
-// Shape check only: one @, no spaces, a dot in the domain. Deliverability is not checked.
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Shape check only: printable ASCII, one @, a dot in the domain. Deliverability is not checked.
+// ASCII only, so JS toLowerCase() and Postgres lower() agree on the upsert key.
+const EMAIL = /^[!-?A-~]+@[!-?A-~]+\.[!-?A-~]+$/;
 const MAX_PROBLEMS_IN_MESSAGE = 20;
 
 export interface PeopleCsvRow {
@@ -121,14 +122,12 @@ export function parsePeopleCsv(csvText: string): PeopleCsvRow[] {
  * Imports people from CSV in one transaction: everything is written or nothing is. Upserts on
  * email (case-insensitive), updating the display name. A non-empty `manager_email` must name
  * someone in the file or the database; a change of manager ends the open attachment and opens a
- * new one, both at the transaction's time. An empty `manager_email` leaves attachments as they
+ * new one, both at the time the import's lock was granted. An empty `manager_email` leaves attachments as they
  * are.
  */
 export async function importPeopleCsv(db: Database, csvText: string): Promise<PeopleImportResult> {
   const rows = parsePeopleCsv(csvText);
   const key = (email: string) => email.toLowerCase();
-  // shortcut: keys are lowered in JS but matched with Postgres lower(); outside ASCII they may
-  // differ, and the unique index then rejects the import. Lower in SQL if that ever matters.
   // shortcut: one statement per step, so Postgres' 65535-parameter cap limits a file to about
   // 30,000 rows; batch the statements if files ever get that large.
   const managerKeys = rows.flatMap((row) =>
@@ -140,6 +139,13 @@ export async function importPeopleCsv(db: Database, csvText: string): Promise<Pe
   return db.transaction(async (tx) => {
     // Imports queue behind each other, so each one reads what the previous one committed.
     await tx.execute(sql`select pg_advisory_xact_lock(hashtext('bosco.people_import'))`);
+    // The clock once the lock is held, not now(): an import that began earlier but waited would
+    // otherwise end the previous import's attachments before they started. Text keeps the
+    // microseconds a JS Date would drop.
+    const { rows: clock } = await tx.execute<{ at: string }>(
+      sql`select clock_timestamp()::text as at`,
+    );
+    const at = sql`${clock[0]?.at}::timestamptz`;
     const lowerEmail = sql<string>`lower(${person.email})`;
     const existing = await tx
       .select({ id: person.id, email: lowerEmail, displayName: person.displayName })
@@ -215,10 +221,10 @@ export async function importPeopleCsv(db: Database, csvText: string): Promise<Pe
       (attachment) => currentManager.get(attachment.personId) !== attachment.managerId,
     );
     if (changes.length > 0) {
-      // now() is the transaction's start time: the old period ends exactly where the new begins.
+      // One instant for both: the old period ends exactly where the new begins.
       await tx
         .update(managerAttachment)
-        .set({ endedAt: sql`now()` })
+        .set({ endedAt: at })
         .where(
           and(
             inArray(
@@ -228,7 +234,9 @@ export async function importPeopleCsv(db: Database, csvText: string): Promise<Pe
             isNull(managerAttachment.endedAt),
           ),
         );
-      await tx.insert(managerAttachment).values(changes);
+      await tx
+        .insert(managerAttachment)
+        .values(changes.map((attachment) => ({ ...attachment, startedAt: at })));
     }
 
     return { created: newRows.length, updated: renamed.length, managersChanged: changes.length };
