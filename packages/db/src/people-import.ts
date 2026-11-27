@@ -8,6 +8,9 @@ const COLUMNS: readonly string[] = [...REQUIRED_COLUMNS, 'manager_email'];
 // Shape check only: printable ASCII, one @, a dot in the domain. Deliverability is not checked.
 // ASCII only, so JS toLowerCase() and Postgres lower() agree on the upsert key.
 const EMAIL = /^[!-?A-~]+@[!-?A-~]+\.[!-?A-~]+$/;
+// NUL cannot be stored in Postgres text; other control characters have no place in a name.
+// eslint-disable-next-line no-control-regex
+const CONTROL_CHARACTER = /[\u0000-\u001f\u007f]/;
 const MAX_PROBLEMS_IN_MESSAGE = 20;
 
 export interface PeopleCsvRow {
@@ -97,6 +100,7 @@ export function parsePeopleCsv(csvText: string): PeopleCsvRow[] {
     const problem = (message: string) => problems.push({ line, message });
 
     if (displayName === '') problem('display_name is empty');
+    else if (CONTROL_CHARACTER.test(displayName)) problem('display_name has a control character');
     if (email === '') problem('email is empty');
     else if (!EMAIL.test(email)) problem('email is malformed');
     if (managerEmail !== '' && !EMAIL.test(managerEmail)) problem('manager_email is malformed');
@@ -128,8 +132,8 @@ export function parsePeopleCsv(csvText: string): PeopleCsvRow[] {
 export async function importPeopleCsv(db: Database, csvText: string): Promise<PeopleImportResult> {
   const rows = parsePeopleCsv(csvText);
   const key = (email: string) => email.toLowerCase();
-  // shortcut: one statement per step, so Postgres' 65535-parameter cap limits a file to about
-  // 30,000 rows; batch the statements if files ever get that large.
+  // shortcut: one statement per step, so Postgres' 65535-parameter cap (3 per attachment) limits
+  // a file to about 20,000 rows; batch the statements if files ever get that large.
   const managerKeys = rows.flatMap((row) =>
     row.managerEmail === null ? [] : [key(row.managerEmail)],
   );

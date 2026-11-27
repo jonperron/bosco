@@ -113,6 +113,13 @@ describe('parsePeopleCsv', () => {
     ]);
   });
 
+  it('rejects control characters in a display name, which Postgres text cannot always hold', () => {
+    expect(problemsOf(`${HEADER}\nA\u0000da,ada@example.com,\n"B\to",bo@example.com,\n`)).toEqual([
+      { line: 2, message: 'display_name has a control character' },
+      { line: 3, message: 'display_name has a control character' },
+    ]);
+  });
+
   it('reports a CSV syntax error with its line', () => {
     expect(problemsOf(`${HEADER}\nAda,ada@example.com,\n"open,x,y\n`)).toEqual([
       { line: 3, message: 'unterminated quoted field' },

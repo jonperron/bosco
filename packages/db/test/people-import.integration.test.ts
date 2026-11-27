@@ -169,7 +169,13 @@ describe('importPeopleCsv', () => {
     await holder.query('BEGIN');
     await holder.query("select pg_advisory_xact_lock(hashtext('bosco.people_import'))");
     const waiting = importPeopleCsv(db, csv('Bo Beta,bo@example.com,ada@example.com'));
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    // Release only once the import is queued on the lock, then a little later.
+    const waiters =
+      "select count(*)::int as n from pg_locks where locktype = 'advisory' and not granted";
+    while ((await holder.query<{ n: number }>(waiters)).rows[0]?.n !== 1) {
+      await new Promise((resolve) => setTimeout(resolve, 20));
+    }
+    await new Promise((resolve) => setTimeout(resolve, 200));
     const released = new Date();
     await holder.query('COMMIT');
     await holder.end();
