@@ -12,7 +12,8 @@ if (existsSync(rootEnv)) {
 export default defineConfig({
   test: {
     environment: 'node',
-    include: ['test/**/*.integration.test.ts'],
+    // The unit tests run here too: this run is the workspace's coverage gate.
+    include: ['test/**/*.test.ts'],
     testTimeout: 30_000,
     hookTimeout: 30_000,
     coverage: {
