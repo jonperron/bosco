@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { asc, count, eq, isNull } from 'drizzle-orm';
+import { asc, count, eq, isNull, sql } from 'drizzle-orm';
 import pg from 'pg';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { createDatabase, type Database } from '../src/client.js';
@@ -143,6 +143,22 @@ describe('importPeopleCsv', () => {
       importPeopleCsv(db, csv('Ed Epsilon,ed@example.com,', 'Ed Again,ED@example.com,')),
     ).rejects.toThrow(/line 3: email duplicates line 2/);
     expect(await totals()).toEqual(before);
+  });
+
+  it('runs concurrent imports one after the other, so all succeed', async () => {
+    // Open the connections first, so the imports overlap instead of waiting on connects.
+    await Promise.all(Array.from({ length: 6 }, () => db.execute(sql`select pg_sleep(0.05)`)));
+    const results = await Promise.all(
+      ['Ivy Kappa', 'Ivy K.', 'Ivy', 'I. Kappa', 'Ivy Kap', 'IK'].map((name) =>
+        importPeopleCsv(db, csv(`${name},ivy@example.com,`)),
+      ),
+    );
+    expect(results.map((result) => result.created).sort()).toEqual([0, 0, 0, 0, 0, 1]);
+    const [ivy] = await db
+      .select({ total: count() })
+      .from(person)
+      .where(eq(person.email, 'ivy@example.com'));
+    expect(ivy?.total).toBe(1);
   });
 
   it('rolls the whole file back when the database refuses one change', async () => {

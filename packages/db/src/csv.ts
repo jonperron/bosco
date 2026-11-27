@@ -35,7 +35,7 @@ export function parseCsv(text: string): CsvRecord[] {
   };
 
   // A leading byte order mark, as spreadsheet exports write it, is not data.
-  for (let index = text.startsWith('﻿') ? 1 : 0; index < text.length; index += 1) {
+  for (let index = text.startsWith('\uFEFF') ? 1 : 0; index < text.length; index += 1) {
     const char = text[index];
     if (quoted) {
       if (char === '"' && text[index + 1] === '"') {
@@ -45,7 +45,8 @@ export function parseCsv(text: string): CsvRecord[] {
         quoted = false;
         closedQuote = true;
       } else {
-        if (char === '\n') line += 1;
+        // A line break inside quotes: CRLF counts once, a lone CR or LF once each.
+        if (char === '\n' || (char === '\r' && text[index + 1] !== '\n')) line += 1;
         field += char;
       }
     } else if (char === ',') {

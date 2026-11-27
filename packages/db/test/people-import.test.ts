@@ -50,11 +50,37 @@ describe('parsePeopleCsv', () => {
       { line: 1, message: 'missing column email' },
     ]);
     expect(problemsOf('display_name,email,team\n')).toEqual([
-      { line: 1, message: 'unknown column team' },
+      { line: 1, message: 'unknown column 3' },
     ]);
     expect(problemsOf('display_name,email,email\n')).toEqual([
       { line: 1, message: 'repeated column email' },
     ]);
+  });
+
+  it('never echoes header cells: a file without a header leaks no data row', () => {
+    const problems = problemsOf('Ada Alpha,secret@example.com,\n');
+    expect(problems.map((problem) => problem.message)).toEqual([
+      'missing column display_name',
+      'missing column email',
+      'unknown column 1',
+      'unknown column 2',
+      'unknown column 3',
+    ]);
+  });
+
+  it('shows at most 20 problems in the message, and keeps them all on the error', () => {
+    const rows = Array.from({ length: 25 }, () => ',x@example.com,');
+    const error = (() => {
+      try {
+        parsePeopleCsv(
+          [HEADER, ...rows.map((_row, index) => `,p${index}@example.com,`)].join('\n'),
+        );
+      } catch (caught) {
+        return caught as PeopleCsvError;
+      }
+    })();
+    expect(error?.problems).toHaveLength(25);
+    expect(error?.message).toMatch(/line 21: display_name is empty\n\.\.\.and 5 more$/);
   });
 
   it('lists every invalid line at once', () => {
