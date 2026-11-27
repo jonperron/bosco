@@ -37,6 +37,10 @@ interdisent le chevauchement des périodes sont des contraintes `EXCLUDE`,
 que drizzle-kit ne sait pas exprimer : elles vivent dans une migration
 écrite à la main (`0001_period_overlap.sql`).
 
+`pnpm db:migrate` prend un verrou consultatif Postgres : plusieurs instances
+de l'API qui démarrent en même temps migrent sans risque, chacune à son
+tour. Il n'y a pas encore de limite d'attente.
+
 ## Le modèle de données `core`
 
 - `organisation` : exactement une ligne — une organisation par installation ;
@@ -48,14 +52,46 @@ que drizzle-kit ne sait pas exprimer : elles vivent dans une migration
   vide). Les périodes ne se chevauchent jamais : à tout instant, une
   personne est au plus une fois dans une équipe donnée et a au plus un
   manager ; personne n'est son propre manager ;
+- `account` : le compte de connexion d'un manager (voir plus bas) ;
+- `session` : une session ouverte d'un compte ;
 - les clés étrangères restreignent les suppressions : une personne ou une
-  équipe encore référencée ne peut pas être supprimée.
+  équipe encore référencée ne peut pas être supprimée. Les sessions font
+  exception : elles sont supprimées avec leur compte.
 
 bosco s'adresse aux seuls managers, pour leur propre usage : un manager crée
 des fiches pour des personnes qui ne se connectent jamais, et aucun compte
 collaborateur n'est prévu. Les personnes sont saisies à la main ou importées
 en CSV ; les écrans et les routes de l'une et l'autre arrivent dans des lots
 ultérieurs, avec l'authentification.
+
+## Comptes et sessions
+
+Tout compte Google vérifié du domaine de l'entreprise se connecte comme
+manager, et son compte est créé à la première connexion : ni
+administrateur, ni invitation, ni rôle. Un compte contient le sujet OIDC
+(l'identité stable, unique), un e-mail (unique sans tenir compte de la
+casse) et un nom affiché. Il n'est pas lié à une fiche `person` : savoir si
+le compte d'un manager correspond à une personne est une question ouverte.
+
+Les sessions vivent en base, donc se déconnecter les révoque. Une session
+ne stocke que l'empreinte SHA-256 d'un jeton aléatoire de 256 bits ; son
+expiration est calculée sur l'horloge de la base.
+
+`@bosco/db` exporte les fonctions ; aucune route ne les appelle encore :
+
+- `upsertAccountFromOidc(db, { subject, email, displayName })` : l'appelant
+  doit avoir vérifié l'ID token. Reconnaît le compte par son sujet, suit les
+  changements d'e-mail et de nom. Un e-mail détenu par un autre sujet lève
+  `AccountEmailConflictError` : les comptes ne sont jamais fusionnés ;
+- `createSession(db, accountId, lifetimeSeconds)` renvoie le jeton brut,
+  lisible cette seule fois, et son expiration. Une durée qui n'est pas un
+  nombre positif lève une `RangeError` ;
+- `findSession(db, token)` renvoie le compte et l'expiration, ou `null` si
+  le jeton est inconnu ou expiré ;
+- `deleteSession(db, token)` déconnecte, et indique si une session
+  correspondait ;
+- `deleteExpiredSessions(db)` supprime les sessions expirées et renvoie
+  leur nombre.
 
 ## Importer des personnes en CSV
 
