@@ -73,17 +73,21 @@ Bo Beta,bo@example.com,ada@example.com
   ou CR. Les lignes vides sont ignorées.
 - La ligne d'en-tête est obligatoire. Les colonnes `display_name` et `email`
   sont obligatoires, `manager_email` est facultative ; l'ordre et la casse
-  des colonnes sont libres. Toute autre colonne fait rejeter le fichier.
+  des colonnes sont libres. Toute autre colonne, ou une colonne répétée,
+  fait rejeter le fichier. Chaque ligne a autant de champs que l'en-tête ;
+  les espaces autour d'une valeur sont ignorés.
 - Les e-mails sont en ASCII imprimable, avec un seul `@` et un point dans le
   domaine ; rien ne vérifie qu'ils sont distribuables.
   Les noms affichés ne peuvent pas contenir de caractères de contrôle
-  (tabulation, NUL...).
+  (tabulation, NUL...). Un e-mail répété dans le fichier, ou une personne
+  désignée comme son propre manager, est une erreur.
 - Tout ou rien : une seule ligne invalide fait rejeter tout le fichier, et
   rien n'est écrit. L'erreur liste chaque problème par ligne et par colonne,
   jamais une valeur du fichier ; le message montre les 20 premiers.
 - Les personnes sont reconnues par leur e-mail, sans tenir compte de la
   casse : un e-mail connu met à jour le nom affiché, un nouveau crée une
-  personne.
+  personne. L'import renvoie le nombre de personnes créées, renommées et
+  ayant changé de manager.
 - Un `manager_email` non vide doit désigner quelqu'un du fichier ou déjà en
   base. S'il désigne un nouveau manager, le rattachement ouvert se termine
   et un nouveau commence au même instant ; l'historique est conservé. Un
@@ -95,4 +99,7 @@ Pas encore pris en charge : les équipes, le retrait d'un manager, les
 fichiers séparés par `;`, les e-mails hors ASCII, une taille maximale ou une
 attente maximale du verrou (toutes deux pour la route qui appellera
 l'import), et les cycles de managers (A manage B, B manage A), que le lot
-des droits empêchera.
+des droits empêchera. Un fichier compte au plus 20 000 lignes environ (la
+limite de paramètres d'une requête Postgres). La reconnaissance des e-mails
+suppose une locale de base où `lower()` transforme `I` en `i` : une locale
+turque ne le fait pas.

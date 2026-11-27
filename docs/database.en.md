@@ -69,15 +69,18 @@ Bo Beta,bo@example.com,ada@example.com
   doubled quote for a quote, CRLF, LF or CR line ends. Blank lines are skipped.
 - The header row is required. `display_name` and `email` are required
   columns, `manager_email` is optional; columns are matched in any order and
-  case. Any other column rejects the file.
+  case. Any other column, or a repeated one, rejects the file. Every line has
+  as many fields as the header; spaces around a value are ignored.
 - Emails are printable ASCII with one `@` and a dot in the domain; nothing
   checks that they are deliverable.
-  Display names cannot hold control characters (tabs, NUL...).
+  Display names cannot hold control characters (tabs, NUL...). An email
+  repeated in the file, or a person named as their own manager, is an error.
 - All or nothing: one invalid line rejects the whole file and nothing is
   written. The error lists each problem by line and column, never a value
   from the file; the message shows the first 20.
 - People are matched on email, ignoring case: a known email updates the
-  display name, a new one creates a person.
+  display name, a new one creates a person. The import returns how many
+  people it created, renamed, and gave a new manager.
 - A non-empty `manager_email` must name someone in the file or already in
   the database. When it names a new manager, the open attachment ends and a
   new one starts at the same instant; the history is kept. An empty
@@ -88,4 +91,6 @@ Bo Beta,bo@example.com,ada@example.com
 Not supported yet: teams, removing a manager, `;`-separated files, emails
 outside ASCII, a size limit or a lock wait limit (both for the route that
 will call the import), and manager cycles (A manages B, B manages A), which
-the rights lot will prevent.
+the rights lot will prevent. A file holds at most about 20,000 rows
+(Postgres' limit on query parameters). Email matching assumes a database
+locale whose `lower()` maps `I` to `i`: a Turkish locale would not.
