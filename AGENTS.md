@@ -8,9 +8,13 @@ project instructions; the factory conventions live under `.vibe/`.
 Bosco is a self-hosted, open-source (Apache-2.0) tool that gathers an
 engineering manager's daily work: people, tasks, projects, team metrics.
 It makes managers' lives simpler; it is not an HR system. Only managers
-(and the install's administrator) use it, for their own work: the people
-they manage are records the manager keeps, and never log in. Do not design
-accounts, roles, screens or routes for them.
+use it, each on their own, for their own work: the people they manage are
+records the manager keeps, and never log in. Do not design accounts, roles,
+screens or routes for them.
+v0 has no administrator: one shared install per company, and any Google
+account in the company domain (set in `.env` by whoever deploys) signs
+itself in as a manager on first login. No admin role, no invitations; an
+admin role will come later, with cloud hosting.
 The socle v0 carries no management feature: it delivers identity, access
 control, the module framework, GDPR export/deletion and packaging, and
 every module plugs into it. See `local/Résumé Bosco.md` and
@@ -34,8 +38,8 @@ working on it, and the `.vibe/rules/*.md` files before any commit.
 ## Principles (they are also code rules)
 
 - Metrics are aggregated per team; nothing ranks an individual.
-- Private notes are encrypted, one key per manager; the administrator holds a
-  backup key, so the administrator can recover (and read) them.
+- Private notes are encrypted, one key per manager; each manager gets their
+  own recovery key, and no one else can read their notes.
 - Every number traces back to its source; one organisation per install.
 - A module never reads another module's tables — only the core contract API.
 - The rights matrix and the GDPR lifecycle are tested automatically.
