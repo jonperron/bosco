@@ -195,6 +195,18 @@ describe('master key rotation', () => {
     await expect(decrypt(ciphertext, rewrapped, masterKey, NOTE)).rejects.toThrow(CryptoError);
   });
 
+  it('is idempotent, so an interrupted rotation can be run again over every manager', async () => {
+    const { masterKey, wrappedKey } = await setup();
+    const ciphertext = await encrypt('private note', wrappedKey, masterKey, NOTE);
+    const newMaster = await generateMasterKey();
+    const rewrapped = await rewrapManagerKey(wrappedKey, OWNER, masterKey, newMaster);
+
+    const again = await rewrapManagerKey(rewrapped, OWNER, masterKey, newMaster);
+
+    expect(again).toBe(rewrapped);
+    expect(text(await decrypt(ciphertext, again, newMaster, NOTE))).toBe('private note');
+  });
+
   it('refuses to re-wrap with the wrong old master key', async () => {
     const { wrappedKey } = await setup();
     const wrongOld = await generateMasterKey();

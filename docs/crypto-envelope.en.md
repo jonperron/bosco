@@ -32,7 +32,10 @@ manager. This guide explains the scheme and the API a module uses.
   caller owns the plaintext `decrypt` returns: zero it with `fill(0)` once
   used.
 - `rewrapManagerKey(wrappedKey, ownerId, oldMasterKey, newMasterKey)` rotates
-  the master key: the data key is re-wrapped, data is untouched.
+  the master key: the data key is re-wrapped, data is untouched. A key
+  already wrapped under the new master key is returned unchanged, so an
+  interrupted rotation is resumed by running it again over every manager.
+  Keep the old master key file until that run has succeeded.
 - `rotateManagerKey(wrappedKey, masterKey, ownerId, recoveryPublicKey, items)`
   rotates a manager key: every given `{ ciphertext, purpose }` is decrypted
   and encrypted again under a fresh data key, all or nothing. Store the new
@@ -42,7 +45,7 @@ manager. This guide explains the scheme and the API a module uses.
   `recoverManagerKey(recoveryKey, ownerId, keyPair, masterKey, verify)`: see
   below.
 - `loadMasterKeyFromFile()` reads the master key from the file named by
-  `BOSCO_MASTER_KEY_FILE`.
+  `BOSCO_MASTER_KEY_FILE`; a file larger than 256 bytes is refused.
 - Every failure throws a `CryptoError`; its message never contains a key.
 
 ## Decisions
@@ -53,9 +56,12 @@ manager. This guide explains the scheme and the API a module uses.
 - **A lost manager key is handled by an admin recovery key pair.** Each data
   key is also sealed to the admin public key; the private key stays offline
   and is brought in for a recovery only. The admin can therefore read every
-  manager's notes. A sealed box does not prove who sealed it, so always pass
-  one of the owner's existing ciphertexts as `verify` to
-  `recoverManagerKey`: a planted recovery key is then refused.
+  manager's notes. A sealed box does not prove who sealed it, so
+  `recoverManagerKey` requires one of the owner's existing ciphertexts as
+  `verify`: a planted recovery key is then refused. Pick one written before
+  the suspected tampering (the oldest, say), because a database writer could
+  plant a matching ciphertext next to a planted recovery key. An owner with
+  no ciphertext has nothing to recover: generate a fresh manager key instead.
 - **On a change of manager, one-on-one notes are archived, not
   transferred.** No transfer function exists.
 
