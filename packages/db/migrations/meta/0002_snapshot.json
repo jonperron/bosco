@@ -1,5 +1,5 @@
 {
-  "id": "6fd732e9-0965-4879-9561-f3bdfd969f99",
+  "id": "4b27de61-ffdb-4992-b42c-31c8798623ad",
   "prevId": "e9b65b7f-04c8-4f71-848a-0bf3cbabd227",
   "version": "7",
   "dialect": "postgresql",
@@ -369,6 +369,10 @@
         "session_expires_after_created": {
           "name": "session_expires_after_created",
           "value": "\"core\".\"session\".\"expires_at\" > \"core\".\"session\".\"created_at\""
+        },
+        "session_token_hash_format": {
+          "name": "session_token_hash_format",
+          "value": "\"core\".\"session\".\"token_hash\" ~ '^[0-9a-f]{64}$'"
         }
       },
       "isRLSEnabled": false

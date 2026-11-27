@@ -92,7 +92,8 @@ export const managerAttachment = core.table(
   ],
 );
 
-// A manager's login account. Not linked to core.person: whether it maps to a person is open (lot 5).
+// A manager's login account. Not linked to core.person: whether it maps to a person is an open
+// question (lot 5).
 export const account = core.table(
   'account',
   {
@@ -120,6 +121,8 @@ export const session = core.table(
   },
   (table) => [
     check('session_expires_after_created', sql`${table.expiresAt} > ${table.createdAt}`),
+    // A raw token written by mistake is refused: only a SHA-256 hex digest fits.
+    check('session_token_hash_format', sql`${table.tokenHash} ~ '^[0-9a-f]{64}$'`),
     index('session_account_id_index').on(table.accountId),
     index('session_expires_at_index').on(table.expiresAt),
   ],

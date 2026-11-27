@@ -13,7 +13,8 @@ CREATE TABLE "core"."session" (
 	"account_id" uuid NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"expires_at" timestamp with time zone NOT NULL,
-	CONSTRAINT "session_expires_after_created" CHECK ("core"."session"."expires_at" > "core"."session"."created_at")
+	CONSTRAINT "session_expires_after_created" CHECK ("core"."session"."expires_at" > "core"."session"."created_at"),
+	CONSTRAINT "session_token_hash_format" CHECK ("core"."session"."token_hash" ~ '^[0-9a-f]{64}$')
 );
 --> statement-breakpoint
 ALTER TABLE "core"."session" ADD CONSTRAINT "session_account_id_account_id_fk" FOREIGN KEY ("account_id") REFERENCES "core"."account"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint

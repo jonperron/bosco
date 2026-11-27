@@ -23,8 +23,9 @@ export async function createSession(
   accountId: string,
   lifetimeSeconds: number,
 ): Promise<{ token: string; expiresAt: Date }> {
-  if (!Number.isFinite(lifetimeSeconds) || lifetimeSeconds <= 0) {
-    throw new RangeError('A session lifetime is a positive number of seconds.');
+  // Whole seconds, at most 2^31 - 1, so the expiry always fits a Postgres timestamp.
+  if (!Number.isInteger(lifetimeSeconds) || lifetimeSeconds < 1 || lifetimeSeconds >= 2 ** 31) {
+    throw new RangeError('A session lifetime is a whole number of seconds, from 1 to 2^31 - 1.');
   }
   const token = randomBytes(32).toString('base64url');
   const [row] = await db
@@ -51,18 +52,13 @@ export async function findSession(db: Database, token: string): Promise<FoundSes
 
 /** Logout: deletes the session; false if the token matched none. */
 export async function deleteSession(db: Database, token: string): Promise<boolean> {
-  const deleted = await db
-    .delete(session)
-    .where(eq(session.tokenHash, hashToken(token)))
-    .returning({ tokenHash: session.tokenHash });
-  return deleted.length > 0;
+  const result = await db.delete(session).where(eq(session.tokenHash, hashToken(token)));
+  return (result.rowCount ?? 0) > 0;
 }
 
 /** Deletes every expired session and returns how many. */
 export async function deleteExpiredSessions(db: Database): Promise<number> {
-  const deleted = await db
-    .delete(session)
-    .where(lte(session.expiresAt, sql`now()`))
-    .returning({ tokenHash: session.tokenHash });
-  return deleted.length;
+  // The driver's row count: a large backlog is never loaded into memory.
+  const result = await db.delete(session).where(lte(session.expiresAt, sql`now()`));
+  return result.rowCount ?? 0;
 }

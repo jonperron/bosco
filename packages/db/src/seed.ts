@@ -1,6 +1,13 @@
 import { ne, notInArray } from 'drizzle-orm';
 import type { Database } from './client.js';
-import { managerAttachment, organisation, person, team, teamMembership } from './schema.js';
+import {
+  account,
+  managerAttachment,
+  organisation,
+  person,
+  team,
+  teamMembership,
+} from './schema.js';
 
 // Fictitious on purpose: no real person, no real domain (example.com is reserved, RFC 2606).
 const NAMES = [
@@ -99,7 +106,7 @@ export function demoData() {
 
 /**
  * Inserts the demo data; rows that already exist are left untouched, so reruns are no-ops.
- * Refuses to run when the database already holds a real organisation, people or teams.
+ * Refuses to run when the database already holds a real organisation, people, teams or accounts.
  */
 export async function seedDemoData(db: Database): Promise<void> {
   const data = demoData();
@@ -115,9 +122,11 @@ export async function seedDemoData(db: Database): Promise<void> {
       );
       const otherPeople = await tx.$count(person, notInArray(person.id, demoPersonIds));
       const otherTeams = await tx.$count(team, notInArray(team.id, demoTeamIds));
-      if (otherOrganisations + otherPeople + otherTeams > 0) {
+      // The demo has no accounts: any account is a real manager who signed in.
+      const accounts = await tx.$count(account);
+      if (otherOrganisations + otherPeople + otherTeams + accounts > 0) {
         throw new Error(
-          'Refusing to seed: the database holds a non-demo organisation, people or teams.',
+          'Refusing to seed: the database holds a non-demo organisation, people, teams or accounts.',
         );
       }
       // Conflicts only on the fixed ids are expected; any other conflict must fail loudly.

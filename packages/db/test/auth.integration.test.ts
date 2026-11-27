@@ -87,9 +87,13 @@ describe('upsertAccountFromOidc', () => {
   it('refuses an email held by another subject, ignoring case, and changes nothing', async () => {
     const held = await upsertAccountFromOidc(db, ada);
     const intruder = { subject: 'sub-other', email: 'ADA@example.com', displayName: 'Other' };
-    await expect(upsertAccountFromOidc(db, intruder)).rejects.toBeInstanceOf(
-      AccountEmailConflictError,
+    const error: unknown = await upsertAccountFromOidc(db, intruder).then(
+      () => undefined,
+      (reason: unknown) => reason,
     );
+    expect(error).toBeInstanceOf(AccountEmailConflictError);
+    // The driver error's detail quotes the email: it must not travel with the error.
+    expect(error).not.toHaveProperty('cause');
     const rows = await db.select().from(account);
     expect(rows).toEqual([held]);
   });
@@ -151,7 +155,7 @@ describe('sessions', () => {
     await expect(findSession(db, token)).resolves.toBeNull();
   });
 
-  it.each([0, -1, Number.NaN, Number.POSITIVE_INFINITY])(
+  it.each([0, -1, 0.5, 2 ** 31, Number.NaN, Number.POSITIVE_INFINITY])(
     'refuses a lifetime of %s seconds',
     async (lifetime) => {
       const { id } = await upsertAccountFromOidc(db, ada);
@@ -162,11 +166,19 @@ describe('sessions', () => {
 
   it('enforces a positive lifetime in the database too', async () => {
     const { id } = await upsertAccountFromOidc(db, ada);
-    const write = db
-      .insert(session)
-      .values({ tokenHash: 'h', accountId: id, expiresAt: new Date(0) });
+    const tokenHash = createHash('sha256').update('t').digest('hex');
+    const write = db.insert(session).values({ tokenHash, accountId: id, expiresAt: new Date(0) });
     await expect(write).rejects.toMatchObject({
       cause: { constraint: 'session_expires_after_created' },
+    });
+  });
+
+  it('refuses to store anything but a SHA-256 hex digest as the token hash', async () => {
+    const { id } = await upsertAccountFromOidc(db, ada);
+    const expiresAt = new Date(Date.now() + 3600_000);
+    const write = db.insert(session).values({ tokenHash: 'raw-token', accountId: id, expiresAt });
+    await expect(write).rejects.toMatchObject({
+      cause: { constraint: 'session_token_hash_format' },
     });
   });
 
