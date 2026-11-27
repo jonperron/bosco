@@ -25,6 +25,35 @@
           "uptimeSeconds"
         ],
         "type": "object"
+      },
+      "MeResponse": {
+        "properties": {
+          "displayName": {
+            "example": "Alex Martin",
+            "type": "string"
+          },
+          "email": {
+            "example": "manager@example.com",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "displayName"
+        ],
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "cookie": {
+        "in": "cookie",
+        "name": "__Host-bosco_session",
+        "type": "apiKey"
       }
     }
   },
@@ -40,6 +69,80 @@
   },
   "openapi": "3.0.0",
   "paths": {
+    "/api/auth/callback": {
+      "get": {
+        "operationId": "AuthController_callback",
+        "parameters": [],
+        "responses": {
+          "302": {
+            "description": "Back to the app, signed in or with ?auth_error=."
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/auth/login": {
+      "get": {
+        "operationId": "AuthController_login",
+        "parameters": [],
+        "responses": {
+          "302": {
+            "description": "Redirect to Google, or back to the app on failure."
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "operationId": "AuthController_logout",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "Signed out; the session no longer exists."
+          },
+          "403": {
+            "description": "Not sent by the app itself (Origin check)."
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/auth/me": {
+      "get": {
+        "operationId": "AuthController_me",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "description": "No valid session."
+          }
+        },
+        "security": [
+          {
+            "cookie": []
+          }
+        ],
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
     "/api/health": {
       "get": {
         "operationId": "HealthController_getHealth",

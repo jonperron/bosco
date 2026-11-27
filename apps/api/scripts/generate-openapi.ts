@@ -29,7 +29,18 @@ function sortDeep(value: unknown): unknown {
   return value;
 }
 
+// The contract does not depend on configuration: placeholders let the app boot without a .env.
+// Nothing connects to them: the pool is lazy and OIDC discovery waits for the first login.
+const PLACEHOLDER_ENV = {
+  DATABASE_URL: 'postgres://openapi@db.invalid/openapi',
+  GOOGLE_CLIENT_ID: 'openapi',
+  GOOGLE_CLIENT_SECRET: 'openapi',
+  GOOGLE_WORKSPACE_DOMAIN: 'example.com',
+  PUBLIC_URL: 'http://localhost:3000',
+};
+
 async function main(): Promise<void> {
+  Object.assign(process.env, PLACEHOLDER_ENV);
   const app = await createApp({ apiDocs: true });
   const document = buildOpenapiDocument(app);
   await app.close();

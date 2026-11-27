@@ -3,14 +3,16 @@ import path from 'node:path';
 
 import 'reflect-metadata';
 
+import { runMigrations, type Database } from '@bosco/db';
 import { Logger } from '@nestjs/common';
 
 import { createApp, readPackageVersion } from './app.factory.js';
 import { EnvValidationError, loadEnv } from './config/env.js';
+import { DATABASE } from './database/database.module.js';
 
 const logger = new Logger('main');
 
-/** Composition root: loads the env once, then listens on the validated port. */
+/** Composition root: loads the env once, migrates the database, then listens. */
 async function bootstrap(): Promise<void> {
   // The optional .env file lives next to package.json. src/ and dist/ are
   // both one level below the package root, so '../package.json' fits both;
@@ -23,6 +25,14 @@ async function bootstrap(): Promise<void> {
     webDist: env.WEB_DIST,
     apiDocs: env.API_DOCS_ENABLED,
   });
+  // Advisory-locked: instances starting together queue, and only one applies each migration.
+  try {
+    await runMigrations(app.get<Database>(DATABASE));
+  } catch (error) {
+    // Close the pool, or the failed process lingers until its idle connections time out.
+    await app.close();
+    throw error;
+  }
   await app.listen(env.PORT);
   logger.log(`Bosco API listening on http://localhost:${env.PORT}/api`);
 }

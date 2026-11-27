@@ -88,6 +88,23 @@ jobs:
   e2e:
     name: End-to-end smoke (Playwright, Chromium)
     runs-on: ubuntu-latest
+    # The API migrates its database before it listens.
+    services:
+      postgres:
+        image: postgres:19
+        env:
+          POSTGRES_USER: bosco
+          POSTGRES_PASSWORD: bosco
+          POSTGRES_DB: bosco
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U bosco -d bosco"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgres://bosco:bosco@localhost:5432/bosco
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
