@@ -58,6 +58,20 @@ drizzle-kit cannot express them, so they live in the hand-written migration
 - Local database: root `docker-compose.yml`, service `postgres`
   (`postgres:19`, bound to `127.0.0.1`).
 
+## CSV import
+
+`importPeopleCsv(db, csvText)` (`packages/db/src/people-import.ts`) reads a
+header `display_name,email[,manager_email]` with the in-house RFC 4180
+parser `packages/db/src/csv.ts`. It validates every line first
+(`parsePeopleCsv`) and rejects the whole file with a `PeopleCsvError` that
+names lines and columns, never values. It then upserts on lowercased email
+in one transaction under the advisory lock `bosco.people_import`, and on a
+manager change ends the open attachment and opens the next one at the
+`clock_timestamp()` read once the lock is held. Emails are ASCII-only, so
+JS and Postgres lowercasing agree. Left out: teams, removing a manager,
+`;` files, size and lock-wait limits, manager cycles (rights lot). The
+user-facing format is in `docs/database.en.md`.
+
 ## Tests
 
 `pnpm test:integration` creates a throwaway database, migrates it twice,
@@ -68,6 +82,6 @@ database.
 ## Product decisions and deferred work
 
 bosco is for managers only: a manager keeps records for people who never log
-in, so `person` has no account link. Entering people by hand and CSV import
-come in later lots. Manager-cycle prevention is an application rule for the
+in, so `person` has no account link. Entering people by hand comes in a later
+lot. CSV import exists as a library function only (see below). Manager-cycle prevention is an application rule for the
 rights lot; the GDPR deletion cascade is decided with the GDPR lot.

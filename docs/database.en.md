@@ -51,5 +51,40 @@ cannot express: they live in a hand-written migration
 
 bosco is for managers only, for their own use: a manager creates records for
 people who never log in, and no collaborator accounts are planned. People
-are entered by hand or imported from CSV; both come in later lots, with
-authentication.
+are entered by hand or imported from CSV; the screens and routes for both
+come in later lots, with authentication.
+
+## Importing people from CSV
+
+`importPeopleCsv(db, csvText)` in `@bosco/db` imports people from a CSV
+file. No route or screen calls it yet.
+
+```csv
+display_name,email,manager_email
+Ada Alpha,ada@example.com,
+Bo Beta,bo@example.com,ada@example.com
+```
+
+- RFC 4180 CSV: comma-separated, fields optionally in double quotes, a
+  doubled quote for a quote, CRLF or LF line ends. Blank lines are skipped.
+- The header row is required. `display_name` and `email` are required
+  columns, `manager_email` is optional; columns are matched in any order and
+  case. Any other column rejects the file.
+- Emails are printable ASCII with one `@` and a dot in the domain; nothing
+  checks that they are deliverable.
+- All or nothing: one invalid line rejects the whole file and nothing is
+  written. The error lists each problem by line and column, never a value
+  from the file; the message shows the first 20.
+- People are matched on email, ignoring case: a known email updates the
+  display name, a new one creates a person.
+- A non-empty `manager_email` must name someone in the file or already in
+  the database. When it names a new manager, the open attachment ends and a
+  new one starts at the same instant; the history is kept. An empty
+  `manager_email` leaves the current manager as it is.
+- Imports run one at a time (a Postgres advisory lock). Other writers to
+  `core.person` do not take that lock.
+
+Not supported yet: teams, removing a manager, `;`-separated files, emails
+outside ASCII, a size limit or a lock wait limit (both for the route that
+will call the import), and manager cycles (A manages B, B manages A), which
+the rights lot will prevent.
