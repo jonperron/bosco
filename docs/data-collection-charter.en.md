@@ -26,10 +26,11 @@ ones, objectives), never for individual control or a score.
 Private notes taken during one-on-ones are **encrypted**, with one key per
 manager, protected by an installation-specific master key. They are unreadable
 in the clear in the database and visible only to their owner, under the
-sharing conditions the organisation has chosen, with one exception: the
-installation's administrator holds an offline recovery key, used to recover
-the notes when a manager loses their key, and can therefore read every private
-note (see [envelope encryption](crypto-envelope.en.md)). When a person changes
+sharing conditions the organisation has chosen. Each manager will get their
+own recovery key to get their notes back if they lose their key, and no one
+else will be able to read them. Today, recovery still goes through an
+installation-level recovery key, until that change lands (see
+[envelope encryption](crypto-envelope.en.md)). When a person changes
 manager, their one-on-one notes are archived: neither handed to the new
 manager nor left active.
 

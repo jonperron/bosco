@@ -28,10 +28,11 @@ individualisé ou à un score.
 Les notes privées prises pendant les entretiens sont **chiffrées**, avec une
 clé par manager, protégée par une clé maître propre à l'installation. Elles
 sont illisibles en clair en base de données et visibles uniquement de leur
-propriétaire, dans les conditions de partage choisies, à une exception près :
-l'administrateur de l'installation détient une clé de recouvrement hors ligne,
-qui sert à récupérer les notes quand un manager perd sa clé, et peut donc lire
-toutes les notes privées (voir [chiffrement par enveloppe](crypto-envelope.fr.md)).
+propriétaire, dans les conditions de partage choisies. Chaque manager
+recevra sa propre clé de secours pour récupérer ses notes s'il perd sa clé,
+et personne d'autre ne pourra les lire. Aujourd'hui, le recouvrement passe
+encore par une clé de recouvrement propre à l'installation, en attendant ce
+changement (voir [chiffrement par enveloppe](crypto-envelope.fr.md)).
 Quand une personne change de manager, ses notes de 1:1 sont archivées : ni
 transférées au nouveau manager, ni laissées actives.
 

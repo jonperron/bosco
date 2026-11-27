@@ -59,11 +59,13 @@ le schéma et l'API qu'un module utilise.
 - **La clé maître est un fichier monté dans le conteneur**, désigné par
   `BOSCO_MASTER_KEY_FILE`. Il contient les 32 octets en base64 standard, par
   exemple la sortie de `openssl rand -base64 32`.
-- **La perte d'une clé de manager se règle avec une paire de clés de
-  recouvrement administrateur.** Chaque clé de données est aussi scellée
-  pour la clé publique de l'administrateur ; la clé privée reste hors ligne
-  et n'est sortie que pour un recouvrement. L'administrateur peut donc lire
-  les notes de tous les managers. Une boîte scellée ne prouve pas qui l'a
+- **La perte d'une clé de manager se règle, pour l'instant, avec une paire
+  de clés de recouvrement propre à l'installation.** Chaque clé de données
+  est aussi scellée pour sa clé publique ; la clé privée reste hors ligne et
+  n'est sortie que pour un recouvrement : qui la détient peut donc lire les
+  notes de tous les managers. Cela va changer : chaque manager recevra sa
+  propre clé de secours, et personne d'autre ne pourra lire ses notes
+  (décision du 27 nov. 2026, pas encore implémentée). Une boîte scellée ne prouve pas qui l'a
   scellée : `recoverManagerKey` exige donc un chiffré existant du
   propriétaire en `verify`, afin qu'une clé de recouvrement implantée soit
   refusée. Choisissez-en un écrit avant la falsification supposée (le plus

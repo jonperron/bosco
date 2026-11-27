@@ -5,8 +5,12 @@ engineering manager : les personnes, les tâches, les projets et les
 métriques d'équipe.
 
 Bosco simplifie la vie des managers ; ce n'est pas un SIRH. Seuls les
-managers (et l'administrateur de l'installation) l'utilisent : les personnes
-qu'ils encadrent sont des fiches tenues par le manager, sans compte.
+managers l'utilisent, chacun en autonomie : les personnes qu'ils encadrent
+sont des fiches tenues par le manager, sans compte. Une installation est
+partagée par toute l'entreprise : tout compte Google du domaine de
+l'entreprise (réglé dans le `.env` par qui déploie) devient manager à sa
+première connexion. La v0 n'a ni administrateur ni invitation ; un rôle
+d'administration viendra avec l'hébergement cloud.
 
 ## État
 

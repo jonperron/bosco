@@ -53,10 +53,13 @@ manager. This guide explains the scheme and the API a module uses.
 - **The master key lives in a file mounted in the container**, named by
   `BOSCO_MASTER_KEY_FILE`. It holds the 32 bytes in standard base64, for
   example the output of `openssl rand -base64 32`.
-- **A lost manager key is handled by an admin recovery key pair.** Each data
-  key is also sealed to the admin public key; the private key stays offline
-  and is brought in for a recovery only. The admin can therefore read every
-  manager's notes. A sealed box does not prove who sealed it, so
+- **A lost manager key is handled, for now, by an installation-level
+  recovery key pair.** Each data key is also sealed to its public key; the
+  private key stays offline and is brought in for a recovery only, so
+  whoever holds it can read every manager's notes. This will change: each
+  manager will get their own recovery key, and no one else will be able to
+  read their notes (decision of 27 Nov. 2026, not implemented yet). A sealed
+  box does not prove who sealed it, so
   `recoverManagerKey` requires one of the owner's existing ciphertexts as
   `verify`: a planted recovery key is then refused. Pick one written before
   the suspected tampering (the oldest, say), because a database writer could
