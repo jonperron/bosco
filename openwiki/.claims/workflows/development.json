@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:d0ea248ee0c04f5bca30007ba5811a77a0fd2aaf2f49ad15a60b29cb0c1bc3f8",
+  "pageVersion": "sha256:e8b1c2eab11720ba0ac16e8d1f8fbd754ce58992ec11a2ab844d1c0b9772a7de",
   "claims": [
     {
       "id": "claim_4bc5d98dc0604712914b70c6be826364",
@@ -102,17 +102,17 @@
     },
     {
       "id": "claim_15a72bc4ec2245ebb4b4f14d96f68f18",
-      "statement": "@bosco/db enforces 80% coverage thresholds in its integration test configuration.",
+      "statement": "@bosco/db enforces 80% coverage thresholds in its integration test configuration, which also runs its unit tests.",
       "evidence": [
         {
-          "resource": "repo://packages/db/vitest.integration.config.ts#L12-L32",
-          "version": "repo-lines-v1:sha256:d957a15328bcdaa3342971a2aea97ef25bc9099d0007d9205cfba44b36c999c6:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIyY2VjYjE0NGE0NmY1ZGNmMTJhNjE2OWZjZWVkNzY5NWU4Mjk0YjA5MGRlNzZmMzY2MWNkZDAyNDkzMDAxNDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcwYWI5ZjY0NGNkYTI0ZmY0ODkxMmU2MjZjYmI4M2Q1ZWVjMzkwNDIwMGM4NTlhMzc3YTAyODBiNDJiYjY3YzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://packages/db/vitest.integration.config.ts#L12-L33",
+          "version": "repo-lines-v1:sha256:79bdc2b1a39de1c6fdbfe44fb1993eaf3aaf0eabe30cda8a2f257aea3b14a942:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIyY2VjYjE0NGE0NmY1ZGNmMTJhNjE2OWZjZWVkNzY5NWU4Mjk0YjA5MGRlNzZmMzY2MWNkZDAyNDkzMDAxNDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcwYWI5ZjY0NGNkYTI0ZmY0ODkxMmU2MjZjYmI4M2Q1ZWVjMzkwNDIwMGM4NTlhMzc3YTAyODBiNDJiYjY3YzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.4.3",
-    "at": "2026-11-26T19:14:34.660Z"
+    "at": "2026-11-27T19:49:50.532Z"
   }
 }

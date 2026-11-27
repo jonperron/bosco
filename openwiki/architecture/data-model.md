@@ -1,11 +1,11 @@
 ---
 type: architecture
 title: Core data model (@bosco/db)
-description: The core Postgres schema in packages/db (organisation, person, team, team membership and manager attachment history), the rules the database enforces, migrations, the demo seed and the integration tests.
+description: The core Postgres schema in packages/db (organisation, person, team, team membership and manager attachment history), the rules the database enforces, migrations, the demo seed, the people CSV import and the integration tests.
 tags: [architecture, database, postgres, drizzle, migrations]
 verified:
   - by: openwiki/0.4.3
-    at: 2026-11-26T19:14:34.660Z
+    at: 2026-11-27T19:49:50.532Z
 sources:
   - id: openwiki-source-b79fbbd921df689b4bbdc82f
     resource: repo://docker-compose.yml
@@ -13,11 +13,15 @@ sources:
     resource: repo://packages/db/migrations/0001_period_overlap.sql
   - id: openwiki-source-5dfb476f661ea873868a4a09
     resource: repo://packages/db/package.json
+  - id: openwiki-source-ba23fd50b8a497b4182ed920
+    resource: repo://packages/db/src/csv.ts
+  - id: openwiki-source-2128483cb1e4a4d4a8a5a87f
+    resource: repo://packages/db/src/people-import.ts
   - id: openwiki-source-22f6a46d0cbec478f7e449e3
     resource: repo://packages/db/src/schema.ts
   - id: openwiki-source-851a24a3325287ce3fe44e86
     resource: repo://packages/db/src/seed.ts
-generated: { by: "claude-code", at: "2026-11-26T19:14:34.660Z" }
+generated: { by: "claude-code", at: "2026-11-27T19:49:50.532Z" }
 ---
 
 # Core data model (@bosco/db)
@@ -64,12 +68,15 @@ drizzle-kit cannot express them, so they live in the hand-written migration
 header `display_name,email[,manager_email]` with the in-house RFC 4180
 parser `packages/db/src/csv.ts`. It validates every line first
 (`parsePeopleCsv`) and rejects the whole file with a `PeopleCsvError` that
-names lines and columns, never values. It then upserts on lowercased email
+names lines and columns, never values; a repeated email or a person named
+as their own manager is a line error. It then upserts on lowercased email
 in one transaction under the advisory lock `bosco.people_import`, and on a
 manager change ends the open attachment and opens the next one at the
 `clock_timestamp()` read once the lock is held. Emails are ASCII-only, so
-JS and Postgres lowercasing agree. Left out: teams, removing a manager,
-`;` files, size and lock-wait limits, manager cycles (rights lot). The
+JS and Postgres lowercasing agree, unless the database uses a Turkish
+locale. One statement per step caps a file at about 20,000 rows (Postgres'
+parameter limit). Left out: teams, removing a manager, `;` files, size and
+lock-wait limits, manager cycles (rights lot). The
 user-facing format is in `docs/database.en.md`.
 
 ## Tests
@@ -83,5 +90,5 @@ database.
 
 bosco is for managers only: a manager keeps records for people who never log
 in, so `person` has no account link. Entering people by hand comes in a later
-lot. CSV import exists as a library function only (see below). Manager-cycle prevention is an application rule for the
+lot. CSV import exists as a library function only (see above). Manager-cycle prevention is an application rule for the
 rights lot; the GDPR deletion cascade is decided with the GDPR lot.
