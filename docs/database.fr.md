@@ -37,9 +37,11 @@ interdisent le chevauchement des périodes sont des contraintes `EXCLUDE`,
 que drizzle-kit ne sait pas exprimer : elles vivent dans une migration
 écrite à la main (`0001_period_overlap.sql`).
 
-`pnpm db:migrate` prend un verrou consultatif Postgres : plusieurs instances
-de l'API qui démarrent en même temps migrent sans risque, chacune à son
-tour. Il n'y a pas encore de limite d'attente.
+L'API applique les migrations en attente au démarrage, avant d'écouter ;
+`pnpm db:migrate` fait de même à la main. Les deux prennent un verrou
+consultatif Postgres : plusieurs instances de l'API qui démarrent en même
+temps migrent sans risque, chacune à son tour. Il n'y a pas encore de
+limite d'attente.
 
 ## Le modèle de données `core`
 
@@ -79,7 +81,8 @@ refuse tout ce qui n'est pas une empreinte SHA-256 hexadécimale, si bien
 qu'un jeton brut ne peut pas être stocké par erreur. Son expiration est
 calculée sur l'horloge de la base.
 
-`@bosco/db` exporte les fonctions ; aucune route ne les appelle encore :
+`@bosco/db` exporte les fonctions ; les routes de connexion de l'API les
+utilisent (voir le [guide d'authentification](authentication.fr.md)) :
 
 - `upsertAccountFromOidc(db, { subject, email, displayName })` : l'appelant
   doit avoir vérifié l'ID token. Reconnaît le compte par son sujet, suit les

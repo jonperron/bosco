@@ -28,7 +28,8 @@ auto-hébergé, qui réunit le travail quotidien d'un engineering manager.
   et `DATABASE_URL` ensemble), puis `pnpm db:migrate` et, pour des données
   de démonstration, `pnpm db:seed` ; `pnpm test:integration` lance les tests
   du schéma dessus (`pnpm test` n'a besoin d'aucune base). Voir le
-  [guide de la base de données](docs/database.fr.md) ;
+  [guide de la base de données](docs/database.fr.md) et, pour se connecter
+  en local, le [guide d'authentification](docs/authentication.fr.md) ;
 
 - tout nouveau workspace reprend le même jeu de scripts (`build`, `lint`,
   `test`, `typecheck`), orchestrés par Turborepo.

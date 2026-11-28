@@ -40,45 +40,110 @@ function writeTempEnvFile(content: string): string {
   return envFile;
 }
 
+// The required variables, with placeholder values.
+const REQUIRED = {
+  DATABASE_URL: 'postgres://user:secret@db.invalid:5432/bosco',
+  GOOGLE_CLIENT_ID: 'client-id.apps.googleusercontent.invalid',
+  GOOGLE_CLIENT_SECRET: 'client-secret',
+  GOOGLE_WORKSPACE_DOMAIN: 'Example.TEST',
+  PUBLIC_URL: 'https://bosco.example.test/',
+};
+
+const REQUIRED_PARSED = {
+  DATABASE_URL: REQUIRED.DATABASE_URL,
+  GOOGLE_CLIENT_ID: REQUIRED.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: REQUIRED.GOOGLE_CLIENT_SECRET,
+  GOOGLE_WORKSPACE_DOMAIN: 'example.test',
+  PUBLIC_URL: 'https://bosco.example.test',
+};
+
 describe('validateEnv', () => {
   it('defaults PORT to 3000 and Swagger UI to off when absent', () => {
-    expect(validateEnv({})).toEqual({
+    expect(validateEnv({ ...REQUIRED })).toEqual({
       PORT: 3000,
       WEB_DIST: null,
       API_DOCS_ENABLED: false,
+      ...REQUIRED_PARSED,
     });
   });
 
   it('normalises a valid environment', () => {
     expect(
-      validateEnv({ PORT: '4000', WEB_DIST: '/srv/bosco/web', API_DOCS_ENABLED: 'TRUE' }),
+      validateEnv({
+        ...REQUIRED,
+        PORT: '4000',
+        WEB_DIST: '/srv/bosco/web',
+        API_DOCS_ENABLED: 'TRUE',
+      }),
     ).toEqual({
       PORT: 4000,
       WEB_DIST: '/srv/bosco/web',
       API_DOCS_ENABLED: true,
+      ...REQUIRED_PARSED,
     });
   });
 
+  it.each(Object.keys(REQUIRED))('fails fast when %s is missing or blank', (key) => {
+    expect(() => validateEnv({ ...REQUIRED, [key]: undefined })).toThrowError(
+      new RegExp(`${key} is required`),
+    );
+    expect(() => validateEnv({ ...REQUIRED, [key]: '  ' })).toThrowError(
+      new RegExp(`${key} is required`),
+    );
+  });
+
+  it('lists every missing variable at once', () => {
+    expect(() => validateEnv({})).toThrowError(/DATABASE_URL.*GOOGLE_CLIENT_ID/);
+  });
+
+  it.each([
+    ['http://bosco.example.test', 'https'],
+    ['not a url', 'URL'],
+    ['https://bosco.example.test/app', 'origin'],
+    ['https://user:pw@bosco.example.test', 'origin'],
+  ])('rejects PUBLIC_URL %s', (value, message) => {
+    expect(() => validateEnv({ ...REQUIRED, PUBLIC_URL: value })).toThrowError(
+      new RegExp(`PUBLIC_URL.*${message}`),
+    );
+  });
+
+  it.each(['http://localhost:3000', 'http://127.0.0.1:3000'])(
+    'accepts plain HTTP on the loopback host %s',
+    (value) => {
+      expect(validateEnv({ ...REQUIRED, PUBLIC_URL: value }).PUBLIC_URL).toBe(value);
+    },
+  );
+
+  it('rejects a GOOGLE_WORKSPACE_DOMAIN that is not a bare domain', () => {
+    expect(() =>
+      validateEnv({ ...REQUIRED, GOOGLE_WORKSPACE_DOMAIN: '@example.test' }),
+    ).toThrowError(/GOOGLE_WORKSPACE_DOMAIN/);
+  });
+
   it('rejects a malformed PORT naming the variable', () => {
-    expect(() => validateEnv({ PORT: 'not-a-port' })).toThrowError(EnvValidationError);
-    expect(() => validateEnv({ PORT: '3000abc' })).toThrowError(/PORT/);
+    expect(() => validateEnv({ ...REQUIRED, PORT: 'not-a-port' })).toThrowError(EnvValidationError);
+    expect(() => validateEnv({ ...REQUIRED, PORT: '3000abc' })).toThrowError(/PORT/);
   });
 
   it('rejects an out-of-range PORT', () => {
-    expect(() => validateEnv({ PORT: '70000' })).toThrowError(EnvValidationError);
-    expect(() => validateEnv({ PORT: '0' })).toThrowError(EnvValidationError);
+    expect(() => validateEnv({ ...REQUIRED, PORT: '70000' })).toThrowError(EnvValidationError);
+    expect(() => validateEnv({ ...REQUIRED, PORT: '0' })).toThrowError(EnvValidationError);
   });
 
   it('rejects a malformed API_DOCS_ENABLED naming the variable', () => {
-    expect(() => validateEnv({ API_DOCS_ENABLED: 'maybe' })).toThrowError(/API_DOCS_ENABLED/);
+    expect(() => validateEnv({ ...REQUIRED, API_DOCS_ENABLED: 'maybe' })).toThrowError(
+      /API_DOCS_ENABLED/,
+    );
   });
 
   it('normalises a WEB_DIST with surrounding whitespace', () => {
-    expect(validateEnv({ WEB_DIST: '  /srv/bosco/web  ' }).WEB_DIST).toBe('/srv/bosco/web');
+    expect(validateEnv({ ...REQUIRED, WEB_DIST: '  /srv/bosco/web  ' }).WEB_DIST).toBe(
+      '/srv/bosco/web',
+    );
   });
 
   it('normalises a blank WEB_DIST to null', () => {
-    expect(validateEnv({ WEB_DIST: '   ' }).WEB_DIST).toBeNull();
+    expect(validateEnv({ ...REQUIRED, WEB_DIST: '   ' }).WEB_DIST).toBeNull();
   });
 });
 
@@ -90,7 +155,7 @@ describe('loadEnv', () => {
   it('reads a .env file and validates the merged environment', () => {
     const envFile = writeTempEnvFile('PORT=4567\nAPI_DOCS_ENABLED=true\n');
 
-    expect(loadEnv(envFile)).toEqual({
+    expect(loadEnv(envFile)).toMatchObject({
       PORT: 4567,
       WEB_DIST: null,
       API_DOCS_ENABLED: true,

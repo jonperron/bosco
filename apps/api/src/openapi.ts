@@ -14,6 +14,7 @@ export function buildOpenapiDocument(app: INestApplication): OpenAPIObject {
     .setDescription('The socle v0 API: identity, access control, modules.')
     .setVersion('0.0')
     .setLicense('Apache-2.0', 'https://www.apache.org/licenses/LICENSE-2.0')
+    .addCookieAuth('__Host-bosco_session')
     .build();
 
   return SwaggerModule.createDocument(app, config);

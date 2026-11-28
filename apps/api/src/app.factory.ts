@@ -21,6 +21,8 @@ export interface CreateAppOptions {
   version?: string;
   /** Serve the Swagger UI of the contract at /api/docs; false by default. */
   apiDocs?: boolean;
+  /** OIDC issuer; Google unless a test points it at a local stub. */
+  oidcIssuer?: string;
 }
 
 /**
@@ -29,7 +31,7 @@ export interface CreateAppOptions {
  */
 export async function createApp(options: CreateAppOptions = {}): Promise<INestApplication> {
   const app = await NestFactory.create<NestExpressApplication>(
-    registerAppModule(options.version ?? '0.0.0'),
+    registerAppModule(options.version ?? '0.0.0', options.oidcIssuer),
     {
       logger: ['error', 'warn', 'log'],
     },

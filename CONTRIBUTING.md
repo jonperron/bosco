@@ -27,7 +27,8 @@ self-hosted tool that gathers an engineering manager's daily work.
   (if port 5432 is taken, change `POSTGRES_PORT` and `DATABASE_URL`
   together), then `pnpm db:migrate` and, for demo data, `pnpm db:seed`;
   `pnpm test:integration` runs the schema tests against it (`pnpm test`
-  needs no database). See the [database guide](docs/database.en.md);
+  needs no database). See the [database guide](docs/database.en.md)
+  and, to sign in locally, the [authentication guide](docs/authentication.en.md);
 
 - every new workspace provides the same set of scripts (`build`, `lint`,
   `test`, `typecheck`), orchestrated by Turborepo.
