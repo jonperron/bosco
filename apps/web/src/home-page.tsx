@@ -1,16 +1,10 @@
-import { createApiClient } from '@bosco/api-client';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { apiClient } from './api';
+import AuthPanel from './auth-panel';
 import { changeLanguage } from './i18n';
 import type { SupportedLanguage } from './i18n';
-
-/**
- * The single API client of the app. Every HTTP call must go through it:
- *
- * a hand-written fetch would bypass the committed OpenAPI contract.
- */
-const apiClient = createApiClient(import.meta.env['VITE_API_BASE_URL'] ?? '');
 
 export interface HealthState {
   kind: 'loading' | 'ok' | 'error';
@@ -64,6 +58,8 @@ export default function HomePage() {
     <main>
       <h1>Bosco</h1>
       <p>{t('home.tagline')}</p>
+
+      <AuthPanel />
 
       <section>
         <h2>{t('home.language')}</h2>

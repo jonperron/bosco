@@ -24,6 +24,9 @@ vi.mock('@bosco/api-client', () => ({
   }),
 }));
 
+// The panel has its own tests (auth-panel.test.tsx); here only its placement matters.
+vi.mock('../src/auth-panel', () => ({ default: () => <section aria-label="auth-panel" /> }));
+
 describe('HomePage', () => {
   beforeEach(async () => {
     mocks.get.mockClear();
@@ -46,6 +49,13 @@ describe('HomePage', () => {
       expect(screen.getByText(/démarré il y a 12 s/)).toBeDefined();
     });
     expect(screen.getByText(/v0\.0\.1/)).toBeDefined();
+  });
+
+  it('shows the sign-in panel', async () => {
+    render(<HomePage />);
+
+    expect(screen.getByRole('region', { name: 'auth-panel' })).toBeDefined();
+    expect(await screen.findByText(/démarré il y a 12 s/)).toBeDefined();
   });
 
   it('calls the health route through the typed client contract path', async () => {

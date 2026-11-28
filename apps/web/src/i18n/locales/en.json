@@ -7,6 +7,20 @@
       "ok": "Service in good health (v{{version}}, up for {{uptime}} s)",
       "error": "Service unavailable — check that the API is running."
     },
-    "language": "Language"
+    "language": "Language",
+    "auth": {
+      "title": "Account",
+      "checking": "Checking your session…",
+      "signIn": "Sign in with Google",
+      "signedInAs": "Signed in as {{name}} ({{email}})",
+      "signOut": "Sign out",
+      "signedOut": "You are signed out.",
+      "problem": {
+        "denied": "This account is not allowed to sign in to this install.",
+        "failed": "Sign-in failed. Please try again.",
+        "checkFailed": "We could not check your session. Please try again later.",
+        "signOutFailed": "We could not sign you out. Please try again."
+      }
+    }
   }
 }

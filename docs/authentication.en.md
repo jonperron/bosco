@@ -43,6 +43,16 @@ refuses to start if one is missing or invalid:
 At startup the API applies pending migrations before it listens (see the
 [database guide](database.en.md)).
 
+## Signing in from the web app
+
+The home page has an Account panel. Signed out, it shows a "Sign in with
+Google" link to `/api/auth/login`. Signed in, it shows the manager's name
+and email and a "Sign out" button, which ends the session and returns the
+panel to the signed-out state. After a refused sign-in it shows "This
+account is not allowed to sign in to this install." (`denied`) or
+"Sign-in failed. Please try again." (`failed`), then removes
+`auth_error` from the address bar.
+
 ## Routes
 
 - `GET /api/auth/login`: redirects to Google (authorization code flow with

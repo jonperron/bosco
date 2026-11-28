@@ -7,6 +7,20 @@
       "ok": "Service en bonne santé (v{{version}}, démarré il y a {{uptime}} s)",
       "error": "Service indisponible — vérifiez que l'API tourne."
     },
-    "language": "Langue"
+    "language": "Langue",
+    "auth": {
+      "title": "Compte",
+      "checking": "Vérification de votre session…",
+      "signIn": "Se connecter avec Google",
+      "signedInAs": "Connecté en tant que {{name}} ({{email}})",
+      "signOut": "Se déconnecter",
+      "signedOut": "Vous êtes déconnecté.",
+      "problem": {
+        "denied": "Ce compte n'est pas autorisé à se connecter à cette installation.",
+        "failed": "La connexion a échoué. Veuillez réessayer.",
+        "checkFailed": "Impossible de vérifier votre session. Veuillez réessayer plus tard.",
+        "signOutFailed": "La déconnexion a échoué. Veuillez réessayer."
+      }
+    }
   }
 }

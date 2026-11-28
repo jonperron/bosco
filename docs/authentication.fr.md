@@ -44,6 +44,16 @@ démarrer si l'une manque ou est invalide :
 Au démarrage, l'API applique les migrations en attente avant d'écouter (voir
 le [guide de la base de données](database.fr.md)).
 
+## Se connecter depuis l'application web
+
+La page d'accueil a un panneau Compte. Déconnecté, il affiche un lien
+« Se connecter avec Google » vers `/api/auth/login`. Connecté, il affiche
+le nom et l'e-mail du manager et un bouton « Se déconnecter », qui met fin
+à la session et ramène le panneau à l'état déconnecté. Après une connexion
+refusée, il affiche « Ce compte n'est pas autorisé à se connecter à cette
+installation. » (`denied`) ou « La connexion a échoué. Veuillez
+réessayer. » (`failed`), puis retire `auth_error` de la barre d'adresse.
+
 ## Routes
 
 - `GET /api/auth/login` : redirige vers Google (flux authorization code
