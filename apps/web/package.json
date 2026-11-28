@@ -1,6 +1,6 @@
 {
   "name": "@bosco/web",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "description": "Bosco web — React + Vite frontend of the socle v0",
   "license": "Apache-2.0",
