@@ -25,3 +25,6 @@ playwright-report/
 
 # drizzle-kit snapshots and journal, kept as generated
 packages/db/migrations/meta/
+
+# written by release-please in its own style
+CHANGELOG.md
