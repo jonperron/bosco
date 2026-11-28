@@ -39,7 +39,8 @@ generated: { by: "claude-code", at: "2026-11-26T18:56:03.534Z" }
 # API application (NestJS)
 
 `apps/api` (`@bosco/api`) is the NestJS backend of the socle v0. Today it
-carries no management feature: one typed health route, the OpenAPI
+carries no management feature: one typed health route, Google Workspace
+sign-in (`src/auth`, see `docs/authentication.en.md`), the OpenAPI
 contract, and the serving of the built frontend. See
 [OpenAPI contract flow](openapi-contract.md) for how the routes become the
 committed contract, and [Web application](web.md) for the client side.
@@ -48,9 +49,9 @@ committed contract, and [Web application](web.md) for the client side.
 
 | File | Role |
 | --- | --- |
-| `src/main.ts` | Composition root: loads `.env`, reads the package version, calls `createApp`, listens on `PORT`. |
+| `src/main.ts` | Composition root: loads `.env`, reads the package version, calls `createApp`, applies pending migrations, listens on `PORT`. |
 | `src/app.factory.ts` | `createApp(options)`: builds the fully wired app without listening. Shared by `main.ts`, the tests and the OpenAPI generator. |
-| `src/app.module.ts` | `registerAppModule(version)`: root dynamic module (global `ConfigModule` + `HealthModule`). |
+| `src/app.module.ts` | `registerAppModule(version)`: root dynamic module (global `ConfigModule`, `DatabaseModule`, `HealthModule`, `AuthModule`). |
 | `scripts/generate-openapi.ts` | Regenerates `openapi.json` from a `createApp` instance. |
 
 Scripts (`apps/api/package.json`): `dev` (tsx watch), `build` (tsc),
@@ -65,14 +66,19 @@ Scripts (`apps/api/package.json`): `dev` (tsx watch), `build` (tsc),
 3. `readPackageVersion` reads the version once; it is injected into the
    health feature through the `APP_VERSION` DI token, so nothing else
    depends on `package.json`.
-4. `createApp` wires middleware and pipes, then `app.listen(env.PORT)`.
+4. `createApp` wires middleware and pipes; `runMigrations` (advisory-locked)
+   applies pending migrations, closing the app if it fails; then
+   `app.listen(env.PORT)`.
 5. Any startup failure logs each `EnvValidationError` issue (or the stack)
    and sets `process.exitCode = 1`.
 
 ## Configuration
 
-Only three variables are declared (`ENV_KEYS` in `src/config/env.ts`, sample
-in `apps/api/.env.example`):
+Variables are declared in `ENV_KEYS` (`src/config/env.ts`, sample in
+`apps/api/.env.example`). Required, the API refuses to start without them:
+`DATABASE_URL`, `PUBLIC_URL` (https except on localhost),
+`GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_WORKSPACE_DOMAIN` (see
+`docs/authentication.en.md`). Optional:
 
 | Variable | Default | Validation |
 | --- | --- | --- |

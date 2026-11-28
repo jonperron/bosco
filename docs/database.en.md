@@ -37,9 +37,10 @@ forbid overlapping periods are `EXCLUDE` constraints, which drizzle-kit
 cannot express: they live in a hand-written migration
 (`0001_period_overlap.sql`).
 
-`pnpm db:migrate` takes a Postgres advisory lock, so several API instances
-starting at once migrate safely: they wait their turn. There is no wait
-limit yet.
+The API applies pending migrations at startup, before it listens;
+`pnpm db:migrate` does the same by hand. Both take a Postgres advisory
+lock, so several API instances starting at once migrate safely: they wait
+their turn. There is no wait limit yet.
 
 ## The `core` data model
 
@@ -75,7 +76,8 @@ stores only the SHA-256 hash of a random 256-bit token; the database
 refuses anything that is not a SHA-256 hex digest, so a raw token cannot be
 stored by mistake. Its expiry is computed on the database clock.
 
-`@bosco/db` exports the functions; no route calls them yet:
+`@bosco/db` exports the functions; the sign-in routes of the API use them
+(see the [authentication guide](authentication.en.md)):
 
 - `upsertAccountFromOidc(db, { subject, email, displayName })`: the caller
   must have verified the ID token. Matches on the subject, follows email and

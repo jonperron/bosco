@@ -31,7 +31,11 @@ pnpm typecheck
 
 Les variables d'environnement de l'API (port, dossier du front à servir,
 Swagger UI du contrat à `/api/docs` via `API_DOCS_ENABLED`, désactivé par
-défaut) sont documentées dans `apps/api/.env.example`.
+défaut, et les variables obligatoires : base de données, URL publique,
+client OAuth Google) sont documentées dans `apps/api/.env.example` ; la
+connexion Google est décrite dans le
+[guide d'authentification](docs/authentication.fr.md)
+([english version](docs/authentication.en.md)).
 
 Voir [le guide du contributeur](CONTRIBUTING.md) et la
 [charte de collecte des données](docs/data-collection-charter.fr.md)
